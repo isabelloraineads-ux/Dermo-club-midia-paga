@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dermo Club — Dashboard de Tráfego Pago</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C8102E;--red-dark:#9B0B21;--red-light:#FEF2F4;
+  --bg:#F5F5F5;--card:#fff;--border:rgba(0,0,0,0.09);
+  --text:#1A1A1A;--muted:#6B6B6B;--success:#1A7F45;--warn:#B45309;
+  --sbg:#ECFDF5;--wbg:#FFFBEB;--dbg:#FEF2F4;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#111;--card:#1C1C1C;--border:rgba(255,255,255,0.1);
+  --text:#F0F0F0;--muted:#888;--red-light:#2A0A10;
+  --sbg:#0A2A1A;--wbg:#2A1E00;--dbg:#2A0A10;
+}}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:-apple-system,'Helvetica Neue',Arial,sans-serif}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+/* HEADER */
+.header{background:var(--red);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.hlogo{width:36px;height:36px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--red);flex-shrink:0}
+.htitle{font-size:15px;font-weight:500}.hsub{font-size:10px;opacity:.7;margin-top:1px}
+.hcontrols{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.hcontrols select{font-size:11px;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;cursor:pointer;appearance:none;-webkit-appearance:none}
+.hcontrols select option{background:#333;color:#fff}
+.btn-white{font-size:11px;padding:5px 11px;border-radius:6px;background:#fff;color:var(--red);border:none;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.btn-white:hover{background:#f0f0f0}
+/* TABS */
+.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;padding:0 14px;position:sticky;top:57px;z-index:99}
+.tabs::-webkit-scrollbar{height:0}
+.tab{font-size:11px;font-weight:500;color:var(--muted);padding:10px 13px;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.tab.on{color:var(--red);border-bottom-color:var(--red)}
+.tab:hover:not(.on){color:var(--text)}
+/* PANES */
+.pane{display:none;padding:16px;max-width:1200px;margin:0 auto}
+.pane.on{display:block}
+.sec{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:10px}
+/* KPI GRID */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:14px}
+.kcard{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:12px 14px}
+.kcard.ac{border-left:3px solid var(--red)}
+.klabel{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.kval{font-size:21px;font-weight:600;color:var(--text);line-height:1}
+.kval.big{font-size:25px;color:var(--red)}
+.kdelta{font-size:10px;margin-top:3px;display:flex;align-items:center;gap:3px}
+.kdelta.up{color:var(--success)}.kdelta.dn{color:var(--red)}
+.ksub{font-size:10px;color:var(--muted);margin-top:2px}
+/* CARDS */
+.cwrap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px}
+.ctitle{font-size:12px;font-weight:500;color:var(--text)}
+.chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.pbtns{display:flex;gap:3px}
+.pbtn{font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer}
+.pbtn.on{background:var(--red);color:#fff;border-color:var(--red)}
+/* LAYOUT */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:540px){.twocol{grid-template-columns:1fr}}
+/* TABLE */
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{text-align:left;padding:8px 10px;font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+/* BADGES */
+.badge{font-size:9px;font-weight:500;padding:2px 7px;border-radius:3px;display:inline-block}
+.bs{background:var(--sbg);color:var(--success)}.bw{background:var(--wbg);color:var(--warn)}.bd{background:var(--dbg);color:var(--red)}
+/* PLATFORM TAG */
+.tag-plat{font-size:9px;font-weight:500;padding:2px 7px;border-radius:3px;display:inline-block}
+.tp-meta{background:#E8F0FE;color:#1a56db}.tp-tiktok{background:#1a1a1a;color:#fff}.tp-google{background:#FEF3C7;color:#92400E}
+/* PROGRESS */
+.pbar{background:var(--bg);border-radius:3px;height:5px;overflow:hidden}
+.pfill{height:100%;border-radius:3px;transition:width .4s}
+/* ALERTS */
+.abox{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px;font-size:12px}
+.ad{background:var(--dbg);color:var(--red-dark);border:1px solid rgba(200,16,46,.2)}
+.aw{background:var(--wbg);color:var(--warn);border:1px solid rgba(180,83,9,.2)}
+.as{background:var(--sbg);color:var(--success);border:1px solid rgba(26,127,69,.2)}
+.aico{font-size:15px;margin-top:1px;flex-shrink:0}
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr}}
+.fgroup{display:flex;flex-direction:column;gap:4px}
+.fgroup.full{grid-column:1/-1}
+.flabel{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.finput{font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--card);color:var(--text);font-family:inherit;width:100%}
+.finput:focus{outline:none;border-color:var(--red)}
+.fselect{appearance:none;-webkit-appearance:none}
+.btn-red{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+.btn-red:hover{background:var(--red-dark)}
+.btn-ghost{background:none;border:1px solid var(--border);border-radius:7px;padding:8px 14px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.form-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+/* RANK */
+.rank-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.rank-item:last-child{border-bottom:none}
+.rnum{font-size:13px;font-weight:600;color:var(--red);min-width:20px}
+.rinfo{flex:1}.rname{font-size:12px;font-weight:500}.rdet{font-size:10px;color:var(--muted);margin-top:1px}
+.rval{font-size:12px;font-weight:600}
+/* META ROW */
+.meta-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.mlabel{font-size:11px;color:var(--text);min-width:160px}
+.mbar{flex:1;min-width:80px}.mpct{font-size:11px;font-weight:500;min-width:38px;text-align:right}
+.mval{font-size:11px;font-weight:500;min-width:90px;text-align:right;color:var(--muted)}
+/* LEGEND */
+.leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
+.ld{width:9px;height:9px;border-radius:2px}
+/* PILLS */
+.ppills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.ppill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:15px;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--muted);transition:.15s}
+.ppill.on{background:var(--red);color:#fff;border-color:var(--red)}
+/* MISC */
+.notice{font-size:11px;background:var(--dbg);color:var(--red);border-radius:6px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.empty{font-size:12px;color:var(--muted);text-align:center;padding:28px 0}
+.link-ico{color:var(--red);font-size:14px;text-decoration:none}
+.link-ico:hover{opacity:.7}
+.obs-ta{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px;width:100%;min-height:80px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical}
+.obs-ta:focus{outline:none;border-color:var(--red)}
+.obs-entry{border-left:3px solid var(--red);padding:8px 12px;margin-bottom:8px;position:relative}
+.del-btn{position:absolute;top:6px;right:8px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;line-height:1}
+.del-btn:hover{color:var(--red)}
+</style>
+</head>
+<body>
+<h1 class="sr-only">Dashboard de Tráfego Pago — Dermo Club</h1>
+
+<div class="header">
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="hlogo">DC</div>
+    <div>
+      <div class="htitle">Dermo Club — Tráfego Pago</div>
+      <div class="hsub" id="lastUp">Sem dados — comece lançando um relatório</div>
+    </div>
+  </div>
+  <div class="hcontrols">
+    <select id="filterProd" onchange="applyFilters()">
+      <option value="all">Todos os produtos</option>
+      <option value="bumbum">Bumbum Dermo</option>
+      <option value="pro">Dermo Pro</option>
+    </select>
+    <select id="filterPlat" onchange="applyFilters()">
+      <option value="all">Todas as plataformas</option>
+      <option value="Meta">Meta</option>
+      <option value="TikTok">TikTok</option>
+      <option value="Google">Google</option>
+    </select>
+    <button class="btn-white" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar CSV</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="goTab('lancar',this)"><i class="ti ti-plus"></i> Lançar Dados</button>
+  <button class="tab" onclick="goTab('visao',this)"><i class="ti ti-layout-dashboard"></i> Visão Geral</button>
+  <button class="tab" onclick="goTab('campanhas',this)"><i class="ti ti-speakerphone"></i> Campanhas</button>
+  <button class="tab" onclick="goTab('criativos',this)"><i class="ti ti-photo"></i> Criativos</button>
+  <button class="tab" onclick="goTab('comparativo',this)"><i class="ti ti-chart-bar"></i> Comparativo</button>
+  <button class="tab" onclick="goTab('metas',this)"><i class="ti ti-target"></i> Metas</button>
+  <button class="tab" onclick="goTab('alertas',this)"><i class="ti ti-bell"></i> Alertas <span id="alertN" style="background:var(--red);color:#fff;border-radius:8px;font-size:9px;padding:1px 5px;margin-left:2px">0</span></button>
+  <button class="tab" onclick="goTab('obs',this)"><i class="ti ti-notes"></i> Observações</button>
+</div>
+
+<!-- LANÇAR DADOS -->
+<div class="pane on" id="pane-lancar">
+  <p class="sec">Lançar relatório de campanha / criativo</p>
+  <div class="notice"><i class="ti ti-info-circle"></i> Preencha abaixo. Os dados alimentam automaticamente todas as abas do dashboard.</div>
+  <div class="cwrap">
+    <div class="chead"><div class="ctitle">Nova entrada</div></div>
+    <div class="form-grid">
+      <div class="fgroup">
+        <label class="flabel">Data *</label>
+        <input class="finput" type="date" id="f_data">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Plataforma *</label>
+        <select class="finput fselect" id="f_plat">
+          <option value="">Selecione</option>
+          <option>Meta</option><option>TikTok</option><option>Google</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Produto *</label>
+        <select class="finput fselect" id="f_prod">
+          <option value="">Selecione</option>
+          <option value="bumbum">Bumbum Dermo</option>
+          <option value="pro">Dermo Pro</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Nome da campanha *</label>
+        <input class="finput" type="text" id="f_camp" placeholder="Ex: Bumbum — Conversão TOP">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Conjunto / Ad Set</label>
+        <input class="finput" type="text" id="f_adset" placeholder="Ex: Interesses Skincare 25-35">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Nome do anúncio / criativo</label>
+        <input class="finput" type="text" id="f_ad" placeholder="Ex: UGC Antes/Depois v2">
+      </div>
+      <div class="fgroup full">
+        <label class="flabel">Link do anúncio</label>
+        <input class="finput" type="url" id="f_link" placeholder="https://adsmanager.facebook.com/...">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Investimento (R$) *</label>
+        <input class="finput" type="number" id="f_inv" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Faturamento / Receita (R$)</label>
+        <input class="finput" type="number" id="f_fat" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Nº de vendas / pedidos</label>
+        <input class="finput" type="number" id="f_vend" placeholder="0" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Impressões</label>
+        <input class="finput" type="number" id="f_imp" placeholder="0" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Cliques</label>
+        <input class="finput" type="number" id="f_cliques" placeholder="0" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">CTR (%)</label>
+        <input class="finput" type="number" id="f_ctr" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">CPC (R$)</label>
+        <input class="finput" type="number" id="f_cpc" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">CPM (R$)</label>
+        <input class="finput" type="number" id="f_cpm" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Status</label>
+        <select class="finput fselect" id="f_status">
+          <option value="ativo">Ativo</option>
+          <option value="pausado">Pausado</option>
+          <option value="testando">Testando</option>
+          <option value="top">Top Performer</option>
+        </select>
+      </div>
+      <div class="fgroup full">
+        <label class="flabel">Observação sobre este anúncio</label>
+        <input class="finput" type="text" id="f_obs" placeholder="Ex: CTR alto, testar novo hook">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-red" onclick="salvarEntrada()"><i class="ti ti-device-floppy"></i> Salvar entrada</button>
+      <button class="btn-ghost" onclick="limparForm()">Limpar</button>
+    </div>
+  </div>
+
+  <div class="cwrap">
+    <div class="chead">
+      <div class="ctitle">Entradas salvas (<span id="totalEntradas">0</span>)</div>
+      <button class="btn-ghost" style="font-size:10px;padding:4px 9px;color:var(--red);border-color:var(--red)" onclick="if(confirm('Apagar todos os dados?')){dados=[];save();renderEntradas();updateHeader();refresh()}">Limpar tudo</button>
+    </div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Data</th><th>Plataforma</th><th>Produto</th><th>Campanha</th><th>Criativo</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CTR</th><th>Vendas</th><th>Link</th><th>Status</th><th></th></tr></thead>
+        <tbody id="bodyEntradas"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="emptyMsg">Nenhuma entrada ainda. Preencha o formulário acima.</div>
+  </div>
+</div>
+
+<!-- VISÃO GERAL -->
+<div class="pane" id="pane-visao">
+  <p class="sec">KPIs consolidados</p>
+  <div class="kgrid" id="kpiGrid"></div>
+  <div class="ppills">
+    <span class="ppill on" onclick="setPPill(this,'all')">Todas as plataformas</span>
+    <span class="ppill" onclick="setPPill(this,'Meta')"><i class="ti ti-brand-facebook"></i> Meta</span>
+    <span class="ppill" onclick="setPPill(this,'TikTok')"><i class="ti ti-brand-tiktok"></i> TikTok</span>
+    <span class="ppill" onclick="setPPill(this,'Google')"><i class="ti ti-brand-google"></i> Google</span>
+  </div>
+  <div class="cwrap">
+    <div class="chead">
+      <div class="ctitle">Faturamento por dia</div>
+    </div>
+    <div class="leg">
+      <span class="li"><span class="ld" style="background:#C8102E"></span>Bumbum Dermo</span>
+      <span class="li"><span class="ld" style="background:#888"></span>Dermo Pro</span>
+    </div>
+    <div style="position:relative;width:100%;height:200px">
+      <canvas id="cFat" role="img" aria-label="Faturamento diário por produto">Faturamento diário.</canvas>
+    </div>
+  </div>
+  <div class="twocol">
+    <div class="cwrap">
+      <div class="ctitle" style="margin-bottom:10px">Mix de investimento por plataforma</div>
+      <div style="position:relative;width:100%;height:155px">
+        <canvas id="cPie" role="img" aria-label="Mix de investimento por plataforma">Mix por plataforma.</canvas>
+      </div>
+      <div class="leg" style="margin-top:8px;margin-bottom:0">
+        <span class="li"><span class="ld" style="background:#C8102E"></span>Meta</span>
+        <span class="li"><span class="ld" style="background:#555"></span>TikTok</span>
+        <span class="li"><span class="ld" style="background:#999"></span>Google</span>
+      </div>
+    </div>
+    <div class="cwrap">
+      <div class="ctitle" style="margin-bottom:10px">ROAS por plataforma</div>
+      <div style="position:relative;width:100%;height:155px">
+        <canvas id="cRoas" role="img" aria-label="ROAS por plataforma">ROAS por plataforma.</canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPANHAS -->
+<div class="pane" id="pane-campanhas">
+  <p class="sec">Performance por campanha</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Data</th><th>Campanha</th><th>Ad Set</th><th>Produto</th><th>Plataforma</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPA</th><th>CTR</th><th>Vendas</th><th>Link</th><th>Status</th></tr></thead>
+      <tbody id="bodyCamp"></tbody>
+    </table>
+  </div>
+  <div class="empty" id="emptyCamp">Nenhum dado. Lance relatórios na aba "Lançar Dados".</div>
+</div>
+
+<!-- CRIATIVOS -->
+<div class="pane" id="pane-criativos">
+  <p class="sec">Ranking de criativos</p>
+  <div class="twocol">
+    <div class="cwrap">
+      <div class="ctitle" style="margin-bottom:10px">Top criativos por receita</div>
+      <div id="rankingCriativos"><div class="empty">Sem dados de criativos.</div></div>
+    </div>
+    <div class="cwrap">
+      <div class="ctitle" style="margin-bottom:10px">CTR por criativo</div>
+      <div style="position:relative;width:100%;height:200px">
+        <canvas id="cCtr" role="img" aria-label="CTR por criativo">CTR por criativo.</canvas>
+      </div>
+    </div>
+  </div>
+  <div class="cwrap">
+    <div class="ctitle" style="margin-bottom:10px">Todos os criativos</div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>#</th><th>Criativo</th><th>Produto</th><th>Impressões</th><th>CTR</th><th>Receita</th><th>ROAS</th><th>Link</th><th>Status</th></tr></thead>
+        <tbody id="bodyCriat"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="emptyCriat">Sem dados de criativos. Preencha o campo "Criativo" ao lançar entradas.</div>
+  </div>
+</div>
+
+<!-- COMPARATIVO -->
+<div class="pane" id="pane-comparativo">
+  <p class="sec">Comparativo de períodos</p>
+  <div class="cwrap">
+    <div class="chead">
+      <div class="ctitle">Faturamento vs Investimento</div>
+      <div class="pbtns">
+        <button class="pbtn on" onclick="setComp(this,'d')">Diário</button>
+        <button class="pbtn" onclick="setComp(this,'w')">Semanal</button>
+        <button class="pbtn" onclick="setComp(this,'m')">Mensal</button>
+      </div>
+    </div>
+    <div class="leg">
+      <span class="li"><span class="ld" style="background:#C8102E"></span>Faturamento</span>
+      <span class="li"><span class="ld" style="background:#bbb"></span>Investimento</span>
+    </div>
+    <div style="position:relative;width:100%;height:220px">
+      <canvas id="cComp" role="img" aria-label="Comparativo faturamento vs investimento">Comparativo.</canvas>
+    </div>
+  </div>
+  <div class="kgrid" id="compKpis"></div>
+</div>
+
+<!-- METAS -->
+<div class="pane" id="pane-metas">
+  <p class="sec">Metas mensais — <span id="mesAtual"></span></p>
+  <div class="cwrap">
+    <div class="ctitle" style="margin-bottom:12px">Configurar metas</div>
+    <div class="form-grid">
+      <div class="fgroup"><label class="flabel">Meta de faturamento (R$)</label><input class="finput" type="number" id="m_fat" placeholder="220000"></div>
+      <div class="fgroup"><label class="flabel">Meta de ROAS</label><input class="finput" type="number" id="m_roas" placeholder="5.0" step="0.1"></div>
+      <div class="fgroup"><label class="flabel">CPA máximo (R$)</label><input class="finput" type="number" id="m_cpa" placeholder="45" step="0.01"></div>
+      <div class="fgroup"><label class="flabel">Meta de pedidos</label><input class="finput" type="number" id="m_ped" placeholder="900"></div>
+      <div class="fgroup"><label class="flabel">Budget mensal (R$)</label><input class="finput" type="number" id="m_inv" placeholder="32000"></div>
+      <div class="fgroup"><label class="flabel">CTR mínimo (%)</label><input class="finput" type="number" id="m_ctr" placeholder="2.5" step="0.1"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-red" onclick="saveMetas()"><i class="ti ti-device-floppy"></i> Salvar metas</button>
+    </div>
+  </div>
+  <div class="cwrap" id="metasProgress">
+    <div class="empty">Defina suas metas e lance dados para ver o progresso.</div>
+  </div>
+</div>
+
+<!-- ALERTAS -->
+<div class="pane" id="pane-alertas">
+  <p class="sec">Alertas automáticos de performance</p>
+  <div id="alertasList"><div class="empty">Sem alertas. Lance dados para gerar alertas automáticos.</div></div>
+</div>
+
+<!-- OBSERVAÇÕES -->
+<div class="pane" id="pane-obs">
+  <p class="sec">Observações estratégicas</p>
+  <div class="cwrap">
+    <div class="ctitle" style="margin-bottom:10px">Nova observação</div>
+    <textarea class="obs-ta" id="obsInput" placeholder="Ex: Criativos UGC performando bem. Testar novo hook no Dermo Pro..."></textarea>
+    <div class="form-actions">
+      <button class="btn-red" onclick="saveObs()"><i class="ti ti-device-floppy"></i> Salvar</button>
+    </div>
+  </div>
+  <div class="cwrap">
+    <div class="ctitle" style="margin-bottom:10px">Histórico</div>
+    <div id="obsHist"><div class="empty">Nenhuma observação ainda.</div></div>
+  </div>
+</div>
+
+<script>
+const RED='#C8102E',GRAY='#888888',LRED='rgba(200,16,46,0.12)',LGRAY='rgba(136,136,136,0.12)';
+let dados=[],metas={fat:220000,roas:5,cpa:45,ped:900,inv:32000,ctr:2.5},obsArr=[],charts={},compMode='d';
+
+function save(){try{localStorage.setItem('dc_dados',JSON.stringify(dados));localStorage.setItem('dc_metas',JSON.stringify(metas));localStorage.setItem('dc_obs',JSON.stringify(obsArr));}catch(e){}}
+function load(){try{const d=localStorage.getItem('dc_dados');if(d)dados=JSON.parse(d);const m=localStorage.getItem('dc_metas');if(m)metas=JSON.parse(m);const o=localStorage.getItem('dc_obs');if(o)obsArr=JSON.parse(o);}catch(e){}}
+
+function goTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id!=='lancar')refresh();
+}
+function setPPill(el,v){document.querySelectorAll('.ppill').forEach(p=>p.classList.remove('on'));el.classList.add('on');}
+function setComp(btn,v){btn.closest('.pbtns').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');compMode=v;renderComp();}
+function applyFilters(){refresh();}
+function getFiltrados(){
+  const p=document.getElementById('filterProd').value;
+  const pl=document.getElementById('filterPlat').value;
+  return dados.filter(d=>(p==='all'||d.prod===p)&&(pl==='all'||d.plat===pl));
+}
+function sumField(arr,f){return arr.reduce((a,d)=>a+(parseFloat(d[f])||0),0);}
+function calcRoas(inv,fat){return inv>0?(fat/inv):0;}
+function calcCpa(inv,vend){return vend>0?(inv/vend):0;}
+function fmtDec(n,d=2){return isNaN(n)?'—':parseFloat(n).toFixed(d);}
+function fmtPct(n){return isNaN(n)||n===0?'—':fmtDec(n,2)+'%';}
+function prodLabel(p){return p==='bumbum'?'Bumbum Dermo':'Dermo Pro';}
+function platTag(p){const cls=p==='Meta'?'tp-meta':p==='TikTok'?'tp-tiktok':'tp-google';return `<span class="tag-plat ${cls}">${p}</span>`;}
+function statusBadge(s){const m={ativo:'bs',pausado:'bd',testando:'bw',top:'bs'};const l={ativo:'Ativo',pausado:'Pausado',testando:'Testando',top:'Top'};return `<span class="badge ${m[s]||'bw'}">${l[s]||s}</span>`;}
+function prodBadge(p){return `<span class="badge ${p==='bumbum'?'bs':'bw'}">${prodLabel(p)}</span>`;}
+
+function salvarEntrada(){
+  const req=['f_data','f_plat','f_prod','f_camp','f_inv'];
+  for(const id of req){if(!document.getElementById(id).value.trim()){alert('Preencha os campos obrigatórios (*)');return;}}
+  const inv=parseFloat(document.getElementById('f_inv').value)||0;
+  const fat=parseFloat(document.getElementById('f_fat').value)||0;
+  const vend=parseInt(document.getElementById('f_vend').value)||0;
+  const imp=parseInt(document.getElementById('f_imp').value)||0;
+  const cliques=parseInt(document.getElementById('f_cliques').value)||0;
+  const ctrV=parseFloat(document.getElementById('f_ctr').value)||(imp>0?cliques/imp*100:0);
+  const entry={
+    id:Date.now(),
+    data:document.getElementById('f_data').value,
+    plat:document.getElementById('f_plat').value,
+    prod:document.getElementById('f_prod').value,
+    camp:document.getElementById('f_camp').value,
+    adset:document.getElementById('f_adset').value,
+    ad:document.getElementById('f_ad').value,
+    link:document.getElementById('f_link').value,
+    inv,fat,vend,imp,cliques,
+    ctr:ctrV,
+    cpc:parseFloat(document.getElementById('f_cpc').value)||0,
+    cpm:parseFloat(document.getElementById('f_cpm').value)||0,
+    status:document.getElementById('f_status').value,
+    obs:document.getElementById('f_obs').value,
+    roas:calcRoas(inv,fat),
+    cpa:calcCpa(inv,vend),
+  };
+  dados.unshift(entry);
+  save();limparForm();renderEntradas();updateHeader();
+  alert('Entrada salva com sucesso!');
+}
+
+function limparForm(){
+  ['f_data','f_plat','f_prod','f_camp','f_adset','f_ad','f_link','f_inv','f_fat','f_vend','f_imp','f_cliques','f_ctr','f_cpc','f_cpm','f_obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f_status').value='ativo';
+  document.getElementById('f_data').value=new Date().toISOString().slice(0,10);
+}
+
+function deletar(id){
+  if(!confirm('Remover esta entrada?'))return;
+  dados=dados.filter(d=>d.id!==id);
+  save();renderEntradas();refresh();updateHeader();
+}
+
+function updateHeader(){
+  if(dados.length===0){document.getElementById('lastUp').textContent='Sem dados — comece lançando um relatório';return;}
+  const last=dados[0];
+  document.getElementById('lastUp').textContent='Última entrada: '+last.data+' · '+dados.length+' registro(s)';
+}
+
+function renderEntradas(){
+  const tbody=document.getElementById('bodyEntradas');
+  const empty=document.getElementById('emptyMsg');
+  document.getElementById('totalEntradas').textContent=dados.length;
+  if(dados.length===0){tbody.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  tbody.innerHTML=dados.map(d=>`<tr>
+    <td>${d.data}</td>
+    <td>${platTag(d.plat)}</td>
+    <td>${prodBadge(d.prod)}</td>
+    <td style="font-weight:500;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${d.camp}">${d.camp}</td>
+    <td style="max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)" title="${d.ad||''}">${d.ad||'—'}</td>
+    <td>R$${d.inv.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+    <td>${d.fat?'R$'+Math.round(d.fat).toLocaleString('pt-BR'):'—'}</td>
+    <td style="font-weight:500;color:${d.roas>=5?'var(--success)':'var(--red)'}">${d.roas>0?fmtDec(d.roas)+'x':'—'}</td>
+    <td>${fmtPct(d.ctr)}</td>
+    <td>${d.vend||'—'}</td>
+    <td>${d.link?`<a href="${d.link}" target="_blank" class="link-ico" title="Abrir anúncio"><i class="ti ti-external-link"></i></a>`:'—'}</td>
+    <td>${statusBadge(d.status)}</td>
+    <td><button onclick="deletar(${d.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px" title="Remover"><i class="ti ti-trash"></i></button></td>
+  </tr>`).join('');
+}
+
+function destroyChart(id){if(charts[id]){charts[id].destroy();charts[id]=null;}}
+
+function renderKpis(){
+  const f=getFiltrados();
+  if(f.length===0){document.getElementById('kpiGrid').innerHTML='<div class="empty" style="grid-column:1/-1">Sem dados para os filtros selecionados.</div>';return;}
+  const inv=sumField(f,'inv'),fat=sumField(f,'fat'),vend=sumField(f,'vend');
+  const roas=calcRoas(inv,fat),cpa=calcCpa(inv,vend);
+  const ctrArr=f.filter(d=>d.ctr>0);
+  const ctr=ctrArr.length>0?ctrArr.reduce((a,d)=>a+d.ctr,0)/ctrArr.length:0;
+  const cpcArr=f.filter(d=>d.cpc>0);
+  const cpc=cpcArr.length>0?cpcArr.reduce((a,d)=>a+d.cpc,0)/cpcArr.length:0;
+  const cpmArr=f.filter(d=>d.cpm>0);
+  const cpm=cpmArr.length>0?cpmArr.reduce((a,d)=>a+d.cpm,0)/cpmArr.length:0;
+  const ticket=vend>0?fat/vend:0;
+  const kpis=[
+    {label:'Faturamento',ico:'ti-currency-dollar',val:'R$'+Math.round(fat).toLocaleString('pt-BR'),big:true,ac:true},
+    {label:'Investimento',ico:'ti-ad',val:'R$'+Math.round(inv).toLocaleString('pt-BR'),ac:true},
+    {label:'ROAS',ico:'ti-chart-bar',val:roas>0?fmtDec(roas)+'x':'—',big:roas>=5,ac:true},
+    {label:'CPA / CAC',ico:'ti-users',val:cpa>0?'R$'+fmtDec(cpa):'—'},
+    {label:'CTR',ico:'ti-click',val:ctr>0?fmtPct(ctr):'—'},
+    {label:'CPC',ico:'ti-coin',val:cpc>0?'R$'+fmtDec(cpc):'—'},
+    {label:'CPM',ico:'ti-eye',val:cpm>0?'R$'+fmtDec(cpm):'—'},
+    {label:'Pedidos',ico:'ti-shopping-cart',val:vend||'—'},
+    {label:'Ticket médio',ico:'ti-ticket',val:ticket>0?'R$'+Math.round(ticket).toLocaleString('pt-BR'):'—'},
+  ];
+  document.getElementById('kpiGrid').innerHTML=kpis.map(k=>`
+    <div class="kcard ${k.ac?'ac':''}">
+      <div class="klabel"><i class="ti ${k.ico}"></i> ${k.label}</div>
+      <div class="kval ${k.big?'big':''}">${k.val}</div>
+    </div>`).join('');
+}
+
+function renderChartsFat(){
+  const f=getFiltrados();destroyChart('fat');
+  const byDate={};
+  f.forEach(d=>{if(!byDate[d.data])byDate[d.data]={bumbum:0,pro:0};if(d.prod==='bumbum')byDate[d.data].bumbum+=d.fat||0;else byDate[d.data].pro+=d.fat||0;});
+  const labels=Object.keys(byDate).sort().slice(-21);
+  if(labels.length===0)return;
+  charts['fat']=new Chart(document.getElementById('cFat'),{type:'line',data:{labels,datasets:[
+    {label:'Bumbum',data:labels.map(l=>Math.round(byDate[l]?.bumbum||0)),borderColor:RED,backgroundColor:LRED,fill:true,tension:.4,borderWidth:2,pointRadius:3},
+    {label:'Pro',data:labels.map(l=>Math.round(byDate[l]?.pro||0)),borderColor:GRAY,backgroundColor:LGRAY,fill:true,tension:.4,borderWidth:2,pointRadius:3,borderDash:[4,3]}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:9}},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{font:{size:9},maxRotation:45,autoSkip:true,maxTicksLimit:12}}}}});
+}
+
+function renderChartsPie(){
+  const f=getFiltrados();destroyChart('pie');destroyChart('roas');
+  const plats=['Meta','TikTok','Google'];
+  const invByPlat=plats.map(p=>sumField(f.filter(d=>d.plat===p),'inv'));
+  const roasByPlat=plats.map(p=>{const pp=f.filter(d=>d.plat===p);const i=sumField(pp,'inv'),fa=sumField(pp,'fat');return i>0?parseFloat((fa/i).toFixed(2)):0;});
+  charts['pie']=new Chart(document.getElementById('cPie'),{type:'doughnut',data:{labels:plats,datasets:[{data:invByPlat,backgroundColor:[RED,'#555','#999'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'68%'}});
+  charts['roas']=new Chart(document.getElementById('cRoas'),{type:'bar',data:{labels:plats,datasets:[{data:roasByPlat,backgroundColor:[RED,'#666','#999'],borderRadius:4,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+'x',font:{size:9}},suggestedMax:10,grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{font:{size:9}}}}}});
+}
+
+function renderCampanhas(){
+  const f=getFiltrados();
+  const tbody=document.getElementById('bodyCamp');
+  const empty=document.getElementById('emptyCamp');
+  if(f.length===0){tbody.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  tbody.innerHTML=f.map(d=>`<tr>
+    <td>${d.data}</td>
+    <td style="font-weight:500;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${d.camp}">${d.camp}</td>
+    <td style="color:var(--muted);max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.adset||'—'}</td>
+    <td>${prodBadge(d.prod)}</td>
+    <td>${platTag(d.plat)}</td>
+    <td>R$${d.inv.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+    <td>${d.fat?'R$'+Math.round(d.fat).toLocaleString('pt-BR'):'—'}</td>
+    <td style="font-weight:500;color:${d.roas>=5?'var(--success)':'var(--red)'}">${d.roas>0?fmtDec(d.roas)+'x':'—'}</td>
+    <td>${d.cpa>0?'R$'+fmtDec(d.cpa):'—'}</td>
+    <td>${fmtPct(d.ctr)}</td>
+    <td>${d.vend||'—'}</td>
+    <td>${d.link?`<a href="${d.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td>
+    <td>${statusBadge(d.status)}</td>
+  </tr>`).join('');
+}
+
+function renderCriativos(){
+  const f=getFiltrados().filter(d=>d.ad&&d.ad.trim());
+  const byAd={};
+  f.forEach(d=>{const k=d.ad.trim()+'__'+d.prod;if(!byAd[k])byAd[k]={name:d.ad.trim(),prod:d.prod,imp:0,fat:0,inv:0,vend:0,ctrArr:[],link:d.link,status:d.status};byAd[k].imp+=d.imp||0;byAd[k].fat+=d.fat||0;byAd[k].inv+=d.inv||0;byAd[k].vend+=d.vend||0;if(d.ctr>0)byAd[k].ctrArr.push(d.ctr);});
+  const list=Object.values(byAd).map(c=>({...c,roas:calcRoas(c.inv,c.fat),ctr:c.ctrArr.length>0?c.ctrArr.reduce((a,b)=>a+b,0)/c.ctrArr.length:0})).sort((a,b)=>b.fat-a.fat);
+  const empty=document.getElementById('emptyCriat');
+  const tbody=document.getElementById('bodyCriat');
+  const ranking=document.getElementById('rankingCriativos');
+  destroyChart('ctr');
+  if(list.length===0){tbody.innerHTML='';empty.style.display='block';ranking.innerHTML='<div class="empty">Sem dados. Preencha o campo "Criativo" ao lançar.</div>';return;}
+  empty.style.display='none';
+  tbody.innerHTML=list.map((c,i)=>`<tr>
+    <td style="font-weight:600;color:var(--red)">${i+1}</td>
+    <td style="font-weight:500">${c.name}</td>
+    <td>${prodBadge(c.prod)}</td>
+    <td>${c.imp>0?c.imp.toLocaleString('pt-BR'):'—'}</td>
+    <td>${c.ctr>0?fmtPct(c.ctr):'—'}</td>
+    <td>${c.fat>0?'R$'+Math.round(c.fat).toLocaleString('pt-BR'):'—'}</td>
+    <td style="color:${c.roas>=5?'var(--success)':'var(--red)'};font-weight:500">${c.roas>0?fmtDec(c.roas)+'x':'—'}</td>
+    <td>${c.link?`<a href="${c.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td>
+    <td>${statusBadge(c.status)}</td>
+  </tr>`).join('');
+  ranking.innerHTML=list.slice(0,5).map((c,i)=>`<div class="rank-item">
+    <div class="rnum">${i+1}</div>
+    <div class="rinfo"><div class="rname">${c.name}</div><div class="rdet">${prodLabel(c.prod)} · CTR ${c.ctr>0?fmtPct(c.ctr):'—'}</div></div>
+    <div class="rval">${c.fat>0?'R$'+Math.round(c.fat).toLocaleString('pt-BR'):'—'}</div>
+  </div>`).join('');
+  const top8=list.slice(0,8);
+  charts['ctr']=new Chart(document.getElementById('cCtr'),{type:'bar',indexAxis:'y',data:{labels:top8.map(c=>c.name.substring(0,22)),datasets:[{data:top8.map(c=>parseFloat(fmtDec(c.ctr,2))),backgroundColor:top8.map((_,i)=>i===0?RED:'#aaa'),borderRadius:3,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>v+'%',font:{size:9}},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:9}}}}}});
+}
+
+function renderComp(){
+  const f=getFiltrados();destroyChart('comp');
+  const groups={};
+  f.forEach(d=>{
+    let key=d.data;
+    if(compMode==='w'){const dt=new Date(d.data);const wk=Math.ceil(dt.getDate()/7);key=d.data.substring(0,7)+'-S'+wk;}
+    if(compMode==='m')key=d.data.substring(0,7);
+    if(!groups[key])groups[key]={fat:0,inv:0};
+    groups[key].fat+=d.fat||0;groups[key].inv+=d.inv||0;
+  });
+  const labels=Object.keys(groups).sort().slice(-16);
+  if(labels.length===0)return;
+  charts['comp']=new Chart(document.getElementById('cComp'),{type:'bar',data:{labels,datasets:[{label:'Faturamento',data:labels.map(l=>Math.round(groups[l].fat)),backgroundColor:RED,borderRadius:4},{label:'Investimento',data:labels.map(l=>Math.round(groups[l].inv)),backgroundColor:'#bbb',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:9}},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{font:{size:9},autoSkip:false,maxRotation:45}}}}});
+  const inv=sumField(f,'inv'),fat=sumField(f,'fat'),vend=sumField(f,'vend');
+  document.getElementById('compKpis').innerHTML=[
+    {label:'Total faturado',val:'R$'+Math.round(fat).toLocaleString('pt-BR')},
+    {label:'Total investido',val:'R$'+Math.round(inv).toLocaleString('pt-BR')},
+    {label:'ROAS geral',val:inv>0?fmtDec(fat/inv)+'x':'—'},
+    {label:'Total pedidos',val:vend||'—'},
+  ].map(k=>`<div class="kcard"><div class="klabel">${k.label}</div><div class="kval">${k.val}</div></div>`).join('');
+}
+
+function saveMetas(){
+  metas.fat=parseFloat(document.getElementById('m_fat').value)||220000;
+  metas.roas=parseFloat(document.getElementById('m_roas').value)||5;
+  metas.cpa=parseFloat(document.getElementById('m_cpa').value)||45;
+  metas.ped=parseFloat(document.getElementById('m_ped').value)||900;
+  metas.inv=parseFloat(document.getElementById('m_inv').value)||32000;
+  metas.ctr=parseFloat(document.getElementById('m_ctr').value)||2.5;
+  save();renderMetas();alert('Metas salvas!');
+}
+
+function renderMetas(){
+  const f=getFiltrados();
+  const inv=sumField(f,'inv'),fat=sumField(f,'fat'),vend=sumField(f,'vend');
+  const roas=calcRoas(inv,fat),cpa=calcCpa(inv,vend);
+  const ctrArr=f.filter(d=>d.ctr>0);
+  const ctr=ctrArr.length>0?ctrArr.reduce((a,d)=>a+d.ctr,0)/ctrArr.length:0;
+  const now=new Date();
+  document.getElementById('mesAtual').textContent=now.toLocaleString('pt-BR',{month:'long',year:'numeric'});
+  document.getElementById('m_fat').value=metas.fat;
+  document.getElementById('m_roas').value=metas.roas;
+  document.getElementById('m_cpa').value=metas.cpa;
+  document.getElementById('m_ped').value=metas.ped;
+  document.getElementById('m_inv').value=metas.inv;
+  document.getElementById('m_ctr').value=metas.ctr;
+  const rows=[
+    {label:'Faturamento',atual:fat,meta:metas.fat,fmt:v=>'R$'+Math.round(v).toLocaleString('pt-BR'),inv:false},
+    {label:'ROAS',atual:roas,meta:metas.roas,fmt:v=>fmtDec(v)+'x',inv:false},
+    {label:'CPA (menor = melhor)',atual:cpa,meta:metas.cpa,fmt:v=>'R$'+fmtDec(v),inv:true},
+    {label:'Pedidos',atual:vend,meta:metas.ped,fmt:v=>Math.round(v),inv:false},
+    {label:'Budget utilizado',atual:inv,meta:metas.inv,fmt:v=>'R$'+Math.round(v).toLocaleString('pt-BR'),inv:false},
+    {label:'CTR médio',atual:ctr,meta:metas.ctr,fmt:v=>fmtPct(v),inv:false},
+  ];
+  const el=document.getElementById('metasProgress');
+  if(f.length===0){el.innerHTML='<div class="ctitle" style="margin-bottom:10px">Progresso das metas</div><div class="empty">Lance dados para ver o progresso.</div>';return;}
+  el.innerHTML='<div class="ctitle" style="margin-bottom:14px">Progresso das metas</div>'+rows.map(r=>{
+    let pct=r.inv?(r.meta>0?Math.min(r.meta/Math.max(r.atual,0.01)*100,100):0):r.meta>0?Math.min(r.atual/r.meta*100,100):0;
+    if(isNaN(pct)||!isFinite(pct))pct=0;
+    const ok=r.inv?(r.atual<=r.meta||r.atual===0):(r.atual>=r.meta);
+    const color=ok?'var(--success)':'var(--red)';
+    return `<div class="meta-row">
+      <div class="mlabel">${r.label}</div>
+      <div class="mbar"><div class="pbar"><div class="pfill" style="width:${Math.round(pct)}%;background:${color}"></div></div></div>
+      <div class="mpct" style="color:${color}">${Math.round(pct)}%</div>
+      <div class="mval">${r.atual>0?r.fmt(r.atual):'—'} <span style="font-weight:400;font-size:10px">/ ${r.fmt(r.meta)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderAlertas(){
+  const f=getFiltrados();
+  const alertas=[];
+  if(f.length===0){document.getElementById('alertasList').innerHTML='<div class="empty">Sem dados para gerar alertas.</div>';document.getElementById('alertN').textContent='0';return;}
+  const inv=sumField(f,'inv'),fat=sumField(f,'fat'),vend=sumField(f,'vend');
+  const roas=calcRoas(inv,fat),cpa=calcCpa(inv,vend);
+  if(roas>0&&roas>=metas.roas)alertas.push({tipo:'as',ico:'ti-star',title:'ROAS acima da meta!',desc:`ROAS atual ${fmtDec(roas)}x supera a meta de ${fmtDec(metas.roas)}x. Considere aumentar o orçamento.`});
+  if(roas>0&&roas<metas.roas*0.7)alertas.push({tipo:'ad',ico:'ti-alert-triangle',title:'ROAS abaixo da meta',desc:`ROAS ${fmtDec(roas)}x está mais de 30% abaixo da meta de ${fmtDec(metas.roas)}x. Revise as campanhas.`});
+  if(cpa>0&&cpa>metas.cpa)alertas.push({tipo:'aw',ico:'ti-trending-up',title:'CPA acima do limite',desc:`CPA atual R$${fmtDec(cpa)} supera o máximo de R$${fmtDec(metas.cpa)}. Otimize conversões.`});
+  if(cpa>0&&cpa<=metas.cpa*0.8)alertas.push({tipo:'as',ico:'ti-trending-down',title:'CPA ótimo!',desc:`CPA de R$${fmtDec(cpa)} está mais de 20% abaixo do limite. Ótimo desempenho.`});
+  const baixoRoas=f.filter(d=>d.roas>0&&d.roas<3);
+  if(baixoRoas.length)alertas.push({tipo:'ad',ico:'ti-ad-off',title:`${baixoRoas.length} campanha(s) com ROAS crítico (< 3x)`,desc:`Campanhas: ${baixoRoas.map(d=>d.camp).slice(0,3).join(', ')}${baixoRoas.length>3?'...':''}`});
+  if(fat>=metas.fat)alertas.push({tipo:'as',ico:'ti-trophy',title:'Meta de faturamento atingida!',desc:`Faturamento de R$${Math.round(fat).toLocaleString('pt-BR')} atingiu a meta mensal. Parabéns!`});
+  if(alertas.length===0)alertas.push({tipo:'as',ico:'ti-check',title:'Tudo dentro do esperado',desc:'Nenhum alerta crítico identificado nos dados atuais.'});
+  const criticos=alertas.filter(a=>a.tipo==='ad').length;
+  document.getElementById('alertN').textContent=criticos||'';
+  document.getElementById('alertasList').innerHTML=alertas.map(a=>`<div class="abox ${a.tipo}"><i class="ti ${a.ico} aico"></i><div><div style="font-weight:500;margin-bottom:3px">${a.title}</div><div>${a.desc}</div></div></div>`).join('');
+}
+
+function saveObs(){
+  const text=document.getElementById('obsInput').value.trim();
+  if(!text)return;
+  obsArr.unshift({text,ts:new Date().toLocaleString('pt-BR')});
+  save();document.getElementById('obsInput').value='';renderObs();
+}
+
+function renderObs(){
+  const el=document.getElementById('obsHist');
+  if(obsArr.length===0){el.innerHTML='<div class="empty">Nenhuma observação ainda.</div>';return;}
+  el.innerHTML=obsArr.map((o,i)=>`<div class="obs-entry">
+    <div style="font-size:9px;color:var(--muted);margin-bottom:3px">${o.ts}</div>
+    <div style="font-size:12px;color:var(--text)">${o.text}</div>
+    <button class="del-btn" onclick="obsArr.splice(${i},1);save();renderObs()" title="Remover"><i class="ti ti-x"></i></button>
+  </div>`).join('');
+}
+
+function exportCSV(){
+  if(dados.length===0){alert('Nenhum dado para exportar.');return;}
+  const header=['Data','Plataforma','Produto','Campanha','AdSet','Criativo','Investimento','Faturamento','ROAS','CPA','Pedidos','Impressões','Cliques','CTR%','CPC','CPM','Status','Link','Obs'];
+  const rows=dados.map(d=>[d.data,d.plat,prodLabel(d.prod),d.camp,d.adset,d.ad,d.inv,d.fat,fmtDec(d.roas),fmtDec(d.cpa),d.vend,d.imp,d.cliques,fmtDec(d.ctr,2),fmtDec(d.cpc),fmtDec(d.cpm),d.status,d.link,d.obs]);
+  const csv=[header,...rows].map(r=>r.map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='dermo_club_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+
+function refresh(){
+  renderKpis();renderChartsFat();renderChartsPie();renderCampanhas();renderCriativos();renderComp();renderMetas();renderAlertas();renderObs();
+}
+
+// INIT
+document.getElementById('f_data').value=new Date().toISOString().slice(0,10);
+load();
+renderEntradas();
+updateHeader();
+refresh();
+</script>
+</body>
+</html>
