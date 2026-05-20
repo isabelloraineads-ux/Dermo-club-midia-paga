@@ -138,6 +138,7 @@ tr:hover td{background:var(--bg)}
 .kc-test{background:#EEF2FF;color:#3730A3}.kc-testing{background:var(--wbg);color:var(--warn)}
 .kc-valid{background:var(--sbg);color:var(--success)}.kc-nope{background:var(--dbg);color:var(--red)}
 @media(prefers-color-scheme:dark){.kc-test{background:#1E1B4B;color:#A5B4FC}.kc-testing{background:#2A1E00;color:#FCD34D}.kc-valid{background:#0A2A1A;color:#6EE7B7}.kc-nope{background:#2A0A10;color:#FCA5A5}}
+@media(prefers-color-scheme:dark){#col-curation ~ .kanban-col-hd,#cnt-curation{filter:brightness(0.8)}}
 .kcnt{font-size:10px;font-weight:600;padding:2px 6px;border-radius:10px;background:rgba(0,0,0,0.08)}
 .kdz{min-height:60px;border-radius:8px;padding:4px;transition:background .15s}
 .kdz.drag-over{background:rgba(200,16,46,0.07);outline:2px dashed var(--red)}
@@ -256,10 +257,18 @@ tr:hover td{background:var(--bg)}
   <div class="cwrap">
     <div class="chead">
       <div><div class="ctit">Faturamento diário</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Bumbum Dermo vs Dermo Pro</div></div>
-      <div class="pbtns">
-        <button class="pbtn on" onclick="setPeriod(this,'7')">7 dias</button>
-        <button class="pbtn" onclick="setPeriod(this,'30')">30 dias</button>
-        <button class="pbtn" onclick="setPeriod(this,'all')">Tudo</button>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <div class="pbtns">
+          <button class="pbtn on" onclick="setPeriod(this,'7')">7 dias</button>
+          <button class="pbtn" onclick="setPeriod(this,'30')">30 dias</button>
+          <button class="pbtn" onclick="setPeriod(this,'all')">Tudo</button>
+          <button class="pbtn" id="pbtnCustom" onclick="toggleCustomDate(this)">Personalizado</button>
+        </div>
+        <div id="customDateWrap" style="display:none;align-items:center;gap:5px;flex-wrap:wrap">
+          <input type="date" id="dateFrom" class="finp" style="padding:3px 7px;font-size:11px;width:130px" onchange="applyCustomDate()">
+          <span style="font-size:11px;color:var(--muted)">até</span>
+          <input type="date" id="dateTo" class="finp" style="padding:3px 7px;font-size:11px;width:130px" onchange="applyCustomDate()">
+        </div>
       </div>
     </div>
     <div class="leg"><span class="li"><span class="ld" style="background:#C8102E"></span>Bumbum Dermo</span><span class="li"><span class="ld" style="background:#888"></span>Dermo Pro</span></div>
@@ -317,6 +326,11 @@ tr:hover td{background:var(--bg)}
           <div class="kanban-col-hd kc-nope"><span><i class="ti ti-circle-x" style="margin-right:4px"></i>Não funcionou</span><span class="kcnt" id="cnt-nope">0</span></div>
           <div class="kdz" id="col-nope" ondragover="onDragOver(event)" ondrop="onDrop(event,'nope')" ondragleave="onDragLeave(event)"></div>
           <button class="kadd-btn" onclick="openKModal('nope')"><i class="ti ti-plus"></i> Adicionar</button>
+        </div>
+        <div class="kanban-col">
+          <div class="kanban-col-hd" style="background:#F3E8FF;color:#6B21A8"><span><i class="ti ti-sparkles" style="margin-right:4px"></i>Curadoria</span><span class="kcnt" id="cnt-curation">0</span></div>
+          <div class="kdz" id="col-curation" ondragover="onDragOver(event)" ondrop="onDrop(event,'curation')" ondragleave="onDragLeave(event)"></div>
+          <button class="kadd-btn" onclick="openKModal('curation')"><i class="ti ti-plus"></i> Adicionar</button>
         </div>
       </div>
     </div>
@@ -381,7 +395,7 @@ tr:hover td{background:var(--bg)}
       <div class="fg"><label class="flbl">Produto *</label><select class="finp fsel" id="f_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
       <div class="fg"><label class="flbl">Nome da campanha *</label><input class="finp" type="text" id="f_camp" placeholder="Ex: Bumbum — Conversão TOP"></div>
       <div class="fg"><label class="flbl">Objetivo</label><select class="finp fsel" id="f_obj"><option value="">Selecione</option><option>Conversão</option><option>Tráfego</option><option>Alcance</option><option>Remarketing</option></select></div>
-      <div class="fg"><label class="flbl">Budget (R$)</label><input class="finp" type="number" id="f_budget_camp" placeholder="0.00" step="0.01"></div>
+      <div class="fg"><label class="flbl">Faturamento da campanha (R$)</label><input class="finp" type="number" id="f_budget_camp" placeholder="0.00" step="0.01" title="Faturamento total gerado por essa campanha"></div>
     </div>
   </div>
   <div class="cwrap">
@@ -434,10 +448,10 @@ tr:hover td{background:var(--bg)}
           <div class="fg"><label class="flbl">Produto</label><select class="finp fsel" id="kn_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
           <div class="fg"><label class="flbl">Plataforma</label><select class="finp fsel" id="kn_plat"><option value="">Selecione</option><option>Meta</option><option>TikTok</option><option>Google</option></select></div>
           <div class="fg"><label class="flbl">Formato</label><select class="finp fsel" id="kn_fmt"><option value="">Selecione</option><option>Vídeo</option><option>Imagem</option><option>Carrossel</option><option>UGC</option><option>Stories</option></select></div>
-          <div class="fg"><label class="flbl">Coluna</label><select class="finp fsel" id="kn_col"><option value="test">Para testar</option><option value="testing">Testando</option><option value="valid">Validado</option><option value="nope">Não funcionou</option></select></div>
+          <div class="fg"><label class="flbl">Coluna</label><select class="finp fsel" id="kn_col"><option value="test">Para testar</option><option value="testing">Testando</option><option value="valid">Validado</option><option value="nope">Não funcionou</option><option value="curation">Curadoria</option></select></div>
         </div>
         <div class="fg"><label class="flbl">Link do anúncio</label><input class="finp" type="url" id="kn_link" placeholder="https://adsmanager.facebook.com/..."></div>
-        <div class="fg"><label class="flbl">Imagem de capa (URL ou link do Google Drive)</label><input class="finp" type="url" id="kn_img" placeholder="https://drive.google.com/file/d/... ou URL direta"></div>
+        <div class="fg full"><label class="flbl">Imagem de capa</label><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:6px;align-items:center"><label style="display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 11px;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap"><i class="ti ti-upload" style="font-size:13px"></i> Upload<input type="file" id="kn_file" accept="image/*" style="display:none" onchange="handleImgUpload(this)"></label><input class="finp" type="url" id="kn_img" placeholder="ou cole URL / link Google Drive" style="flex:1"></div><div id="kn_preview" style="display:none"><img id="kn_preview_img" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview"></div></div></div>
         <div style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:7px 10px">
           <i class="ti ti-info-circle" style="margin-right:3px"></i>Google Drive: abra o arquivo → Compartilhar → Copiar link → cole aqui.
         </div>
@@ -516,7 +530,9 @@ function tryAutoLogin(){
 function gT(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));document.getElementById('pane-'+id).classList.add('on');btn.classList.add('on');if(id!=='lancar')refresh();}
 function applyF(){refresh();}
 function setPPill(el){document.querySelectorAll('.ppill').forEach(p=>p.classList.remove('on'));el.classList.add('on');}
-function setPeriod(btn,v){btn.closest('.pbtns').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');periodMode=v;renderChartFat();}
+function setPeriod(btn,v){btn.closest(".pbtns").querySelectorAll(".pbtn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");periodMode=v;const w=document.getElementById("customDateWrap");if(w)w.style.display="none";renderChartFat();}
+function toggleCustomDate(btn){const wrap=document.getElementById("customDateWrap");const isOpen=wrap.style.display!=="none";if(isOpen){wrap.style.display="none";btn.classList.remove("on");periodMode="7";}else{document.querySelectorAll(".pbtns .pbtn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");periodMode="custom";wrap.style.display="flex";const today=new Date().toISOString().slice(0,10);if(!document.getElementById("dateTo").value)document.getElementById("dateTo").value=today;if(!document.getElementById("dateFrom").value){const d=new Date();d.setDate(d.getDate()-7);document.getElementById("dateFrom").value=d.toISOString().slice(0,10);}renderChartFat();}}
+function applyCustomDate(){periodMode="custom";renderChartFat();}
 function setComp(btn,v){btn.closest('.pbtns').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');compMode=v;renderComp();}
  
 // ---- UTILS ----
@@ -541,22 +557,29 @@ function userById(id){return TEAM.find(u=>u.id===id)||{name:id,color:'#888'};}
  
 // ---- KANBAN ----
 function openKModal(col){
-  ['kn_nome','kn_prod','kn_plat','kn_fmt','kn_link','kn_img','kn_obs'].forEach(id=>document.getElementById(id).value='');
+  ['kn_nome','kn_prod','kn_plat','kn_fmt','kn_link','kn_img','kn_obs'].forEach(id=>document.getElementById(id).value='');kn_uploadedBase64='';document.getElementById('kn_preview').style.display='none';document.getElementById('kn_preview_img').src='';
   if(col)document.getElementById('kn_col').value=col;
   document.getElementById('kNewModal').style.display='flex';
   setTimeout(()=>document.getElementById('kn_nome').focus(),100);
 }
-function closeKModal(){document.getElementById('kNewModal').style.display='none';}
+function closeKModal(){document.getElementById('kNewModal').style.display='none';document.getElementById('kn_preview').style.display='none';document.getElementById('kn_preview_img').src='';}
+let kn_uploadedBase64='';
+function handleImgUpload(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{kn_uploadedBase64=e.target.result;const prev=document.getElementById('kn_preview');const img=document.getElementById('kn_preview_img');img.src=kn_uploadedBase64;prev.style.display='block';document.getElementById('kn_img').value='';};
+  reader.readAsDataURL(file);
+}
 function saveKCard(){
   const nome=document.getElementById('kn_nome').value.trim();if(!nome){alert('Informe o nome');return;}
-  const card={id:Date.now(),nome,prod:document.getElementById('kn_prod').value,plat:document.getElementById('kn_plat').value,fmt:document.getElementById('kn_fmt').value,link:document.getElementById('kn_link').value,img:document.getElementById('kn_img').value,obs:document.getElementById('kn_obs').value,col:document.getElementById('kn_col').value,variacoes:[],comentarios:[],criadoPor:currentUser?.id,criadoEm:tsNow()};
+  const imgVal=kn_uploadedBase64||document.getElementById('kn_img').value;kn_uploadedBase64='';const card={id:Date.now(),nome,prod:document.getElementById('kn_prod').value,plat:document.getElementById('kn_plat').value,fmt:document.getElementById('kn_fmt').value,link:document.getElementById('kn_link').value,img:imgVal,obs:document.getElementById('kn_obs').value,col:document.getElementById('kn_col').value,variacoes:[],comentarios:[],criadoPor:currentUser?.id,criadoEm:tsNow()};
   kanbanCards.push(card);save();renderKanban();closeKModal();
 }
 function delKCard(id){if(!confirm('Remover card?'))return;kanbanCards=kanbanCards.filter(c=>c.id!==id);save();renderKanban();if(openCardId===id)closeCardModal();}
 function moveKCard(id,col){const c=kanbanCards.find(c=>c.id===id);if(c){c.col=col;save();renderKanban();if(openCardId===id)renderCardModal(id);}}
  
 function renderKanban(){
-  const cols=['test','testing','valid','nope'];
+  const cols=['test','testing','valid','nope','curation'];
   cols.forEach(col=>{
     const zone=document.getElementById('col-'+col);
     const cards=kanbanCards.filter(c=>c.col===col);
@@ -592,7 +615,7 @@ function closeCardModal(){document.getElementById('kCardModal').style.display='n
 function renderCardModal(id){
   const card=kanbanCards.find(c=>c.id===id);if(!card)return;
   document.getElementById('cardModalTitle').innerHTML=`<span style="color:var(--red);margin-right:6px"><i class="ti ti-photo"></i></span>${card.nome}`;
-  const colLabels={test:'Para testar',testing:'Testando',valid:'Validado',nope:'Não funcionou'};
+  const colLabels={test:'Para testar',testing:'Testando',valid:'Validado',nope:'Não funcionou',curation:'Curadoria'};
   const imgSrc=driveImg(card.img);
   const body=document.getElementById('cardModalBody');
   body.innerHTML=`
@@ -600,7 +623,7 @@ function renderCardModal(id){
     <div style="margin-bottom:12px">
       <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Mover para</div>
       <div class="modal-col-move">
-        ${['test','testing','valid','nope'].map(col=>`<button class="col-mv-btn ${card.col===col?'cur':''}" onclick="moveKCard(${id},'${col}')">${colLabels[col]}</button>`).join('')}
+        ${['test','testing','valid','nope','curation'].map(col=>`<button class="col-mv-btn ${card.col===col?'cur':''}" onclick="moveKCard(${id},'${col}')">${colLabels[col]}</button>`).join('')}
       </div>
     </div>
  
@@ -785,7 +808,8 @@ function renderKpis(){
 }
  
 function renderChartFat(){
-  const f=getF();dc('fat');let fil=f;
+  const f=getF();dc("fat");let fil=f;
+  if(periodMode==="custom"){const from=document.getElementById("dateFrom")?.value;const to=document.getElementById("dateTo")?.value;if(from||to){fil=f.filter(d=>(!from||d.data>=from)&&(!to||d.data<=to));}}else if(periodMode!=="all"){const days=parseInt(periodMode);const cut=new Date();cut.setDate(cut.getDate()-days);fil=f.filter(d=>d.data>=cut.toISOString().slice(0,10));}
   if(periodMode!=='all'){const days=parseInt(periodMode);const cut=new Date();cut.setDate(cut.getDate()-days);fil=f.filter(d=>d.data>=cut.toISOString().slice(0,10));}
   const byD={};fil.forEach(d=>{if(!byD[d.data])byD[d.data]={b:0,p:0};if(d.prod==='bumbum')byD[d.data].b+=d.fat||0;else byD[d.data].p+=d.fat||0;});
   const lb=Object.keys(byD).sort();if(!lb.length)return;
