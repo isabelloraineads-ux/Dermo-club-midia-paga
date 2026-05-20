@@ -12,37 +12,63 @@
 @media(prefers-color-scheme:dark){:root{--bg:#111;--card:#1C1C1C;--border:rgba(255,255,255,0.1);--text:#F0F0F0;--muted:#888;--sbg:#0A2A1A;--wbg:#2A1E00;--dbg:#2A0A10}}
 html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:-apple-system,'Helvetica Neue',Arial,sans-serif}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+ 
+/* LOGIN */
+.login-screen{position:fixed;inset:0;background:var(--red);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px}
+.login-box{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:340px;text-align:center}
+.login-logo{width:56px;height:56px;background:var(--red);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;margin:0 auto 16px}
+.login-title{font-size:18px;font-weight:600;color:#1A1A1A;margin-bottom:4px}
+.login-sub{font-size:12px;color:#888;margin-bottom:24px}
+.login-inp{width:100%;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;margin-bottom:10px;font-family:inherit;color:#1A1A1A}
+.login-inp:focus{outline:none;border-color:var(--red)}
+.login-btn{width:100%;padding:11px;background:var(--red);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+.login-btn:hover{background:var(--red-dark)}
+.login-err{font-size:11px;color:var(--red);margin-top:6px;display:none}
+.login-users{margin-top:20px;border-top:1px solid #f0f0f0;padding-top:16px}
+.login-users p{font-size:10px;color:#aaa;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.user-avatar-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.uav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;cursor:pointer;border:2px solid transparent;transition:.15s;flex-shrink:0}
+.uav:hover{transform:scale(1.1)}
+.uav.sel{border-color:#1A1A1A}
+ 
+/* HEADER */
 .header{background:var(--red);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.hlogo{width:36px;height:36px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--red);flex-shrink:0}
-.htitle{font-size:15px;font-weight:500}.hsub{font-size:10px;opacity:.75;margin-top:1px}
+.hlogo{width:34px;height:34px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--red);flex-shrink:0}
+.htitle{font-size:14px;font-weight:500}.hsub{font-size:10px;opacity:.75;margin-top:1px}
 .hctrl{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.hctrl select{font-size:11px;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;cursor:pointer;appearance:none}
+.hctrl select{font-size:11px;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;cursor:pointer;appearance:none}
 .hctrl select option{background:#333;color:#fff}
-.btn-wh{font-size:11px;padding:5px 11px;border-radius:6px;background:#fff;color:var(--red);border:none;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.btn-wh{font-size:11px;padding:5px 10px;border-radius:6px;background:#fff;color:var(--red);border:none;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.cur-user{display:flex;align-items:center;gap:6px;font-size:11px;opacity:.9}
+.cur-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;flex-shrink:0}
+ 
+/* TABS */
 .tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;padding:0 14px;position:sticky;top:57px;z-index:99}
 .tabs::-webkit-scrollbar{height:0}
-.tab{font-size:11px;font-weight:500;color:var(--muted);padding:10px 13px;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.tab{font-size:11px;font-weight:500;color:var(--muted);padding:10px 12px;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;display:inline-flex;align-items:center;gap:4px}
 .tab.on{color:var(--red);border-bottom-color:var(--red)}
-.pane{display:none;padding:16px;max-width:1200px;margin:0 auto}.pane.on{display:block}
+ 
+/* PANES */
+.pane{display:none;padding:14px;max-width:1200px;margin:0 auto}.pane.on{display:block}
 .sec{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:10px}
-.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:14px}
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:14px}
 .kcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
 .kcard.hi{border-left:3px solid var(--red)}
-.klbl{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;display:flex;align-items:center;gap:4px}
-.kval{font-size:21px;font-weight:600;color:var(--text);line-height:1}.kval.big{font-size:25px;color:var(--red)}
+.klbl{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.kval{font-size:20px;font-weight:600;color:var(--text);line-height:1}.kval.big{font-size:24px;color:var(--red)}
 .ksub{font-size:10px;color:var(--muted);margin-top:2px}
 .cwrap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px}
 .ctit{font-size:12px;font-weight:500;color:var(--text)}
 .chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
 .pbtns{display:flex;gap:3px}
-.pbtn{font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer}
+.pbtn{font-size:10px;padding:3px 7px;border-radius:4px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer}
 .pbtn.on{background:var(--red);color:#fff;border-color:var(--red)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:540px){.two{grid-template-columns:1fr}}
 .tscroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:11px}
-th{text-align:left;padding:8px 10px;font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+th{text-align:left;padding:7px 9px;font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:8px 9px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bg)}
 .plat{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:500;padding:3px 8px;border-radius:4px}
@@ -51,22 +77,43 @@ tr:hover td{background:var(--bg)}
 .stbadge{font-size:9px;font-weight:500;padding:2px 6px;border-radius:3px;display:inline-block}
 .st-on{background:var(--sbg);color:var(--success)}.st-off{background:var(--dbg);color:var(--red)}.st-test{background:var(--wbg);color:var(--warn)}.st-top{background:#E7F0FD;color:#0D4FA3}
 .pbar{background:var(--bg);border-radius:3px;height:5px;overflow:hidden}.pfill{height:100%;border-radius:3px}
-.abox{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px;font-size:12px}
+.abox{border-radius:8px;padding:10px 12px;margin-bottom:10px;display:flex;align-items:flex-start;gap:9px;font-size:12px}
 .al-d{background:var(--dbg);color:#7B0A1E;border:1px solid rgba(200,16,46,.2)}
 .al-w{background:var(--wbg);color:var(--warn);border:1px solid rgba(180,83,9,.2)}
 .al-s{background:var(--sbg);color:var(--success);border:1px solid rgba(26,127,69,.2)}
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 @media(max-width:500px){.fgrid{grid-template-columns:1fr}}
 .fg{display:flex;flex-direction:column;gap:4px}.fg.full{grid-column:1/-1}
 .flbl{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .finp{font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--card);color:var(--text);font-family:inherit;width:100%}
 .finp:focus{outline:none;border-color:var(--red)}
 .fsel{appearance:none;-webkit-appearance:none}
-.btn-r{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+.btn-r{background:var(--red);color:#fff;border:none;border-radius:7px;padding:7px 14px;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
 .btn-r:hover{background:var(--red-dark)}
-.btn-g{background:none;border:1px solid var(--border);border-radius:7px;padding:8px 14px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit}
+.btn-g{background:none;border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit}
 .btn-g:hover{border-color:var(--red);color:var(--red)}
-.factions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.factions{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.notice{font-size:11px;background:var(--dbg);color:var(--red);border-radius:6px;padding:8px 11px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.empty{font-size:12px;color:var(--muted);text-align:center;padding:24px 0}
+.link-ico{color:var(--red);font-size:13px;text-decoration:none}
+.obs-ta{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px;width:100%;min-height:76px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical}
+.obs-ta:focus{outline:none;border-color:var(--red)}
+.leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
+.ld{width:9px;height:9px;border-radius:2px}
+.ppills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.ppill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:15px;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--muted);transition:.15s}
+.ppill.on{background:var(--red);color:#fff;border-color:var(--red)}
+.sec-block{background:var(--bg);border-radius:7px;padding:7px 10px;margin-bottom:8px;font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
+.rank-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)}
+.rank-item:last-child{border-bottom:none}
+.rnum{font-size:12px;font-weight:600;color:var(--red);min-width:18px}
+.rinfo{flex:1}.rname{font-size:12px;font-weight:500}.rdet{font-size:10px;color:var(--muted);margin-top:1px}
+.rval{font-size:12px;font-weight:600}
+.meta-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+.mlbl{font-size:11px;color:var(--text);min-width:150px}
+.mbar{flex:1;min-width:80px}.mpct{font-size:11px;font-weight:500;min-width:36px;text-align:right}
+.mval{font-size:11px;color:var(--muted);min-width:80px;text-align:right}
 .tree-camp{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px}
 .tree-camp-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;background:var(--bg);gap:8px;flex-wrap:wrap}
 .tree-camp-title{font-size:12px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -82,76 +129,106 @@ tr:hover td{background:var(--bg)}
 .tree-ad-name{font-size:11px;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .tree-ad-kpis{display:flex;gap:10px;font-size:10px;color:var(--muted);flex-wrap:wrap}
 .chevron{font-size:14px;color:var(--muted);transition:transform .2s}.chevron.open{transform:rotate(180deg)}
-.rank-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.rank-item:last-child{border-bottom:none}
-.rnum{font-size:13px;font-weight:600;color:var(--red);min-width:20px}
-.rinfo{flex:1}.rname{font-size:12px;font-weight:500}.rdet{font-size:10px;color:var(--muted);margin-top:1px}
-.rval{font-size:12px;font-weight:600}
-.meta-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.mlbl{font-size:11px;color:var(--text);min-width:160px}
-.mbar{flex:1;min-width:80px}.mpct{font-size:11px;font-weight:500;min-width:38px;text-align:right}
-.mval{font-size:11px;color:var(--muted);min-width:90px;text-align:right}
-.notice{font-size:11px;background:var(--dbg);color:var(--red);border-radius:6px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.empty{font-size:12px;color:var(--muted);text-align:center;padding:28px 0}
-.link-ico{color:var(--red);font-size:14px;text-decoration:none}
-.obs-ta{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px;width:100%;min-height:80px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical}
-.obs-ta:focus{outline:none;border-color:var(--red)}
-.leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
-.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
-.ld{width:9px;height:9px;border-radius:2px}
-.ppills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
-.ppill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:15px;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--muted);transition:.15s}
-.ppill.on{background:var(--red);color:#fff;border-color:var(--red)}
-.sec-block{background:var(--bg);border-radius:7px;padding:8px 10px;margin-bottom:8px;font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
  
 /* KANBAN */
 .kanban-wrap{overflow-x:auto;padding-bottom:8px}
-.kanban-board{display:flex;gap:12px;min-width:max-content;align-items:flex-start}
-.kanban-col{width:220px;flex-shrink:0}
+.kanban-board{display:flex;gap:12px;min-width:max-content;align-items:flex-start;padding:2px}
+.kanban-col{width:230px;flex-shrink:0}
 .kanban-col-hd{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;margin-bottom:8px;font-size:11px;font-weight:500}
 .kc-test{background:#EEF2FF;color:#3730A3}.kc-testing{background:var(--wbg);color:var(--warn)}
 .kc-valid{background:var(--sbg);color:var(--success)}.kc-nope{background:var(--dbg);color:var(--red)}
-@media(prefers-color-scheme:dark){
-  .kc-test{background:#1E1B4B;color:#A5B4FC}.kc-testing{background:#2A1E00;color:#FCD34D}
-  .kc-valid{background:#0A2A1A;color:#6EE7B7}.kc-nope{background:#2A0A10;color:#FCA5A5}
-}
-.kanban-col-count{font-size:10px;font-weight:600;padding:2px 6px;border-radius:10px;background:rgba(0,0,0,0.08)}
-.kanban-dropzone{min-height:60px;border-radius:8px;padding:4px;transition:background .15s}
-.kanban-dropzone.drag-over{background:rgba(200,16,46,0.06);outline:2px dashed var(--red)}
-.kcard-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;cursor:grab;user-select:none;transition:box-shadow .15s;position:relative}
-.kcard-item:active{cursor:grabbing;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
-.kcard-item.dragging{opacity:.4}
-.kcard-thumb{width:100%;height:100px;border-radius:6px;object-fit:cover;margin-bottom:8px;background:var(--bg);display:block}
-.kcard-thumb-placeholder{width:100%;height:100px;border-radius:6px;background:var(--bg);margin-bottom:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;border:1px dashed var(--border)}
-.kcard-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:4px}
-.kcard-meta{font-size:10px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
-.kcard-actions{display:flex;gap:5px;margin-top:6px}
-.kcard-btn{font-size:10px;padding:3px 7px;border-radius:5px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer}
-.kcard-btn:hover{border-color:var(--red);color:var(--red)}
-.kcard-del{position:absolute;top:6px;right:6px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px;opacity:0;transition:opacity .15s}
-.kcard-item:hover .kcard-del{opacity:1}
-.kcard-link{font-size:10px;color:var(--red);text-decoration:none;display:inline-flex;align-items:center;gap:3px}
-.kanban-add-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:8px;background:none;color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:.15s}
-.kanban-add-btn:hover{border-color:var(--red);color:var(--red)}
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px}
-.modal-box{background:var(--card);border-radius:12px;padding:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto}
-.modal-title{font-size:14px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-.modal-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px}
+@media(prefers-color-scheme:dark){.kc-test{background:#1E1B4B;color:#A5B4FC}.kc-testing{background:#2A1E00;color:#FCD34D}.kc-valid{background:#0A2A1A;color:#6EE7B7}.kc-nope{background:#2A0A10;color:#FCA5A5}}
+.kcnt{font-size:10px;font-weight:600;padding:2px 6px;border-radius:10px;background:rgba(0,0,0,0.08)}
+.kdz{min-height:60px;border-radius:8px;padding:4px;transition:background .15s}
+.kdz.drag-over{background:rgba(200,16,46,0.07);outline:2px dashed var(--red)}
+.kci{background:var(--card);border:1px solid var(--border);border-radius:9px;margin-bottom:8px;cursor:pointer;transition:box-shadow .15s;overflow:hidden;position:relative}
+.kci:hover{box-shadow:0 2px 12px rgba(0,0,0,0.1)}
+.kci.dragging{opacity:.4;cursor:grabbing}
+.kci-drag-handle{position:absolute;top:6px;right:6px;color:var(--muted);font-size:13px;cursor:grab;opacity:0;transition:opacity .15s}
+.kci:hover .kci-drag-handle{opacity:1}
+.kci-thumb{width:100%;height:110px;object-fit:cover;display:block;background:var(--bg)}
+.kci-thumb-ph{width:100%;height:110px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;flex-direction:column;gap:4px}
+.kci-body{padding:9px}
+.kci-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:4px}
+.kci-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px}
+.kci-comment-count{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:3px}
+.kadd-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:9px;background:none;color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:.15s}
+.kadd-btn:hover{border-color:var(--red);color:var(--red)}
+ 
+/* CARD MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;display:flex;align-items:center;justify-content:center;padding:12px}
+.modal-box{background:var(--card);border-radius:14px;width:100%;max-width:680px;max-height:92vh;overflow-y:auto;display:flex;flex-direction:column}
+.modal-hd{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.modal-title{font-size:14px;font-weight:500;color:var(--text)}
+.modal-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;display:flex;align-items:center}
+.modal-body{padding:14px 16px;flex:1}
+.modal-col-move{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.col-mv-btn{font-size:10px;padding:4px 9px;border-radius:5px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;transition:.15s}
+.col-mv-btn:hover,.col-mv-btn.cur{background:var(--red);color:#fff;border-color:var(--red)}
+ 
+/* VARIAÇÕES */
+.var-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:10px}
+.var-item{border:1px solid var(--border);border-radius:7px;overflow:hidden;position:relative;cursor:pointer}
+.var-item img{width:100%;height:70px;object-fit:cover;display:block}
+.var-item-ph{width:100%;height:70px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px}
+.var-item-name{font-size:9px;padding:3px 5px;color:var(--muted);background:var(--card);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.var-del{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.5);color:#fff;border:none;border-radius:4px;font-size:10px;cursor:pointer;padding:2px 4px;opacity:0;transition:opacity .15s}
+.var-item:hover .var-del{opacity:1}
+.var-add{border:1px dashed var(--border);border-radius:7px;height:88px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:11px;flex-direction:column;gap:3px;transition:.15s}
+.var-add:hover{border-color:var(--red);color:var(--red)}
+ 
+/* CHAT */
+.chat-area{border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.chat-msgs{max-height:220px;overflow-y:auto;padding:10px}
+.chat-msg{display:flex;gap:8px;margin-bottom:10px}
+.chat-msg:last-child{margin-bottom:0}
+.chat-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;flex-shrink:0;margin-top:1px}
+.chat-bubble{flex:1}
+.chat-who{font-size:10px;font-weight:500;color:var(--text);margin-bottom:2px}
+.chat-who span{color:var(--muted);font-weight:400;margin-left:5px}
+.chat-text{font-size:12px;color:var(--text);line-height:1.5}
+.chat-mention{color:var(--red);font-weight:500}
+.chat-inp-row{border-top:1px solid var(--border);padding:8px 10px;display:flex;gap:8px;align-items:flex-end;background:var(--bg)}
+.chat-inp{flex:1;border:none;background:none;font-size:12px;color:var(--text);font-family:inherit;resize:none;outline:none;max-height:80px;overflow-y:auto;min-height:20px;line-height:1.5}
+.chat-send{background:var(--red);color:#fff;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:11px;flex-shrink:0}
+.mention-drop{position:absolute;background:var(--card);border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:1000;min-width:160px;overflow:hidden}
+.mention-item{padding:7px 12px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.mention-item:hover{background:var(--bg)}
 </style>
 </head>
 <body>
-<h1 class="sr-only">Dashboard Tráfego Pago — Dermo Club</h1>
  
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">DC</div>
+    <div class="login-title">Dermo Club</div>
+    <div class="login-sub">Dashboard de tráfego pago</div>
+    <div class="login-users">
+      <p>Quem é você?</p>
+      <div class="user-avatar-row" id="userAvatarRow"></div>
+    </div>
+    <div style="margin-top:16px">
+      <input class="login-inp" type="password" id="loginPass" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="login-btn" onclick="doLogin()">Entrar</button>
+      <div class="login-err" id="loginErr">Senha incorreta. Tente novamente.</div>
+    </div>
+  </div>
+</div>
+ 
+<!-- APP -->
+<div id="appWrap" style="display:none">
 <div class="header">
-  <div style="display:flex;align-items:center;gap:12px">
+  <div style="display:flex;align-items:center;gap:10px">
     <div class="hlogo">DC</div>
-    <div><div class="htitle">Dermo Club — Tráfego Pago</div><div class="hsub" id="lastUp">Sem dados — comece lançando um relatório</div></div>
+    <div><div class="htitle">Dermo Club — Tráfego Pago</div><div class="hsub" id="lastUp">Sem dados</div></div>
   </div>
   <div class="hctrl">
     <select id="fProd" onchange="applyF()"><option value="all">Todos os produtos</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select>
     <select id="fPlat" onchange="applyF()"><option value="all">Todas as plataformas</option><option value="Meta">Meta</option><option value="TikTok">TikTok</option><option value="Google">Google</option></select>
+    <div class="cur-user" id="curUserBadge"></div>
     <button class="btn-wh" onclick="exportCSV()"><i class="ti ti-download"></i> CSV</button>
+    <button class="btn-wh" onclick="logout()" title="Sair"><i class="ti ti-logout"></i></button>
   </div>
 </div>
  
@@ -171,10 +248,10 @@ tr:hover td{background:var(--bg)}
   <p class="sec">KPIs principais</p>
   <div class="kgrid" id="kpiGrid"></div>
   <div class="ppills">
-    <span class="ppill on" onclick="setPPill(this,'all')">Todas</span>
-    <span class="ppill" onclick="setPPill(this,'Meta')"><svg width="11" height="11" viewBox="0 0 24 24" fill="#1877F2" style="vertical-align:-1px"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Meta</span>
-    <span class="ppill" onclick="setPPill(this,'TikTok')"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg> TikTok</span>
-    <span class="ppill" onclick="setPPill(this,'Google')"><svg width="11" height="11" viewBox="0 0 24 24" style="vertical-align:-1px"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Google</span>
+    <span class="ppill on" onclick="setPPill(this)">Todas</span>
+    <span class="ppill" onclick="setPPill(this)">Meta</span>
+    <span class="ppill" onclick="setPPill(this)">TikTok</span>
+    <span class="ppill" onclick="setPPill(this)">Google</span>
   </div>
   <div class="cwrap">
     <div class="chead">
@@ -185,30 +262,19 @@ tr:hover td{background:var(--bg)}
         <button class="pbtn" onclick="setPeriod(this,'all')">Tudo</button>
       </div>
     </div>
-    <div class="leg"><span class="li"><span class="ld" style="background:#C8102E"></span>Bumbum Dermo</span><span class="li"><span class="ld" style="background:#888;"></span>Dermo Pro</span></div>
-    <div style="position:relative;width:100%;height:210px"><canvas id="cFat" role="img" aria-label="Faturamento diário por produto">Faturamento diário.</canvas></div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#C8102E"></span>Bumbum Dermo</span><span class="li"><span class="ld" style="background:#888"></span>Dermo Pro</span></div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cFat" role="img" aria-label="Faturamento diário">Faturamento diário.</canvas></div>
   </div>
   <div class="two">
-    <div class="cwrap" style="margin-bottom:0">
-      <div class="ctit" style="margin-bottom:10px">Mix de investimento</div>
-      <div style="position:relative;width:100%;height:155px"><canvas id="cPie" role="img" aria-label="Mix de investimento por plataforma">Investimento por plataforma.</canvas></div>
-      <div class="leg" style="margin-top:8px;margin-bottom:0">
-        <span class="li"><span class="ld" style="background:#1877F2"></span>Meta</span>
-        <span class="li"><span class="ld" style="background:#222"></span>TikTok</span>
-        <span class="li"><span class="ld" style="background:#FBBC05"></span>Google</span>
-      </div>
-    </div>
-    <div class="cwrap" style="margin-bottom:0">
-      <div class="ctit" style="margin-bottom:10px">ROAS por plataforma</div>
-      <div style="position:relative;width:100%;height:155px"><canvas id="cRoas" role="img" aria-label="ROAS por plataforma">ROAS por plataforma.</canvas></div>
-    </div>
+    <div class="cwrap" style="margin-bottom:0"><div class="ctit" style="margin-bottom:10px">Mix de investimento</div><div style="position:relative;width:100%;height:150px"><canvas id="cPie" role="img" aria-label="Mix por plataforma">Mix por plataforma.</canvas></div><div class="leg" style="margin-top:8px;margin-bottom:0"><span class="li"><span class="ld" style="background:#1877F2"></span>Meta</span><span class="li"><span class="ld" style="background:#222"></span>TikTok</span><span class="li"><span class="ld" style="background:#FBBC05"></span>Google</span></div></div>
+    <div class="cwrap" style="margin-bottom:0"><div class="ctit" style="margin-bottom:10px">ROAS por plataforma</div><div style="position:relative;width:100%;height:150px"><canvas id="cRoas" role="img" aria-label="ROAS por plataforma">ROAS por plataforma.</canvas></div></div>
   </div>
 </div>
  
 <!-- CAMPANHAS -->
 <div class="pane" id="pane-campanhas">
   <p class="sec">Campanha › Conjunto › Anúncio</p>
-  <div id="treeView"><div class="empty">Sem dados. Lance relatórios na aba "Lançar Dados".</div></div>
+  <div id="treeView"><div class="empty">Sem dados.</div></div>
 </div>
  
 <!-- CRIATIVOS -->
@@ -216,56 +282,41 @@ tr:hover td{background:var(--bg)}
   <p class="sec">Ranking de criativos</p>
   <div class="two">
     <div class="cwrap"><div class="ctit" style="margin-bottom:10px">Top por receita</div><div id="rankCriat"><div class="empty">Sem dados.</div></div></div>
-    <div class="cwrap"><div class="ctit" style="margin-bottom:10px">CTR por criativo</div><div style="position:relative;width:100%;height:220px"><canvas id="cCtr" role="img" aria-label="CTR por criativo">CTR por criativo.</canvas></div></div>
+    <div class="cwrap"><div class="ctit" style="margin-bottom:10px">CTR por criativo</div><div style="position:relative;width:100%;height:200px"><canvas id="cCtr" role="img" aria-label="CTR por criativo">CTR.</canvas></div></div>
   </div>
   <div class="cwrap">
     <div class="ctit" style="margin-bottom:8px">Todos os criativos</div>
     <div class="tscroll"><table><thead><tr><th>#</th><th>Anúncio</th><th>Formato</th><th>Produto</th><th>Plataforma</th><th>Gasto</th><th>Receita</th><th>ROAS</th><th>CTR</th><th>Link</th><th>Status</th></tr></thead><tbody id="bodyCriat"></tbody></table></div>
-    <div class="empty" id="emptyCriat">Sem dados. Preencha o campo "Anúncio" ao lançar.</div>
+    <div class="empty" id="emptyCriat">Sem dados.</div>
   </div>
  
   <!-- KANBAN -->
   <div class="cwrap" style="margin-top:4px">
     <div class="chead">
-      <div>
-        <div class="ctit">Kanban de criativos</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Arraste os cards entre as colunas. Adicione imagem do drive ou link do anúncio.</div>
-      </div>
-      <button class="btn-r" style="font-size:11px;padding:6px 12px" onclick="openKanbanModal()"><i class="ti ti-plus"></i> Novo card</button>
+      <div><div class="ctit">Kanban de criativos</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Clique para abrir o card completo. Arraste para mover entre colunas.</div></div>
+      <button class="btn-r" style="font-size:11px;padding:6px 12px" onclick="openKModal()"><i class="ti ti-plus"></i> Novo card</button>
     </div>
     <div class="kanban-wrap">
       <div class="kanban-board">
         <div class="kanban-col">
-          <div class="kanban-col-hd kc-test">
-            <span><i class="ti ti-bulb" style="margin-right:4px"></i>Para testar</span>
-            <span class="kanban-col-count" id="cnt-test">0</span>
-          </div>
-          <div class="kanban-dropzone" id="col-test" ondragover="onDragOver(event)" ondrop="onDrop(event,'test')" ondragleave="onDragLeave(event)"></div>
-          <button class="kanban-add-btn" onclick="openKanbanModal('test')"><i class="ti ti-plus"></i> Adicionar</button>
+          <div class="kanban-col-hd kc-test"><span><i class="ti ti-bulb" style="margin-right:4px"></i>Para testar</span><span class="kcnt" id="cnt-test">0</span></div>
+          <div class="kdz" id="col-test" ondragover="onDragOver(event)" ondrop="onDrop(event,'test')" ondragleave="onDragLeave(event)"></div>
+          <button class="kadd-btn" onclick="openKModal('test')"><i class="ti ti-plus"></i> Adicionar</button>
         </div>
         <div class="kanban-col">
-          <div class="kanban-col-hd kc-testing">
-            <span><i class="ti ti-player-play" style="margin-right:4px"></i>Testando</span>
-            <span class="kanban-col-count" id="cnt-testing">0</span>
-          </div>
-          <div class="kanban-dropzone" id="col-testing" ondragover="onDragOver(event)" ondrop="onDrop(event,'testing')" ondragleave="onDragLeave(event)"></div>
-          <button class="kanban-add-btn" onclick="openKanbanModal('testing')"><i class="ti ti-plus"></i> Adicionar</button>
+          <div class="kanban-col-hd kc-testing"><span><i class="ti ti-player-play" style="margin-right:4px"></i>Testando</span><span class="kcnt" id="cnt-testing">0</span></div>
+          <div class="kdz" id="col-testing" ondragover="onDragOver(event)" ondrop="onDrop(event,'testing')" ondragleave="onDragLeave(event)"></div>
+          <button class="kadd-btn" onclick="openKModal('testing')"><i class="ti ti-plus"></i> Adicionar</button>
         </div>
         <div class="kanban-col">
-          <div class="kanban-col-hd kc-valid">
-            <span><i class="ti ti-circle-check" style="margin-right:4px"></i>Validado</span>
-            <span class="kanban-col-count" id="cnt-valid">0</span>
-          </div>
-          <div class="kanban-dropzone" id="col-valid" ondragover="onDragOver(event)" ondrop="onDrop(event,'valid')" ondragleave="onDragLeave(event)"></div>
-          <button class="kanban-add-btn" onclick="openKanbanModal('valid')"><i class="ti ti-plus"></i> Adicionar</button>
+          <div class="kanban-col-hd kc-valid"><span><i class="ti ti-circle-check" style="margin-right:4px"></i>Validado</span><span class="kcnt" id="cnt-valid">0</span></div>
+          <div class="kdz" id="col-valid" ondragover="onDragOver(event)" ondrop="onDrop(event,'valid')" ondragleave="onDragLeave(event)"></div>
+          <button class="kadd-btn" onclick="openKModal('valid')"><i class="ti ti-plus"></i> Adicionar</button>
         </div>
         <div class="kanban-col">
-          <div class="kanban-col-hd kc-nope">
-            <span><i class="ti ti-circle-x" style="margin-right:4px"></i>Não funcionou</span>
-            <span class="kanban-col-count" id="cnt-nope">0</span>
-          </div>
-          <div class="kanban-dropzone" id="col-nope" ondragover="onDragOver(event)" ondrop="onDrop(event,'nope')" ondragleave="onDragLeave(event)"></div>
-          <button class="kanban-add-btn" onclick="openKanbanModal('nope')"><i class="ti ti-plus"></i> Adicionar</button>
+          <div class="kanban-col-hd kc-nope"><span><i class="ti ti-circle-x" style="margin-right:4px"></i>Não funcionou</span><span class="kcnt" id="cnt-nope">0</span></div>
+          <div class="kdz" id="col-nope" ondragover="onDragOver(event)" ondrop="onDrop(event,'nope')" ondragleave="onDragLeave(event)"></div>
+          <button class="kadd-btn" onclick="openKModal('nope')"><i class="ti ti-plus"></i> Adicionar</button>
         </div>
       </div>
     </div>
@@ -276,12 +327,9 @@ tr:hover td{background:var(--bg)}
 <div class="pane" id="pane-comp">
   <p class="sec">Comparativo de períodos</p>
   <div class="cwrap">
-    <div class="chead">
-      <div class="ctit">Faturamento vs Investimento</div>
-      <div class="pbtns"><button class="pbtn on" onclick="setComp(this,'d')">Diário</button><button class="pbtn" onclick="setComp(this,'w')">Semanal</button><button class="pbtn" onclick="setComp(this,'m')">Mensal</button></div>
-    </div>
+    <div class="chead"><div class="ctit">Faturamento vs Investimento</div><div class="pbtns"><button class="pbtn on" onclick="setComp(this,'d')">Diário</button><button class="pbtn" onclick="setComp(this,'w')">Semanal</button><button class="pbtn" onclick="setComp(this,'m')">Mensal</button></div></div>
     <div class="leg"><span class="li"><span class="ld" style="background:#C8102E"></span>Faturamento</span><span class="li"><span class="ld" style="background:#bbb"></span>Investimento</span></div>
-    <div style="position:relative;width:100%;height:220px"><canvas id="cComp" role="img" aria-label="Comparativo">Comparativo.</canvas></div>
+    <div style="position:relative;width:100%;height:210px"><canvas id="cComp" role="img" aria-label="Comparativo">Comparativo.</canvas></div>
   </div>
   <div class="kgrid" id="compKpis"></div>
 </div>
@@ -306,8 +354,8 @@ tr:hover td{background:var(--bg)}
  
 <!-- ALERTAS -->
 <div class="pane" id="pane-alertas">
-  <p class="sec">Alertas automáticos de performance</p>
-  <div id="alertasList"><div class="empty">Sem alertas. Lance dados para gerar alertas automáticos.</div></div>
+  <p class="sec">Alertas automáticos</p>
+  <div id="alertasList"><div class="empty">Sem alertas.</div></div>
 </div>
  
 <!-- OBS -->
@@ -315,16 +363,16 @@ tr:hover td{background:var(--bg)}
   <p class="sec">Observações estratégicas</p>
   <div class="cwrap">
     <div class="ctit" style="margin-bottom:8px">Nova observação</div>
-    <textarea class="obs-ta" id="obsInput" placeholder="Ex: UGC performando bem. Testar novo hook no Dermo Pro..."></textarea>
+    <textarea class="obs-ta" id="obsInput" placeholder="Ex: UGC performando bem..."></textarea>
     <div class="factions"><button class="btn-r" onclick="saveObs()"><i class="ti ti-device-floppy"></i> Salvar</button></div>
   </div>
   <div class="cwrap"><div class="ctit" style="margin-bottom:10px">Histórico</div><div id="obsHist"><div class="empty">Nenhuma observação ainda.</div></div></div>
 </div>
  
-<!-- LANÇAR (ÚLTIMO) -->
+<!-- LANÇAR -->
 <div class="pane" id="pane-lancar">
   <p class="sec">Lançar entrada — campanha › conjunto › anúncio</p>
-  <div class="notice"><i class="ti ti-info-circle"></i> Preencha a hierarquia completa. Campos com * são obrigatórios.</div>
+  <div class="notice"><i class="ti ti-info-circle"></i> Campos com * são obrigatórios.</div>
   <div class="cwrap">
     <div class="sec-block"><i class="ti ti-speakerphone"></i> 1. Campanha</div>
     <div class="fgrid">
@@ -333,7 +381,7 @@ tr:hover td{background:var(--bg)}
       <div class="fg"><label class="flbl">Produto *</label><select class="finp fsel" id="f_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
       <div class="fg"><label class="flbl">Nome da campanha *</label><input class="finp" type="text" id="f_camp" placeholder="Ex: Bumbum — Conversão TOP"></div>
       <div class="fg"><label class="flbl">Objetivo</label><select class="finp fsel" id="f_obj"><option value="">Selecione</option><option>Conversão</option><option>Tráfego</option><option>Alcance</option><option>Remarketing</option></select></div>
-      <div class="fg"><label class="flbl">Budget da campanha (R$)</label><input class="finp" type="number" id="f_budget_camp" placeholder="0.00" step="0.01"></div>
+      <div class="fg"><label class="flbl">Budget (R$)</label><input class="finp" type="number" id="f_budget_camp" placeholder="0.00" step="0.01"></div>
     </div>
   </div>
   <div class="cwrap">
@@ -341,9 +389,9 @@ tr:hover td{background:var(--bg)}
     <div class="fgrid">
       <div class="fg"><label class="flbl">Nome do conjunto *</label><input class="finp" type="text" id="f_conj" placeholder="Ex: Interesses Skincare 25-35"></div>
       <div class="fg"><label class="flbl">Gasto do conjunto (R$) *</label><input class="finp" type="number" id="f_inv_conj" placeholder="0.00" step="0.01"></div>
-      <div class="fg"><label class="flbl">Público / Segmentação</label><input class="finp" type="text" id="f_pub" placeholder="Ex: LAL 2% compradores"></div>
-      <div class="fg"><label class="flbl">Faturamento gerado (R$)</label><input class="finp" type="number" id="f_fat" placeholder="0.00" step="0.01"></div>
-      <div class="fg"><label class="flbl">Vendas / pedidos</label><input class="finp" type="number" id="f_vend" placeholder="0"></div>
+      <div class="fg"><label class="flbl">Público</label><input class="finp" type="text" id="f_pub" placeholder="Ex: LAL 2%"></div>
+      <div class="fg"><label class="flbl">Faturamento (R$)</label><input class="finp" type="number" id="f_fat" placeholder="0.00" step="0.01"></div>
+      <div class="fg"><label class="flbl">Vendas</label><input class="finp" type="number" id="f_vend" placeholder="0"></div>
       <div class="fg"><label class="flbl">Impressões</label><input class="finp" type="number" id="f_imp" placeholder="0"></div>
       <div class="fg"><label class="flbl">Cliques</label><input class="finp" type="number" id="f_cli" placeholder="0"></div>
       <div class="fg"><label class="flbl">CTR (%)</label><input class="finp" type="number" id="f_ctr" placeholder="0.00" step="0.01"></div>
@@ -359,114 +407,153 @@ tr:hover td{background:var(--bg)}
       <div class="fg"><label class="flbl">Formato</label><select class="finp fsel" id="f_fmt"><option value="">Selecione</option><option>Vídeo</option><option>Imagem</option><option>Carrossel</option><option>UGC</option><option>Stories</option></select></div>
       <div class="fg"><label class="flbl">CTR do anúncio (%)</label><input class="finp" type="number" id="f_ad_ctr" placeholder="0.00" step="0.01"></div>
       <div class="fg"><label class="flbl">Status</label><select class="finp fsel" id="f_status"><option value="ativo">Ativo</option><option value="pausado">Pausado</option><option value="testando">Testando</option><option value="top">Top Performer</option></select></div>
-      <div class="fg"><label class="flbl">Link do anúncio</label><input class="finp" type="url" id="f_link" placeholder="https://adsmanager.facebook.com/..."></div>
+      <div class="fg"><label class="flbl">Link do anúncio</label><input class="finp" type="url" id="f_link" placeholder="https://..."></div>
       <div class="fg full"><label class="flbl">Observação</label><input class="finp" type="text" id="f_obs_ad" placeholder="Ex: CTR alto, testar novo hook"></div>
     </div>
-    <div class="factions">
-      <button class="btn-r" onclick="salvar()"><i class="ti ti-device-floppy"></i> Salvar entrada</button>
-      <button class="btn-g" onclick="limpar()">Limpar</button>
-    </div>
+    <div class="factions"><button class="btn-r" onclick="salvar()"><i class="ti ti-device-floppy"></i> Salvar entrada</button><button class="btn-g" onclick="limpar()">Limpar</button></div>
   </div>
   <div class="cwrap">
-    <div class="chead">
-      <div class="ctit">Entradas salvas (<span id="totalE">0</span>)</div>
-      <button class="btn-g" style="font-size:10px;padding:3px 8px;color:var(--red);border-color:var(--red)" onclick="if(confirm('Apagar tudo?')){dados=[];save();renderE();updateH();refresh()}">Limpar tudo</button>
-    </div>
-    <div class="tscroll"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Produto</th><th>Campanha</th><th>Conjunto</th><th>Anúncio</th><th>Gasto Conj.</th><th>Gasto Ad</th><th>Receita</th><th>ROAS</th><th>CTR</th><th>Vendas</th><th>Link</th><th>Status</th><th></th></tr></thead><tbody id="bodyE"></tbody></table></div>
+    <div class="chead"><div class="ctit">Entradas salvas (<span id="totalE">0</span>)</div><button class="btn-g" style="font-size:10px;padding:3px 8px;color:var(--red);border-color:var(--red)" onclick="if(confirm('Apagar tudo?')){dados=[];save();renderE();updateH();refresh()}">Limpar tudo</button></div>
+    <div class="tscroll"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Produto</th><th>Campanha</th><th>Conjunto</th><th>Anúncio</th><th>Gasto Conj.</th><th>Receita</th><th>ROAS</th><th>CTR</th><th>Vendas</th><th>Link</th><th>Status</th><th></th></tr></thead><tbody id="bodyE"></tbody></table></div>
     <div class="empty" id="emptyE">Nenhuma entrada. Preencha o formulário acima.</div>
   </div>
 </div>
+</div><!-- /appWrap -->
  
-<!-- MODAL KANBAN -->
-<div class="modal-overlay" id="kanbanModal" style="display:none" onclick="closeKanbanModal(event)">
+<!-- MODAL NOVO CARD KANBAN -->
+<div class="modal-ov" id="kNewModal" style="display:none" onclick="if(event.target===this)closeKModal()">
   <div class="modal-box">
-    <div class="modal-title">
-      <span><i class="ti ti-photo" style="margin-right:6px"></i>Novo card de criativo</span>
-      <button class="modal-close" onclick="closeKanbanModal()"><i class="ti ti-x"></i></button>
+    <div class="modal-hd">
+      <div class="modal-title"><i class="ti ti-photo" style="margin-right:6px;color:var(--red)"></i>Novo card de criativo</div>
+      <button class="modal-close" onclick="closeKModal()"><i class="ti ti-x"></i></button>
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div class="fg"><label class="flbl">Nome do criativo *</label><input class="finp" type="text" id="kn_nome" placeholder="Ex: UGC Antes/Depois v2"></div>
-      <div class="fg"><label class="flbl">Produto</label><select class="finp fsel" id="kn_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
-      <div class="fg"><label class="flbl">Plataforma</label><select class="finp fsel" id="kn_plat"><option value="">Selecione</option><option>Meta</option><option>TikTok</option><option>Google</option></select></div>
-      <div class="fg"><label class="flbl">Formato</label><select class="finp fsel" id="kn_fmt"><option value="">Selecione</option><option>Vídeo</option><option>Imagem</option><option>Carrossel</option><option>UGC</option><option>Stories</option></select></div>
-      <div class="fg"><label class="flbl">Link do anúncio (Meta / TikTok / Google)</label><input class="finp" type="url" id="kn_link" placeholder="https://..."></div>
-      <div class="fg"><label class="flbl">Link da imagem (Google Drive, Dropbox, URL direta)</label><input class="finp" type="url" id="kn_img" placeholder="https://drive.google.com/..."></div>
-      <div style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:8px 10px;">
-        <i class="ti ti-info-circle" style="margin-right:4px"></i>
-        Para usar imagem do <b>Google Drive</b>: abra o arquivo, clique em "Compartilhar" → "Copiar link" → cole aqui. O dashboard converte automaticamente.
+    <div class="modal-body">
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div class="fg"><label class="flbl">Nome do criativo *</label><input class="finp" type="text" id="kn_nome" placeholder="Ex: UGC Antes/Depois v2"></div>
+        <div class="fgrid">
+          <div class="fg"><label class="flbl">Produto</label><select class="finp fsel" id="kn_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
+          <div class="fg"><label class="flbl">Plataforma</label><select class="finp fsel" id="kn_plat"><option value="">Selecione</option><option>Meta</option><option>TikTok</option><option>Google</option></select></div>
+          <div class="fg"><label class="flbl">Formato</label><select class="finp fsel" id="kn_fmt"><option value="">Selecione</option><option>Vídeo</option><option>Imagem</option><option>Carrossel</option><option>UGC</option><option>Stories</option></select></div>
+          <div class="fg"><label class="flbl">Coluna</label><select class="finp fsel" id="kn_col"><option value="test">Para testar</option><option value="testing">Testando</option><option value="valid">Validado</option><option value="nope">Não funcionou</option></select></div>
+        </div>
+        <div class="fg"><label class="flbl">Link do anúncio</label><input class="finp" type="url" id="kn_link" placeholder="https://adsmanager.facebook.com/..."></div>
+        <div class="fg"><label class="flbl">Imagem de capa (URL ou link do Google Drive)</label><input class="finp" type="url" id="kn_img" placeholder="https://drive.google.com/file/d/... ou URL direta"></div>
+        <div style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:7px 10px">
+          <i class="ti ti-info-circle" style="margin-right:3px"></i>Google Drive: abra o arquivo → Compartilhar → Copiar link → cole aqui.
+        </div>
+        <div class="fg"><label class="flbl">Observação</label><input class="finp" type="text" id="kn_obs" placeholder="Ex: Testar em Meta e TikTok"></div>
       </div>
-      <div class="fg"><label class="flbl">Observação</label><input class="finp" type="text" id="kn_obs" placeholder="Ex: Testar em Meta e TikTok"></div>
-      <div class="fg"><label class="flbl">Coluna inicial</label>
-        <select class="finp fsel" id="kn_col">
-          <option value="test">Para testar</option>
-          <option value="testing">Testando</option>
-          <option value="valid">Validado</option>
-          <option value="nope">Não funcionou</option>
-        </select>
-      </div>
-    </div>
-    <div class="factions" style="margin-top:14px">
-      <button class="btn-r" onclick="saveKanbanCard()"><i class="ti ti-device-floppy"></i> Salvar card</button>
-      <button class="btn-g" onclick="closeKanbanModal()">Cancelar</button>
+      <div class="factions"><button class="btn-r" onclick="saveKCard()"><i class="ti ti-device-floppy"></i> Criar card</button><button class="btn-g" onclick="closeKModal()">Cancelar</button></div>
     </div>
   </div>
 </div>
  
+<!-- MODAL CARD EXPANDIDO -->
+<div class="modal-ov" id="kCardModal" style="display:none" onclick="if(event.target===this)closeCardModal()">
+  <div class="modal-box" style="max-width:700px">
+    <div class="modal-hd">
+      <div class="modal-title" id="cardModalTitle">Card</div>
+      <button class="modal-close" onclick="closeCardModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="cardModalBody"></div>
+  </div>
+</div>
+ 
+<!-- MENTION DROPDOWN -->
+<div class="mention-drop" id="mentionDrop" style="display:none"></div>
+ 
 <script>
-let dados=[],metas={fat:220000,roas:5,cpa:45,ped:900,inv:32000,ctr:2.5},obsArr=[],kanbanCards=[],charts={},compMode='d',periodMode='7',dragId=null;
+// ---- CONFIG ----
+const SENHA = 'dermoclub2026';
+const TEAM = [
+  {id:'isabel',name:'Isabel',color:'#C8102E'},
+  {id:'jhonatan',name:'Jhonatan',color:'#1877F2'},
+  {id:'mateus',name:'Mateus',color:'#1A7F45'},
+  {id:'enzo',name:'Enzo',color:'#B45309'},
+  {id:'karol',name:'Karol',color:'#7C3AED'},
+];
  
-function save(){try{localStorage.setItem('dc4_d',JSON.stringify(dados));localStorage.setItem('dc4_m',JSON.stringify(metas));localStorage.setItem('dc4_o',JSON.stringify(obsArr));localStorage.setItem('dc4_k',JSON.stringify(kanbanCards));}catch(e){}}
-function load(){try{const d=localStorage.getItem('dc4_d');if(d)dados=JSON.parse(d);const m=localStorage.getItem('dc4_m');if(m)metas=JSON.parse(m);const o=localStorage.getItem('dc4_o');if(o)obsArr=JSON.parse(o);const k=localStorage.getItem('dc4_k');if(k)kanbanCards=JSON.parse(k);}catch(e){}}
+// ---- STATE ----
+let dados=[],metas={fat:220000,roas:5,cpa:45,ped:900,inv:32000,ctr:2.5},obsArr=[],kanbanCards=[],charts={},compMode='d',periodMode='7',dragId=null,currentUser=null,openCardId=null;
  
+// ---- PERSIST ----
+function save(){try{localStorage.setItem('dc5_d',JSON.stringify(dados));localStorage.setItem('dc5_m',JSON.stringify(metas));localStorage.setItem('dc5_o',JSON.stringify(obsArr));localStorage.setItem('dc5_k',JSON.stringify(kanbanCards));}catch(e){}}
+function load(){try{const d=localStorage.getItem('dc5_d');if(d)dados=JSON.parse(d);const m=localStorage.getItem('dc5_m');if(m)metas=JSON.parse(m);const o=localStorage.getItem('dc5_o');if(o)obsArr=JSON.parse(o);const k=localStorage.getItem('dc5_k');if(k)kanbanCards=JSON.parse(k);}catch(e){}}
+ 
+// ---- LOGIN ----
+function buildUserAvatars(){
+  const row=document.getElementById('userAvatarRow');
+  row.innerHTML=TEAM.map(u=>`<div class="uav" style="background:${u.color}" onclick="selectUser('${u.id}')" id="uav_${u.id}" title="${u.name}">${u.name[0]}</div>`).join('');
+}
+function selectUser(id){
+  document.querySelectorAll('.uav').forEach(el=>el.classList.remove('sel'));
+  const el=document.getElementById('uav_'+id);if(el)el.classList.add('sel');
+  currentUser=TEAM.find(u=>u.id===id);
+}
+function doLogin(){
+  if(!currentUser){alert('Selecione seu nome primeiro');return;}
+  const pass=document.getElementById('loginPass').value;
+  if(pass!==SENHA){document.getElementById('loginErr').style.display='block';return;}
+  document.getElementById('loginErr').style.display='none';
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appWrap').style.display='block';
+  const badge=document.getElementById('curUserBadge');
+  badge.innerHTML=`<div class="cur-avatar" style="background:${currentUser.color}">${currentUser.name[0]}</div><span>${currentUser.name}</span>`;
+  try{localStorage.setItem('dc5_user',currentUser.id);}catch(e){}
+  refresh();
+}
+function logout(){
+  try{localStorage.removeItem('dc5_user');}catch(e){}
+  currentUser=null;
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('appWrap').style.display='none';
+  document.getElementById('loginPass').value='';
+}
+function tryAutoLogin(){
+  try{const uid=localStorage.getItem('dc5_user');if(uid){const u=TEAM.find(t=>t.id===uid);if(u){currentUser=u;selectUser(u.id);document.getElementById('loginScreen').style.display='none';document.getElementById('appWrap').style.display='block';const badge=document.getElementById('curUserBadge');badge.innerHTML=`<div class="cur-avatar" style="background:${u.color}">${u.name[0]}</div><span>${u.name}</span>`;return true;}}}catch(e){}return false;}
+ 
+// ---- NAV ----
 function gT(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));document.getElementById('pane-'+id).classList.add('on');btn.classList.add('on');if(id!=='lancar')refresh();}
 function applyF(){refresh();}
-function setPPill(el,v){document.querySelectorAll('.ppill').forEach(p=>p.classList.remove('on'));el.classList.add('on');}
+function setPPill(el){document.querySelectorAll('.ppill').forEach(p=>p.classList.remove('on'));el.classList.add('on');}
 function setPeriod(btn,v){btn.closest('.pbtns').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');periodMode=v;renderChartFat();}
 function setComp(btn,v){btn.closest('.pbtns').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');compMode=v;renderComp();}
+ 
+// ---- UTILS ----
 function getF(){const p=document.getElementById('fProd').value,pl=document.getElementById('fPlat').value;return dados.filter(d=>(p==='all'||d.prod===p)&&(pl==='all'||d.plat===pl));}
 function sum(arr,f){return arr.reduce((a,d)=>a+(parseFloat(d[f])||0),0);}
-function calcRoas(i,f){return i>0?f/i:0;}
-function calcCpa(i,v){return v>0?i/v:0;}
+function cR(i,f){return i>0?f/i:0;}
+function cC(i,v){return v>0?i/v:0;}
 function fd(n,d=2){return isNaN(n)?'—':parseFloat(n).toFixed(d);}
 function fp(n){return n>0?fd(n,2)+'%':'—';}
 function fR(n){return n>0?'R$'+Math.round(n).toLocaleString('pt-BR'):'—';}
 function prodL(p){return p==='bumbum'?'Bumbum Dermo':'Dermo Pro';}
- 
+function driveImg(url){if(!url)return '';const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);if(m)return`https://drive.google.com/thumbnail?id=${m[1]}&sz=w400`;return url;}
+function tsNow(){return new Date().toLocaleString('pt-BR');}
 function platTag(p){
-  const logos={Meta:`<svg width="13" height="13" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,TikTok:`<svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>`,Google:`<svg width="13" height="13" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`};
+  const logos={Meta:`<svg width="12" height="12" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,TikTok:`<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>`,Google:`<svg width="12" height="12" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`};
   const bg={Meta:'#E7F0FD',TikTok:'#111',Google:'#FEF9E7'};const tx={Meta:'#0D4FA3',TikTok:'#fff',Google:'#7A5800'};
   return `<span class="plat" style="background:${bg[p]};color:${tx[p]}">${logos[p]||''}${p}</span>`;
 }
 function stB(s){const m={ativo:'st-on',pausado:'st-off',testando:'st-test',top:'st-top'};const l={ativo:'Ativo',pausado:'Pausado',testando:'Testando',top:'Top'};return `<span class="stbadge ${m[s]||'st-test'}">${l[s]||s}</span>`;}
 function pbB(p){return `<span class="pbadge ${p==='bumbum'?'pb-b':'pb-p'}">${prodL(p)}</span>`;}
+function userById(id){return TEAM.find(u=>u.id===id)||{name:id,color:'#888'};}
  
-// Converte link do Google Drive para link direto de imagem
-function driveToImg(url){
-  if(!url)return '';
-  const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if(m)return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w400`;
-  return url;
-}
- 
-// KANBAN
-function openKanbanModal(col){
-  document.getElementById('kn_nome').value='';document.getElementById('kn_prod').value='';
-  document.getElementById('kn_plat').value='';document.getElementById('kn_fmt').value='';
-  document.getElementById('kn_link').value='';document.getElementById('kn_img').value='';
-  document.getElementById('kn_obs').value='';
+// ---- KANBAN ----
+function openKModal(col){
+  ['kn_nome','kn_prod','kn_plat','kn_fmt','kn_link','kn_img','kn_obs'].forEach(id=>document.getElementById(id).value='');
   if(col)document.getElementById('kn_col').value=col;
-  document.getElementById('kanbanModal').style.display='flex';
+  document.getElementById('kNewModal').style.display='flex';
   setTimeout(()=>document.getElementById('kn_nome').focus(),100);
 }
-function closeKanbanModal(e){if(e&&e.target!==document.getElementById('kanbanModal'))return;document.getElementById('kanbanModal').style.display='none';}
-function saveKanbanCard(){
-  const nome=document.getElementById('kn_nome').value.trim();
-  if(!nome){alert('Informe o nome do criativo');return;}
-  const card={id:Date.now(),nome,prod:document.getElementById('kn_prod').value,plat:document.getElementById('kn_plat').value,fmt:document.getElementById('kn_fmt').value,link:document.getElementById('kn_link').value,img:document.getElementById('kn_img').value,obs:document.getElementById('kn_obs').value,col:document.getElementById('kn_col').value};
-  kanbanCards.push(card);save();renderKanban();closeKanbanModal();
+function closeKModal(){document.getElementById('kNewModal').style.display='none';}
+function saveKCard(){
+  const nome=document.getElementById('kn_nome').value.trim();if(!nome){alert('Informe o nome');return;}
+  const card={id:Date.now(),nome,prod:document.getElementById('kn_prod').value,plat:document.getElementById('kn_plat').value,fmt:document.getElementById('kn_fmt').value,link:document.getElementById('kn_link').value,img:document.getElementById('kn_img').value,obs:document.getElementById('kn_obs').value,col:document.getElementById('kn_col').value,variacoes:[],comentarios:[],criadoPor:currentUser?.id,criadoEm:tsNow()};
+  kanbanCards.push(card);save();renderKanban();closeKModal();
 }
-function delKanbanCard(id){if(!confirm('Remover card?'))return;kanbanCards=kanbanCards.filter(c=>c.id!==id);save();renderKanban();}
-function moveCard(id,col){const c=kanbanCards.find(c=>c.id===id);if(c){c.col=col;save();renderKanban();}}
+function delKCard(id){if(!confirm('Remover card?'))return;kanbanCards=kanbanCards.filter(c=>c.id!==id);save();renderKanban();if(openCardId===id)closeCardModal();}
+function moveKCard(id,col){const c=kanbanCards.find(c=>c.id===id);if(c){c.col=col;save();renderKanban();if(openCardId===id)renderCardModal(id);}}
  
 function renderKanban(){
   const cols=['test','testing','valid','nope'];
@@ -475,36 +562,189 @@ function renderKanban(){
     const cards=kanbanCards.filter(c=>c.col===col);
     document.getElementById('cnt-'+col).textContent=cards.length;
     zone.innerHTML=cards.map(c=>{
-      const imgSrc=driveToImg(c.img);
-      const imgHtml=imgSrc?`<img src="${imgSrc}" class="kcard-thumb" alt="${c.nome}" onerror="this.style.display='none'">`:`<div class="kcard-thumb-placeholder"><i class="ti ti-photo" style="font-size:20px"></i></div>`;
-      return `<div class="kcard-item" draggable="true" id="kc-${c.id}" ondragstart="onDragStart(event,${c.id})" ondragend="onDragEnd(event)">
-        <button class="kcard-del" onclick="delKanbanCard(${c.id})" title="Remover"><i class="ti ti-x"></i></button>
-        ${imgHtml}
-        <div class="kcard-name">${c.nome}</div>
-        <div class="kcard-meta">
-          ${c.plat?platTag(c.plat):''}
-          ${c.prod?pbB(c.prod):''}
-          ${c.fmt?`<span style="font-size:9px;color:var(--muted);background:var(--bg);padding:2px 5px;border-radius:3px">${c.fmt}</span>`:''}
-        </div>
-        ${c.obs?`<div style="font-size:10px;color:var(--muted);margin-bottom:4px">${c.obs}</div>`:''}
-        <div class="kcard-actions">
-          ${c.link?`<a href="${c.link}" target="_blank" class="kcard-link"><i class="ti ti-external-link"></i> Ver anúncio</a>`:''}
-        </div>
-        <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap">
-          ${cols.filter(cl=>cl!==col).map(cl=>{const lbl={test:'Para testar',testing:'Testando',valid:'Validado',nope:'Não funcionou'};return `<button class="kcard-btn" onclick="moveCard(${c.id},'${cl}')">${lbl[cl]}</button>`;}).join('')}
+      const imgSrc=driveImg(c.img);
+      const imgEl=imgSrc?`<img src="${imgSrc}" class="kci-thumb" alt="${c.nome}" onerror="this.outerHTML='<div class=kci-thumb-ph><i class=ti style=font-size:20px;color:var(--muted)></i><span style=font-size:10px;color:var(--muted)>Sem imagem</span></div>'">`:`<div class="kci-thumb-ph"><i class="ti ti-photo" style="font-size:22px"></i><span style="font-size:10px">Sem imagem</span></div>`;
+      const nComments=c.comentarios?.length||0;const nVars=c.variacoes?.length||0;
+      return `<div class="kci" id="kci-${c.id}" draggable="true" ondragstart="onDragStart(event,${c.id})" ondragend="onDragEnd(event)" onclick="openCardModal(${c.id})">
+        <i class="ti ti-grip-vertical kci-drag-handle" aria-hidden="true" onclick="event.stopPropagation()"></i>
+        ${imgEl}
+        <div class="kci-body">
+          <div class="kci-name">${c.nome}</div>
+          <div class="kci-tags">${c.plat?platTag(c.plat):''}${c.prod?pbB(c.prod):''}${c.fmt?`<span style="font-size:9px;color:var(--muted);background:var(--bg);padding:2px 5px;border-radius:3px">${c.fmt}</span>`:''}</div>
+          <div style="display:flex;gap:10px">
+            ${nComments?`<span class="kci-comment-count"><i class="ti ti-message-circle" style="font-size:11px"></i>${nComments}</span>`:''}
+            ${nVars?`<span class="kci-comment-count"><i class="ti ti-photo" style="font-size:11px"></i>${nVars} var.</span>`:''}
+          </div>
         </div>
       </div>`;
     }).join('');
   });
 }
  
-function onDragStart(e,id){dragId=id;setTimeout(()=>{const el=document.getElementById('kc-'+id);if(el)el.classList.add('dragging');},0);}
-function onDragEnd(e){document.querySelectorAll('.kcard-item').forEach(el=>el.classList.remove('dragging'));document.querySelectorAll('.kanban-dropzone').forEach(el=>el.classList.remove('drag-over'));}
+// ---- CARD MODAL EXPANDIDO ----
+function openCardModal(id){
+  openCardId=id;
+  document.getElementById('kCardModal').style.display='flex';
+  renderCardModal(id);
+}
+function closeCardModal(){document.getElementById('kCardModal').style.display='none';openCardId=null;}
+ 
+function renderCardModal(id){
+  const card=kanbanCards.find(c=>c.id===id);if(!card)return;
+  document.getElementById('cardModalTitle').innerHTML=`<span style="color:var(--red);margin-right:6px"><i class="ti ti-photo"></i></span>${card.nome}`;
+  const colLabels={test:'Para testar',testing:'Testando',valid:'Validado',nope:'Não funcionou'};
+  const imgSrc=driveImg(card.img);
+  const body=document.getElementById('cardModalBody');
+  body.innerHTML=`
+    <!-- MOVER ENTRE COLUNAS -->
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Mover para</div>
+      <div class="modal-col-move">
+        ${['test','testing','valid','nope'].map(col=>`<button class="col-mv-btn ${card.col===col?'cur':''}" onclick="moveKCard(${id},'${col}')">${colLabels[col]}</button>`).join('')}
+      </div>
+    </div>
+ 
+    <!-- IMAGEM + INFO -->
+    <div class="two" style="margin-bottom:12px;gap:12px">
+      <div>
+        ${imgSrc?`<img src="${imgSrc}" style="width:100%;border-radius:9px;object-fit:cover;max-height:200px" alt="${card.nome}">`:`<div style="background:var(--bg);border-radius:9px;height:160px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:6px"><i class="ti ti-photo" style="font-size:28px"></i><span style="font-size:11px">Sem imagem de capa</span></div>`}
+        ${card.link?`<a href="${card.link}" target="_blank" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--red);text-decoration:none;margin-top:8px"><i class="ti ti-external-link"></i> Ver anúncio original</a>`:''}
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Detalhes</div>
+        ${[['Produto',card.prod?prodL(card.prod):'—'],['Plataforma',card.plat||'—'],['Formato',card.fmt||'—'],['Criado por',card.criadoPor?userById(card.criadoPor).name:'—'],['Data',card.criadoEm||'—']].map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:11px"><span style="color:var(--muted)">${k}</span><span style="font-weight:500">${v}</span></div>`).join('')}
+        ${card.obs?`<div style="margin-top:8px;font-size:11px;color:var(--muted);background:var(--bg);padding:7px 9px;border-radius:6px">${card.obs}</div>`:''}
+      </div>
+    </div>
+ 
+    <!-- VARIAÇÕES -->
+    <div style="margin-bottom:14px">
+      <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Variações / anexos do criativo</div>
+      <div class="var-list" id="varList_${id}"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <input class="finp" type="url" id="varUrl_${id}" placeholder="URL da variação (Drive, link direto...)" style="flex:1;min-width:180px;font-size:11px;padding:7px 10px">
+        <input class="finp" type="text" id="varNome_${id}" placeholder="Nome (ex: v2 sem legenda)" style="width:160px;font-size:11px;padding:7px 10px">
+        <button class="btn-r" style="font-size:11px;padding:7px 12px" onclick="addVariacao(${id})"><i class="ti ti-plus"></i> Adicionar</button>
+      </div>
+    </div>
+ 
+    <!-- CHAT -->
+    <div>
+      <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Comentários <span style="font-size:10px;color:var(--muted);text-transform:none;letter-spacing:0">(use @ para mencionar)</span></div>
+      <div class="chat-area">
+        <div class="chat-msgs" id="chatMsgs_${id}"></div>
+        <div class="chat-inp-row" style="position:relative">
+          <div style="width:26px;height:26px;border-radius:50%;background:${currentUser?.color||'#888'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;flex-shrink:0">${currentUser?.name[0]||'?'}</div>
+          <textarea class="chat-inp" id="chatInp_${id}" placeholder="Escreva um comentário... @mencionar" rows="1" oninput="autoResize(this);checkMention(this,${id})" onkeydown="chatKeydown(event,${id})"></textarea>
+          <button class="chat-send" onclick="sendComment(${id})"><i class="ti ti-send"></i></button>
+        </div>
+      </div>
+    </div>`;
+ 
+  renderVarList(id);
+  renderChat(id);
+}
+ 
+function renderVarList(cardId){
+  const card=kanbanCards.find(c=>c.id===cardId);if(!card)return;
+  const el=document.getElementById('varList_'+cardId);if(!el)return;
+  if(!card.variacoes?.length){el.innerHTML='<div style="font-size:11px;color:var(--muted);padding:4px 0">Nenhuma variação ainda.</div>';return;}
+  el.innerHTML=card.variacoes.map((v,i)=>{const imgSrc=driveImg(v.url);return`<div class="var-item">
+    ${imgSrc?`<img src="${imgSrc}" alt="${v.nome}" onerror="this.style.display='none'">`:`<div class="var-item-ph"><i class="ti ti-photo"></i></div>`}
+    <div class="var-item-name" title="${v.nome}">${v.nome}</div>
+    ${v.url?`<a href="${v.url}" target="_blank" style="position:absolute;bottom:22px;left:3px;background:rgba(0,0,0,.5);color:#fff;border-radius:4px;font-size:9px;padding:2px 5px;text-decoration:none"><i class="ti ti-external-link"></i></a>`:''}
+    <button class="var-del" onclick="delVariacao(${cardId},${i})"><i class="ti ti-x"></i></button>
+  </div>`;}).join('');
+}
+ 
+function addVariacao(cardId){
+  const card=kanbanCards.find(c=>c.id===cardId);if(!card)return;
+  const url=document.getElementById('varUrl_'+cardId)?.value.trim();
+  const nome=document.getElementById('varNome_'+cardId)?.value.trim()||('v'+(((card.variacoes||[]).length)+1));
+  if(!url){alert('Informe a URL da variação');return;}
+  if(!card.variacoes)card.variacoes=[];
+  card.variacoes.push({url,nome});
+  save();renderVarList(cardId);
+  document.getElementById('varUrl_'+cardId).value='';
+  document.getElementById('varNome_'+cardId).value='';
+}
+function delVariacao(cardId,idx){const card=kanbanCards.find(c=>c.id===cardId);if(!card)return;card.variacoes.splice(idx,1);save();renderVarList(cardId);}
+ 
+// ---- CHAT ----
+function renderChat(cardId){
+  const card=kanbanCards.find(c=>c.id===cardId);if(!card)return;
+  const el=document.getElementById('chatMsgs_'+cardId);if(!el)return;
+  const msgs=card.comentarios||[];
+  if(!msgs.length){el.innerHTML='<div style="font-size:11px;color:var(--muted);text-align:center;padding:16px 0">Nenhum comentário ainda.</div>';return;}
+  el.innerHTML=msgs.map(m=>{
+    const u=userById(m.userId);
+    const textHtml=m.text.replace(/@(\w+)/g,(match,name)=>`<span class="chat-mention">@${name}</span>`);
+    return `<div class="chat-msg">
+      <div class="chat-avatar" style="background:${u.color}">${u.name[0]}</div>
+      <div class="chat-bubble">
+        <div class="chat-who">${u.name}<span>${m.ts}</span></div>
+        <div class="chat-text">${textHtml}</div>
+      </div>
+    </div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+ 
+function sendComment(cardId){
+  const inp=document.getElementById('chatInp_'+cardId);if(!inp)return;
+  const text=inp.value.trim();if(!text)return;
+  if(!currentUser){alert('Faça login primeiro');return;}
+  const card=kanbanCards.find(c=>c.id===cardId);if(!card)return;
+  if(!card.comentarios)card.comentarios=[];
+  card.comentarios.push({userId:currentUser.id,text,ts:tsNow()});
+  save();inp.value='';inp.style.height='';renderChat(cardId);
+  document.getElementById('mentionDrop').style.display='none';
+  // atualiza contagem no card
+  const kci=document.getElementById('kci-'+cardId);if(kci){const cnt=kci.querySelector('.kci-comment-count');if(cnt)cnt.textContent=card.comentarios.length;}
+  renderKanban();
+}
+ 
+function chatKeydown(e,cardId){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();const drop=document.getElementById('mentionDrop');if(drop.style.display!=='none')return;sendComment(cardId);}}
+function autoResize(el){el.style.height='';el.style.height=Math.min(el.scrollHeight,80)+'px';}
+ 
+// MENTION
+let mentionStart=-1,mentionCardId=null;
+function checkMention(inp,cardId){
+  const val=inp.value,pos=inp.selectionStart;
+  const before=val.slice(0,pos);const atIdx=before.lastIndexOf('@');
+  const drop=document.getElementById('mentionDrop');
+  if(atIdx>=0&&!before.slice(atIdx+1).includes(' ')){
+    const query=before.slice(atIdx+1).toLowerCase();
+    const matches=TEAM.filter(u=>u.name.toLowerCase().startsWith(query));
+    if(matches.length){
+      mentionStart=atIdx;mentionCardId=cardId;
+      drop.innerHTML=matches.map(u=>`<div class="mention-item" onclick="insertMention('${u.name}',${cardId})"><div style="width:22px;height:22px;border-radius:50%;background:${u.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff">${u.name[0]}</div>${u.name}</div>`).join('');
+      const rect=inp.getBoundingClientRect();
+      drop.style.left=rect.left+'px';drop.style.top=(rect.top-drop.offsetHeight-4+window.scrollY)+'px';
+      drop.style.display='block';return;
+    }
+  }
+  drop.style.display='none';mentionStart=-1;
+}
+function insertMention(name,cardId){
+  const inp=document.getElementById('chatInp_'+cardId);if(!inp)return;
+  const val=inp.value,pos=inp.selectionStart;
+  const before=val.slice(0,mentionStart)+'@'+name+' ';
+  const after=val.slice(pos);
+  inp.value=before+after;inp.focus();
+  inp.setSelectionRange(before.length,before.length);
+  document.getElementById('mentionDrop').style.display='none';mentionStart=-1;
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.mention-drop')&&!e.target.closest('.chat-inp'))document.getElementById('mentionDrop').style.display='none';});
+ 
+// ---- DRAG & DROP ----
+function onDragStart(e,id){dragId=id;setTimeout(()=>{const el=document.getElementById('kci-'+id);if(el)el.classList.add('dragging');},0);}
+function onDragEnd(){document.querySelectorAll('.kci').forEach(el=>el.classList.remove('dragging'));document.querySelectorAll('.kdz').forEach(el=>el.classList.remove('drag-over'));}
 function onDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
 function onDragLeave(e){e.currentTarget.classList.remove('drag-over');}
-function onDrop(e,col){e.preventDefault();e.currentTarget.classList.remove('drag-over');if(dragId!==null){moveCard(dragId,col);dragId=null;}}
+function onDrop(e,col){e.preventDefault();e.currentTarget.classList.remove('drag-over');if(dragId!==null){moveKCard(dragId,col);dragId=null;}}
  
-// FORM LANÇAR
+// ---- LANÇAR ----
 function salvar(){
   const req=['f_data','f_plat','f_prod','f_camp','f_conj','f_inv_conj'];
   for(const id of req){if(!document.getElementById(id).value.trim()){alert('Preencha os campos obrigatórios (*)');return;}}
@@ -514,11 +754,11 @@ function salvar(){
   const imp=parseInt(document.getElementById('f_imp').value)||0;
   const cli=parseInt(document.getElementById('f_cli').value)||0;
   const ctrV=parseFloat(document.getElementById('f_ctr').value)||(imp>0?cli/imp*100:0);
-  const e={id:Date.now(),data:document.getElementById('f_data').value,plat:document.getElementById('f_plat').value,prod:document.getElementById('f_prod').value,camp:document.getElementById('f_camp').value,obj:document.getElementById('f_obj').value,budget_camp:parseFloat(document.getElementById('f_budget_camp').value)||0,conj:document.getElementById('f_conj').value,pub:document.getElementById('f_pub').value,inv_conj,fat,vend,imp,cli,ctr:ctrV,cpm:parseFloat(document.getElementById('f_cpm').value)||0,cpc:parseFloat(document.getElementById('f_cpc').value)||0,ad:document.getElementById('f_ad').value,inv_ad:parseFloat(document.getElementById('f_inv_ad').value)||0,fmt:document.getElementById('f_fmt').value,ad_ctr:parseFloat(document.getElementById('f_ad_ctr').value)||0,status:document.getElementById('f_status').value,link:document.getElementById('f_link').value,obs:document.getElementById('f_obs_ad').value,roas_v:calcRoas(inv_conj,fat),cpa_v:calcCpa(inv_conj,vend)};
-  dados.unshift(e);save();limpar();renderE();updateH();alert('Entrada salva com sucesso!');
+  const e={id:Date.now(),data:document.getElementById('f_data').value,plat:document.getElementById('f_plat').value,prod:document.getElementById('f_prod').value,camp:document.getElementById('f_camp').value,obj:document.getElementById('f_obj').value,budget_camp:parseFloat(document.getElementById('f_budget_camp').value)||0,conj:document.getElementById('f_conj').value,pub:document.getElementById('f_pub').value,inv_conj,fat,vend,imp,cli,ctr:ctrV,cpm:parseFloat(document.getElementById('f_cpm').value)||0,cpc:parseFloat(document.getElementById('f_cpc').value)||0,ad:document.getElementById('f_ad').value,inv_ad:parseFloat(document.getElementById('f_inv_ad').value)||0,fmt:document.getElementById('f_fmt').value,ad_ctr:parseFloat(document.getElementById('f_ad_ctr').value)||0,status:document.getElementById('f_status').value,link:document.getElementById('f_link').value,obs:document.getElementById('f_obs_ad').value,roas_v:cR(inv_conj,fat),cpa_v:cC(inv_conj,vend)};
+  dados.unshift(e);save();limpar();renderE();updateH();alert('Entrada salva!');
 }
 function limpar(){['f_data','f_plat','f_prod','f_camp','f_obj','f_budget_camp','f_conj','f_pub','f_inv_conj','f_fat','f_vend','f_imp','f_cli','f_ctr','f_cpm','f_cpc','f_ad','f_inv_ad','f_fmt','f_ad_ctr','f_link','f_obs_ad'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_status').value='ativo';document.getElementById('f_data').value=new Date().toISOString().slice(0,10);}
-function del(id){if(!confirm('Remover?'))return;dados=dados.filter(d=>d.id!==id);save();renderE();refresh();updateH();}
+function delEntry(id){if(!confirm('Remover?'))return;dados=dados.filter(d=>d.id!==id);save();renderE();refresh();updateH();}
 function updateH(){if(!dados.length){document.getElementById('lastUp').textContent='Sem dados — comece lançando um relatório';return;}document.getElementById('lastUp').textContent='Última entrada: '+dados[0].data+' · '+dados.length+' registro(s)';}
  
 function renderE(){
@@ -526,38 +766,27 @@ function renderE(){
   document.getElementById('totalE').textContent=dados.length;
   if(!dados.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  tbody.innerHTML=dados.map(d=>`<tr><td>${d.data}</td><td>${platTag(d.plat)}</td><td>${pbB(d.prod)}</td><td style="font-weight:500;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.camp}</td><td style="max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.conj}</td><td style="max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.ad||'—'}</td><td>${d.inv_conj>0?'R$'+fd(d.inv_conj):'—'}</td><td>${d.inv_ad>0?'R$'+fd(d.inv_ad):'—'}</td><td>${d.fat>0?fR(d.fat):'—'}</td><td style="font-weight:500;color:${d.roas_v>=5?'var(--success)':'var(--red)'}">${d.roas_v>0?fd(d.roas_v)+'x':'—'}</td><td>${fp(d.ctr)}</td><td>${d.vend||'—'}</td><td>${d.link?`<a href="${d.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td><td>${stB(d.status)}</td><td><button onclick="del(${d.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px"><i class="ti ti-trash"></i></button></td></tr>`).join('');
+  tbody.innerHTML=dados.map(d=>`<tr><td>${d.data}</td><td>${platTag(d.plat)}</td><td>${pbB(d.prod)}</td><td style="font-weight:500;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.camp}</td><td style="max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.conj}</td><td style="max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.ad||'—'}</td><td>${d.inv_conj>0?'R$'+fd(d.inv_conj):'—'}</td><td>${d.fat>0?fR(d.fat):'—'}</td><td style="font-weight:500;color:${d.roas_v>=5?'var(--success)':'var(--red)'}">${d.roas_v>0?fd(d.roas_v)+'x':'—'}</td><td>${fp(d.ctr)}</td><td>${d.vend||'—'}</td><td>${d.link?`<a href="${d.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td><td>${stB(d.status)}</td><td><button onclick="delEntry(${d.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px"><i class="ti ti-trash"></i></button></td></tr>`).join('');
 }
  
 function dc(id){if(charts[id]){charts[id].destroy();charts[id]=null;}}
  
 function renderKpis(){
   const f=getF();
-  if(!f.length){document.getElementById('kpiGrid').innerHTML='<div class="empty" style="grid-column:1/-1">Sem dados. Vá em "Lançar Dados" para começar.</div>';return;}
+  if(!f.length){document.getElementById('kpiGrid').innerHTML='<div class="empty" style="grid-column:1/-1">Sem dados. Vá em "Lançar Dados".</div>';return;}
   const inv=sum(f,'inv_conj'),fat=sum(f,'fat'),vend=sum(f,'vend');
-  const roasV=calcRoas(inv,fat),cpaV=calcCpa(inv,vend);
+  const roasV=cR(inv,fat),cpaV=cC(inv,vend);
   const ctrArr=f.filter(d=>d.ctr>0);const ctrV=ctrArr.length?ctrArr.reduce((a,d)=>a+d.ctr,0)/ctrArr.length:0;
   const cpcArr=f.filter(d=>d.cpc>0);const cpcV=cpcArr.length?cpcArr.reduce((a,d)=>a+d.cpc,0)/cpcArr.length:0;
   const cpmArr=f.filter(d=>d.cpm>0);const cpmV=cpmArr.length?cpmArr.reduce((a,d)=>a+d.cpm,0)/cpmArr.length:0;
   const ticket=vend>0?fat/vend:0;
-  const ks=[
-    {l:'Faturamento',ic:'ti-currency-dollar',v:fR(fat),big:true,hi:true,sub:'Bumbum + Pro'},
-    {l:'Investimento',ic:'ti-ad',v:fR(inv),hi:true,sub:`Budget: ${fR(metas.inv)}`},
-    {l:'ROAS',ic:'ti-chart-bar',v:roasV>0?fd(roasV)+'x':'—',big:roasV>=metas.roas,hi:true,sub:`Meta: ${fd(metas.roas)}x`},
-    {l:'CPA / CAC',ic:'ti-users',v:cpaV>0?'R$'+fd(cpaV):'—',sub:`Máx: R$${fd(metas.cpa)}`},
-    {l:'CTR',ic:'ti-click',v:fp(ctrV),sub:'Bench: 2.5%'},
-    {l:'CPC',ic:'ti-coin',v:cpcV>0?'R$'+fd(cpcV):'—',sub:'Por clique'},
-    {l:'CPM',ic:'ti-eye',v:cpmV>0?'R$'+fd(cpmV):'—',sub:'Por mil imp.'},
-    {l:'Pedidos',ic:'ti-shopping-cart',v:vend||'—',sub:`Meta: ${metas.ped}`},
-    {l:'Ticket médio',ic:'ti-ticket',v:fR(ticket),sub:'Por pedido'},
-  ];
+  const ks=[{l:'Faturamento',ic:'ti-currency-dollar',v:fR(fat),big:true,hi:true,sub:'Bumbum + Pro'},{l:'Investimento',ic:'ti-ad',v:fR(inv),hi:true,sub:`Budget: ${fR(metas.inv)}`},{l:'ROAS',ic:'ti-chart-bar',v:roasV>0?fd(roasV)+'x':'—',big:roasV>=metas.roas,hi:true,sub:`Meta: ${fd(metas.roas)}x`},{l:'CPA / CAC',ic:'ti-users',v:cpaV>0?'R$'+fd(cpaV):'—',sub:`Máx: R$${fd(metas.cpa)}`},{l:'CTR',ic:'ti-click',v:fp(ctrV),sub:'Bench: 2.5%'},{l:'CPC',ic:'ti-coin',v:cpcV>0?'R$'+fd(cpcV):'—',sub:'Por clique'},{l:'CPM',ic:'ti-eye',v:cpmV>0?'R$'+fd(cpmV):'—',sub:'Por mil imp.'},{l:'Pedidos',ic:'ti-shopping-cart',v:vend||'—',sub:`Meta: ${metas.ped}`},{l:'Ticket médio',ic:'ti-ticket',v:fR(ticket),sub:'Por pedido'}];
   document.getElementById('kpiGrid').innerHTML=ks.map(k=>`<div class="kcard ${k.hi?'hi':''}"><div class="klbl"><i class="ti ${k.ic}" style="font-size:11px"></i> ${k.l}</div><div class="kval ${k.big?'big':''}">${k.v}</div>${k.sub?`<div class="ksub">${k.sub}</div>`:''}</div>`).join('');
 }
  
 function renderChartFat(){
-  const f=getF();dc('fat');
-  let fil=f;
-  if(periodMode!=='all'){const days=parseInt(periodMode);const cut=new Date();cut.setDate(cut.getDate()-days);const cs=cut.toISOString().slice(0,10);fil=f.filter(d=>d.data>=cs);}
+  const f=getF();dc('fat');let fil=f;
+  if(periodMode!=='all'){const days=parseInt(periodMode);const cut=new Date();cut.setDate(cut.getDate()-days);fil=f.filter(d=>d.data>=cut.toISOString().slice(0,10));}
   const byD={};fil.forEach(d=>{if(!byD[d.data])byD[d.data]={b:0,p:0};if(d.prod==='bumbum')byD[d.data].b+=d.fat||0;else byD[d.data].p+=d.fat||0;});
   const lb=Object.keys(byD).sort();if(!lb.length)return;
   charts['fat']=new Chart(document.getElementById('cFat'),{type:'line',data:{labels:lb,datasets:[{label:'Bumbum',data:lb.map(l=>Math.round(byD[l]?.b||0)),borderColor:'#C8102E',backgroundColor:'rgba(200,16,46,0.1)',fill:true,tension:.4,borderWidth:2,pointRadius:3},{label:'Pro',data:lb.map(l=>Math.round(byD[l]?.p||0)),borderColor:'#888',backgroundColor:'rgba(136,136,136,0.1)',fill:true,tension:.4,borderWidth:2,pointRadius:3,borderDash:[5,4]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:9}},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{font:{size:9},maxRotation:45,autoSkip:true,maxTicksLimit:12}}}}});
@@ -574,23 +803,19 @@ function renderChartsMini(){
  
 function renderTree(){
   const f=getF();const el=document.getElementById('treeView');
-  if(!f.length){el.innerHTML='<div class="empty">Sem dados. Lance relatórios na aba "Lançar Dados".</div>';return;}
+  if(!f.length){el.innerHTML='<div class="empty">Sem dados.</div>';return;}
   const camps={};
   f.forEach(d=>{if(!camps[d.camp])camps[d.camp]={name:d.camp,plat:d.plat,prod:d.prod,obj:d.obj,inv:0,fat:0,vend:0,conjs:{}};camps[d.camp].inv+=d.inv_conj||0;camps[d.camp].fat+=d.fat||0;camps[d.camp].vend+=d.vend||0;if(!camps[d.camp].conjs[d.conj])camps[d.camp].conjs[d.conj]={name:d.conj,pub:d.pub,inv:0,fat:0,vend:0,ctr:0,ctrN:0,ads:[]};const cj=camps[d.camp].conjs[d.conj];cj.inv+=d.inv_conj||0;cj.fat+=d.fat||0;cj.vend+=d.vend||0;if(d.ctr>0){cj.ctr+=d.ctr;cj.ctrN++;}if(d.ad)cj.ads.push({name:d.ad,inv:d.inv_ad||0,fat:d.fat||0,fmt:d.fmt,link:d.link,status:d.status,ad_ctr:d.ad_ctr||0});});
-  el.innerHTML=Object.values(camps).map((c,ci)=>{
-    const cR=calcRoas(c.inv,c.fat);
-    const conjsHtml=Object.values(c.conjs).map(cj=>{const cjR=calcRoas(cj.inv,cj.fat);const avgCtr=cj.ctrN>0?cj.ctr/cj.ctrN:0;const adsH=cj.ads.length?`<div class="tree-ad">${cj.ads.map(a=>`<div class="tree-ad-row"><div class="tree-ad-name"><i class="ti ti-photo" style="font-size:11px"></i> ${a.name} ${a.fmt?`<span style="font-size:9px;color:var(--muted)">(${a.fmt})</span>`:''} ${stB(a.status)} ${a.link?`<a href="${a.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:''}</div><div class="tree-ad-kpis">${a.inv>0?`<span>Gasto: <b>R$${fd(a.inv)}</b></span>`:''} ${a.fat>0?`<span>Receita: <b>${fR(a.fat)}</b></span>`:''} ${a.ad_ctr>0?`<span>CTR: <b>${fp(a.ad_ctr)}</b></span>`:''}</div></div>`).join('')}</div>`:'';return `<div class="tree-conj"><div class="tree-conj-hd"><div class="tree-conj-name"><i class="ti ti-layers" style="font-size:11px"></i> ${cj.name}${cj.pub?` <span style="font-size:9px;color:var(--muted)">${cj.pub}</span>`:''}</div><div class="tree-conj-kpis"><span>Gasto: <b style="color:var(--text)">R$${fd(cj.inv)}</b></span>${cj.fat>0?`<span>Receita: <b style="color:var(--text)">${fR(cj.fat)}</b></span>`:''}<span style="color:${cjR>=5?'var(--success)':'var(--red)'}">ROAS: <b>${cjR>0?fd(cjR)+'x':'—'}</b></span>${avgCtr>0?`<span>CTR: <b style="color:var(--text)">${fp(avgCtr)}</b></span>`:''}${cj.vend>0?`<span>Vendas: <b style="color:var(--text)">${cj.vend}</b></span>`:''}</div></div>${adsH}</div>`;}).join('');
-    return `<div class="tree-camp"><div class="tree-camp-hd" onclick="toggleT('tc${ci}','cv${ci}')"><div class="tree-camp-title"><i class="ti ti-chevron-down chevron" id="cv${ci}"></i>${platTag(c.plat)} ${pbB(c.prod)} <span>${c.name}</span>${c.obj?`<span style="font-size:9px;color:var(--muted)">${c.obj}</span>`:''}</div><div class="tree-camp-meta"><span>Gasto: <b style="color:var(--text)">R$${fd(c.inv)}</b></span>${c.fat>0?`<span>Receita: <b style="color:var(--text)">${fR(c.fat)}</b></span>`:''}<span style="color:${cR>=5?'var(--success)':'var(--red)'}">ROAS: <b>${cR>0?fd(cR)+'x':'—'}</b></span>${c.vend>0?`<span>Vendas: <b style="color:var(--text)">${c.vend}</b></span>`:''}</div></div><div class="tree-body" id="tc${ci}">${conjsHtml}</div></div>`;
-  }).join('');
+  el.innerHTML=Object.values(camps).map((c,ci)=>{const cr=cR(c.inv,c.fat);const conjsH=Object.values(c.conjs).map(cj=>{const cjR=cR(cj.inv,cj.fat);const avgCtr=cj.ctrN>0?cj.ctr/cj.ctrN:0;const adsH=cj.ads.length?`<div class="tree-ad">${cj.ads.map(a=>`<div class="tree-ad-row"><div class="tree-ad-name"><i class="ti ti-photo" style="font-size:11px"></i> ${a.name} ${a.fmt?`<span style="font-size:9px;color:var(--muted)">(${a.fmt})</span>`:''} ${stB(a.status)} ${a.link?`<a href="${a.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:''}</div><div class="tree-ad-kpis">${a.inv>0?`<span>Gasto:<b>R$${fd(a.inv)}</b></span>`:''} ${a.fat>0?`<span>Receita:<b>${fR(a.fat)}</b></span>`:''} ${a.ad_ctr>0?`<span>CTR:<b>${fp(a.ad_ctr)}</b></span>`:''}</div></div>`).join('')}</div>`:'';return`<div class="tree-conj"><div class="tree-conj-hd"><div class="tree-conj-name"><i class="ti ti-layers" style="font-size:11px"></i> ${cj.name}${cj.pub?` <span style="font-size:9px;color:var(--muted)">${cj.pub}</span>`:''}</div><div class="tree-conj-kpis"><span>Gasto:<b style="color:var(--text)">R$${fd(cj.inv)}</b></span>${cj.fat>0?`<span>Receita:<b style="color:var(--text)">${fR(cj.fat)}</b></span>`:''}<span style="color:${cjR>=5?'var(--success)':'var(--red)'}">ROAS:<b>${cjR>0?fd(cjR)+'x':'—'}</b></span>${avgCtr>0?`<span>CTR:<b style="color:var(--text)">${fp(avgCtr)}</b></span>`:''}${cj.vend>0?`<span>Vendas:<b style="color:var(--text)">${cj.vend}</b></span>`:''}</div></div>${adsH}</div>`;}).join('');return`<div class="tree-camp"><div class="tree-camp-hd" onclick="toggleT('tc${ci}','cv${ci}')"><div class="tree-camp-title"><i class="ti ti-chevron-down chevron" id="cv${ci}"></i>${platTag(c.plat)} ${pbB(c.prod)} <span>${c.name}</span>${c.obj?`<span style="font-size:9px;color:var(--muted)">${c.obj}</span>`:''}</div><div class="tree-camp-meta"><span>Gasto:<b style="color:var(--text)">R$${fd(c.inv)}</b></span>${c.fat>0?`<span>Receita:<b style="color:var(--text)">${fR(c.fat)}</b></span>`:''}<span style="color:${cr>=5?'var(--success)':'var(--red)'}">ROAS:<b>${cr>0?fd(cr)+'x':'—'}</b></span>${c.vend>0?`<span>Vendas:<b style="color:var(--text)">${c.vend}</b></span>`:''}</div></div><div class="tree-body" id="tc${ci}">${conjsH}</div></div>`;}).join('');
 }
 function toggleT(bId,cId){const b=document.getElementById(bId),c=document.getElementById(cId);if(!b)return;const open=b.style.display!=='none';b.style.display=open?'none':'block';if(c)c.classList.toggle('open',!open);}
  
 function renderCriativos(){
   const f=getF().filter(d=>d.ad&&d.ad.trim());dc('ctr');
   const byA={};f.forEach(d=>{const k=d.ad.trim()+'|'+d.prod+'|'+d.plat;if(!byA[k])byA[k]={name:d.ad.trim(),prod:d.prod,plat:d.plat,fmt:d.fmt,inv:0,fat:0,vend:0,ctrArr:[],link:d.link,status:d.status};byA[k].inv+=d.inv_ad||0;byA[k].fat+=d.fat||0;byA[k].vend+=d.vend||0;if(d.ad_ctr>0)byA[k].ctrArr.push(d.ad_ctr);});
-  const list=Object.values(byA).map(c=>({...c,roas_v:calcRoas(c.inv,c.fat),ctr_v:c.ctrArr.length?c.ctrArr.reduce((a,b)=>a+b,0)/c.ctrArr.length:0})).sort((a,b)=>b.fat-a.fat);
+  const list=Object.values(byA).map(c=>({...c,roas_v:cR(c.inv,c.fat),ctr_v:c.ctrArr.length?c.ctrArr.reduce((a,b)=>a+b,0)/c.ctrArr.length:0})).sort((a,b)=>b.fat-a.fat);
   const empty=document.getElementById('emptyCriat'),tbody=document.getElementById('bodyCriat'),rank=document.getElementById('rankCriat');
-  if(!list.length){tbody.innerHTML='';empty.style.display='block';rank.innerHTML='<div class="empty">Sem dados. Preencha o campo "Anúncio".</div>';return;}
+  if(!list.length){tbody.innerHTML='';empty.style.display='block';rank.innerHTML='<div class="empty">Sem dados.</div>';return;}
   empty.style.display='none';
   tbody.innerHTML=list.map((c,i)=>`<tr><td style="font-weight:600;color:var(--red)">${i+1}</td><td style="font-weight:500">${c.name}</td><td style="color:var(--muted)">${c.fmt||'—'}</td><td>${pbB(c.prod)}</td><td>${platTag(c.plat)}</td><td>${c.inv>0?'R$'+fd(c.inv):'—'}</td><td>${fR(c.fat)}</td><td style="color:${c.roas_v>=5?'var(--success)':'var(--red)'};font-weight:500">${c.roas_v>0?fd(c.roas_v)+'x':'—'}</td><td>${fp(c.ctr_v)}</td><td>${c.link?`<a href="${c.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td><td>${stB(c.status)}</td></tr>`).join('');
   rank.innerHTML=list.slice(0,5).map((c,i)=>`<div class="rank-item"><div class="rnum">${i+1}</div><div class="rinfo"><div class="rname">${c.name}</div><div class="rdet">${platTag(c.plat)} ${prodL(c.prod)} · CTR ${fp(c.ctr_v)}</div></div><div class="rval">${fR(c.fat)}</div></div>`).join('');
@@ -611,41 +836,44 @@ function saveMetas(){metas.fat=parseFloat(document.getElementById('m_fat').value
  
 function renderMetas(){
   const f=getF();const inv=sum(f,'inv_conj'),fat=sum(f,'fat'),vend=sum(f,'vend');
-  const roasV=calcRoas(inv,fat),cpaV=calcCpa(inv,vend);
+  const roasV=cR(inv,fat),cpaV=cC(inv,vend);
   const ctrArr=f.filter(d=>d.ctr>0);const ctrV=ctrArr.length?ctrArr.reduce((a,d)=>a+d.ctr,0)/ctrArr.length:0;
   document.getElementById('mesAtual').textContent=new Date().toLocaleString('pt-BR',{month:'long',year:'numeric'});
   document.getElementById('m_fat').value=metas.fat;document.getElementById('m_roas').value=metas.roas;document.getElementById('m_cpa').value=metas.cpa;document.getElementById('m_ped').value=metas.ped;document.getElementById('m_inv').value=metas.inv;document.getElementById('m_ctr').value=metas.ctr;
   const rows=[{l:'Faturamento',a:fat,m:metas.fat,fmt:fR,inv:false},{l:'ROAS',a:roasV,m:metas.roas,fmt:v=>fd(v)+'x',inv:false},{l:'CPA (menor = melhor)',a:cpaV,m:metas.cpa,fmt:v=>'R$'+fd(v),inv:true},{l:'Pedidos',a:vend,m:metas.ped,fmt:v=>Math.round(v),inv:false},{l:'Budget utilizado',a:inv,m:metas.inv,fmt:fR,inv:false},{l:'CTR médio',a:ctrV,m:metas.ctr,fmt:fp,inv:false}];
   const el=document.getElementById('metasWrap');
-  if(!f.length){el.innerHTML='<div class="ctit" style="margin-bottom:10px">Progresso das metas</div><div class="empty">Lance dados para ver o progresso.</div>';return;}
-  el.innerHTML='<div class="ctit" style="margin-bottom:14px">Progresso das metas</div>'+rows.map(r=>{let pct=r.inv?(r.m>0?Math.min(r.m/Math.max(r.a,0.01)*100,100):0):r.m>0?Math.min(r.a/r.m*100,100):0;if(isNaN(pct)||!isFinite(pct))pct=0;const ok=r.inv?(r.a<=r.m||r.a===0):(r.a>=r.m);const col=ok?'var(--success)':'var(--red)';return `<div class="meta-row"><div class="mlbl">${r.l}</div><div class="mbar"><div class="pbar"><div class="pfill" style="width:${Math.round(pct)}%;background:${ok?'#1A7F45':'var(--red)'}"></div></div></div><div class="mpct" style="color:${col}">${Math.round(pct)}%</div><div class="mval">${r.a>0?r.fmt(r.a):'—'} / ${r.fmt(r.m)}</div></div>`;}).join('');
+  if(!f.length){el.innerHTML='<div class="ctit" style="margin-bottom:10px">Progresso das metas</div><div class="empty">Lance dados para ver.</div>';return;}
+  el.innerHTML='<div class="ctit" style="margin-bottom:12px">Progresso das metas</div>'+rows.map(r=>{let pct=r.inv?(r.m>0?Math.min(r.m/Math.max(r.a,0.01)*100,100):0):r.m>0?Math.min(r.a/r.m*100,100):0;if(isNaN(pct)||!isFinite(pct))pct=0;const ok=r.inv?(r.a<=r.m||r.a===0):(r.a>=r.m);const col=ok?'var(--success)':'var(--red)';return`<div class="meta-row"><div class="mlbl">${r.l}</div><div class="mbar"><div class="pbar"><div class="pfill" style="width:${Math.round(pct)}%;background:${ok?'#1A7F45':'var(--red)'}"></div></div></div><div class="mpct" style="color:${col}">${Math.round(pct)}%</div><div class="mval">${r.a>0?r.fmt(r.a):'—'} / ${r.fmt(r.m)}</div></div>`;}).join('');
 }
  
 function renderAlertas(){
   const f=getF();const inv=sum(f,'inv_conj'),fat=sum(f,'fat'),vend=sum(f,'vend');
-  const roasV=calcRoas(inv,fat),cpaV=calcCpa(inv,vend);const als=[];
-  if(!f.length){document.getElementById('alertasList').innerHTML='<div class="empty">Sem alertas. Lance dados.</div>';document.getElementById('alertN').textContent='0';return;}
+  const roasV=cR(inv,fat),cpaV=cC(inv,vend);const als=[];
+  if(!f.length){document.getElementById('alertasList').innerHTML='<div class="empty">Sem alertas.</div>';document.getElementById('alertN').textContent='0';return;}
   if(roasV>=metas.roas)als.push({t:'al-s',i:'ti-star',tit:'ROAS acima da meta!',desc:`ROAS ${fd(roasV)}x supera a meta de ${fd(metas.roas)}x.`});
-  if(roasV>0&&roasV<metas.roas*0.7)als.push({t:'al-d',i:'ti-alert-triangle',tit:'ROAS abaixo da meta',desc:`ROAS ${fd(roasV)}x está 30%+ abaixo da meta de ${fd(metas.roas)}x.`});
-  if(cpaV>0&&cpaV>metas.cpa)als.push({t:'al-w',i:'ti-trending-up',tit:'CPA acima do limite',desc:`CPA R$${fd(cpaV)} supera o máximo de R$${fd(metas.cpa)}.`});
+  if(roasV>0&&roasV<metas.roas*0.7)als.push({t:'al-d',i:'ti-alert-triangle',tit:'ROAS abaixo da meta',desc:`ROAS ${fd(roasV)}x está 30%+ abaixo da meta.`});
+  if(cpaV>0&&cpaV>metas.cpa)als.push({t:'al-w',i:'ti-trending-up',tit:'CPA acima do limite',desc:`CPA R$${fd(cpaV)} supera o máximo R$${fd(metas.cpa)}.`});
   if(cpaV>0&&cpaV<=metas.cpa*0.8)als.push({t:'al-s',i:'ti-trending-down',tit:'CPA ótimo!',desc:`CPA R$${fd(cpaV)} está 20%+ abaixo do limite.`});
   const baixo=f.filter(d=>d.roas_v>0&&d.roas_v<3);if(baixo.length)als.push({t:'al-d',i:'ti-ad-off',tit:`${baixo.length} conjunto(s) com ROAS crítico`,desc:baixo.map(d=>d.conj).slice(0,3).join(', ')});
   if(fat>=metas.fat)als.push({t:'al-s',i:'ti-trophy',tit:'Meta de faturamento atingida!',desc:`R$${Math.round(fat).toLocaleString('pt-BR')} — meta mensal batida!`});
-  if(!als.length)als.push({t:'al-s',i:'ti-check',tit:'Tudo dentro do esperado',desc:'Nenhum alerta crítico identificado.'});
+  if(!als.length)als.push({t:'al-s',i:'ti-check',tit:'Tudo dentro do esperado',desc:'Nenhum alerta crítico.'});
   document.getElementById('alertN').textContent=als.filter(a=>a.t==='al-d').length||'';
   document.getElementById('alertasList').innerHTML=als.map(a=>`<div class="abox ${a.t}"><i class="ti ${a.i}" style="font-size:15px;margin-top:1px;flex-shrink:0"></i><div><div style="font-weight:500;margin-bottom:3px">${a.tit}</div><div>${a.desc}</div></div></div>`).join('');
 }
  
-function saveObs(){const t=document.getElementById('obsInput').value.trim();if(!t)return;obsArr.unshift({text:t,ts:new Date().toLocaleString('pt-BR')});save();document.getElementById('obsInput').value='';renderObs();}
-function renderObs(){const el=document.getElementById('obsHist');if(!obsArr.length){el.innerHTML='<div class="empty">Nenhuma observação ainda.</div>';return;}el.innerHTML=obsArr.map((o,i)=>`<div style="border-left:3px solid var(--red);padding:7px 11px;margin-bottom:8px;position:relative"><div style="font-size:9px;color:var(--muted);margin-bottom:2px">${o.ts}</div><div style="font-size:12px">${o.text}</div><button onclick="obsArr.splice(${i},1);save();renderObs()" style="position:absolute;top:5px;right:7px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:11px"><i class="ti ti-x"></i></button></div>`).join('');}
+function saveObs(){const t=document.getElementById('obsInput').value.trim();if(!t)return;obsArr.unshift({text:t,ts:tsNow(),user:currentUser?.name||'?'});save();document.getElementById('obsInput').value='';renderObs();}
+function renderObs(){const el=document.getElementById('obsHist');if(!obsArr.length){el.innerHTML='<div class="empty">Nenhuma observação ainda.</div>';return;}el.innerHTML=obsArr.map((o,i)=>`<div style="border-left:3px solid var(--red);padding:7px 11px;margin-bottom:8px;position:relative"><div style="font-size:9px;color:var(--muted);margin-bottom:2px">${o.user||''} · ${o.ts}</div><div style="font-size:12px">${o.text}</div><button onclick="obsArr.splice(${i},1);save();renderObs()" style="position:absolute;top:5px;right:7px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:11px"><i class="ti ti-x"></i></button></div>`).join('');}
  
-function exportCSV(){if(!dados.length){alert('Sem dados.');return;}const h=['Data','Plataforma','Produto','Campanha','Objetivo','Conjunto','Público','Gasto Conj.','Faturamento','ROAS','CPA','Vendas','CTR%','CPM','CPC','Anúncio','Gasto Ad','Formato','CTR Ad%','Link','Status','Obs'];const rows=dados.map(d=>[d.data,d.plat,prodL(d.prod),d.camp,d.obj,d.conj,d.pub,d.inv_conj,d.fat,fd(d.roas_v),fd(d.cpa_v),d.vend,fd(d.ctr,2),fd(d.cpm),fd(d.cpc),d.ad,d.inv_ad,d.fmt,fd(d.ad_ctr,2),d.link,d.status,d.obs]);const csv=[h,...rows].map(r=>r.map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='dermo_club_'+new Date().toISOString().slice(0,10)+'.csv';a.click();}
+function exportCSV(){if(!dados.length){alert('Sem dados.');return;}const h=['Data','Plataforma','Produto','Campanha','Objetivo','Conjunto','Público','Gasto Conj.','Faturamento','ROAS','CPA','Vendas','CTR%','CPM','CPC','Anúncio','Gasto Ad','Formato','CTR Ad%','Link','Status'];const rows=dados.map(d=>[d.data,d.plat,prodL(d.prod),d.camp,d.obj,d.conj,d.pub,d.inv_conj,d.fat,fd(d.roas_v),fd(d.cpa_v),d.vend,fd(d.ctr,2),fd(d.cpm),fd(d.cpc),d.ad,d.inv_ad,d.fmt,fd(d.ad_ctr,2),d.link,d.status]);const csv=[h,...rows].map(r=>r.map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='dermo_club_'+new Date().toISOString().slice(0,10)+'.csv';a.click();}
  
 function refresh(){renderKpis();renderChartFat();renderChartsMini();renderTree();renderCriativos();renderComp();renderMetas();renderAlertas();renderObs();renderKanban();}
  
+// ---- INIT ----
 document.getElementById('f_data').value=new Date().toISOString().slice(0,10);
-load();renderE();updateH();refresh();
+buildUserAvatars();
+load();
+if(!tryAutoLogin()){document.getElementById('loginScreen').style.display='flex';}
+else{renderE();updateH();refresh();}
 </script>
 </body>
 </html>
- 
