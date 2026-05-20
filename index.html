@@ -1,3 +1,4 @@
+Index · HTML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -451,7 +452,7 @@ tr:hover td{background:var(--bg)}
           <div class="fg"><label class="flbl">Coluna</label><select class="finp fsel" id="kn_col"><option value="test">Para testar</option><option value="testing">Testando</option><option value="valid">Validado</option><option value="nope">Não funcionou</option><option value="curation">Curadoria</option></select></div>
         </div>
         <div class="fg"><label class="flbl">Link do anúncio</label><input class="finp" type="url" id="kn_link" placeholder="https://adsmanager.facebook.com/..."></div>
-        <div class="fg full"><label class="flbl">Imagem de capa</label><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:6px;align-items:center"><label style="display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 11px;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap"><i class="ti ti-upload" style="font-size:13px"></i> Upload<input type="file" id="kn_file" accept="image/*" style="display:none" onchange="handleImgUpload(this)"></label><input class="finp" type="url" id="kn_img" placeholder="ou cole URL / link Google Drive" style="flex:1"></div><div id="kn_preview" style="display:none"><img id="kn_preview_img" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview"></div></div></div>
+        <div class="fg full"><label class="flbl">Imagem de capa</label><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:6px;align-items:center"><label style="display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 11px;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap"><i class="ti ti-upload" style="font-size:13px"></i> Upload<input type="file" id="kn_file" accept="image/*,video/*" style="display:none" onchange="handleImgUpload(this)"></label><input class="finp" type="url" id="kn_img" placeholder="ou cole URL / link Google Drive" style="flex:1"></div><div id="kn_preview" style="display:none"><img id="kn_preview_img" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview"></div></div></div>
         <div style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:7px 10px">
           <i class="ti ti-info-circle" style="margin-right:3px"></i>Google Drive: abra o arquivo → Compartilhar → Copiar link → cole aqui.
         </div>
@@ -545,6 +546,13 @@ function fp(n){return n>0?fd(n,2)+'%':'—';}
 function fR(n){return n>0?'R$'+Math.round(n).toLocaleString('pt-BR'):'—';}
 function prodL(p){return p==='bumbum'?'Bumbum Dermo':'Dermo Pro';}
 function driveImg(url){if(!url)return '';const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);if(m)return`https://drive.google.com/thumbnail?id=${m[1]}&sz=w400`;return url;}
+function isVideoSrc(url){return url&&(url.startsWith('data:video')||/\.(mp4|mov|webm|ogg)$/i.test(url));}
+function mediaEl(card,cls,style){
+  const src=driveImg(card.img);
+  const isVid=card.isVideo||isVideoSrc(card.img);
+  if(!src)return `<div class="${cls}" style="${style}display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:4px"><i class="ti ti-photo" style="font-size:22px"></i><span style="font-size:10px">Sem mídia</span></div>`;
+  if(isVid)return `<video src="${src}" controls class="${cls}" style="${style}object-fit:cover" preload="metadata"></video>`;
+  return `<img src="${src}" class="${cls}" style="${style}object-fit:cover" alt="${card.nome}" onerror="this.parentElement.innerHTML='<div style=\'height:110px;display:flex;align-items:center;justify-content:center;color:var(--muted)\'><i class=\'ti ti-photo\' style=\'font-size:20px\'></i></div>'">`;}
 function tsNow(){return new Date().toLocaleString('pt-BR');}
 function platTag(p){
   const logos={Meta:`<svg width="12" height="12" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,TikTok:`<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>`,Google:`<svg width="12" height="12" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`};
@@ -557,22 +565,34 @@ function userById(id){return TEAM.find(u=>u.id===id)||{name:id,color:'#888'};}
  
 // ---- KANBAN ----
 function openKModal(col){
-  ['kn_nome','kn_prod','kn_plat','kn_fmt','kn_link','kn_img','kn_obs'].forEach(id=>document.getElementById(id).value='');kn_uploadedBase64='';document.getElementById('kn_preview').style.display='none';document.getElementById('kn_preview_img').src='';
+  ['kn_nome','kn_prod','kn_plat','kn_fmt','kn_link','kn_img','kn_obs'].forEach(id=>document.getElementById(id).value='');kn_uploadedBase64='';kn_uploadedIsVideo=false;const pv=document.getElementById('kn_preview');if(pv){pv.style.display='none';pv.innerHTML='<img id="kn_preview_img" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview">';};
   if(col)document.getElementById('kn_col').value=col;
   document.getElementById('kNewModal').style.display='flex';
   setTimeout(()=>document.getElementById('kn_nome').focus(),100);
 }
 function closeKModal(){document.getElementById('kNewModal').style.display='none';document.getElementById('kn_preview').style.display='none';document.getElementById('kn_preview_img').src='';}
-let kn_uploadedBase64='';
+let kn_uploadedBase64='';let kn_uploadedIsVideo=false;
 function handleImgUpload(input){
   const file=input.files[0];if(!file)return;
+  const isVideo=file.type.startsWith('video/');
   const reader=new FileReader();
-  reader.onload=e=>{kn_uploadedBase64=e.target.result;const prev=document.getElementById('kn_preview');const img=document.getElementById('kn_preview_img');img.src=kn_uploadedBase64;prev.style.display='block';document.getElementById('kn_img').value='';};
+  reader.onload=e=>{
+    kn_uploadedBase64=e.target.result;
+    kn_uploadedIsVideo=isVideo;
+    const prev=document.getElementById('kn_preview');
+    prev.style.display='block';
+    if(isVideo){
+      prev.innerHTML=`<video src="${e.target.result}" controls style="width:100%;max-height:160px;border-radius:7px;border:1px solid var(--border)"></video>`;
+    } else {
+      prev.innerHTML=`<img src="${e.target.result}" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview">`;
+    }
+    document.getElementById('kn_img').value='';
+  };
   reader.readAsDataURL(file);
 }
 function saveKCard(){
   const nome=document.getElementById('kn_nome').value.trim();if(!nome){alert('Informe o nome');return;}
-  const imgVal=kn_uploadedBase64||document.getElementById('kn_img').value;kn_uploadedBase64='';const card={id:Date.now(),nome,prod:document.getElementById('kn_prod').value,plat:document.getElementById('kn_plat').value,fmt:document.getElementById('kn_fmt').value,link:document.getElementById('kn_link').value,img:imgVal,obs:document.getElementById('kn_obs').value,col:document.getElementById('kn_col').value,variacoes:[],comentarios:[],criadoPor:currentUser?.id,criadoEm:tsNow()};
+  const imgVal=kn_uploadedBase64||document.getElementById('kn_img').value;const isVid=kn_uploadedIsVideo;kn_uploadedBase64='';kn_uploadedIsVideo=false;const card={id:Date.now(),nome,prod:document.getElementById('kn_prod').value,plat:document.getElementById('kn_plat').value,fmt:document.getElementById('kn_fmt').value,link:document.getElementById('kn_link').value,img:imgVal,isVideo:isVid,obs:document.getElementById('kn_obs').value,col:document.getElementById('kn_col').value,variacoes:[],comentarios:[],criadoPor:currentUser?.id,criadoEm:tsNow()};
   kanbanCards.push(card);save();renderKanban();closeKModal();
 }
 function delKCard(id){if(!confirm('Remover card?'))return;kanbanCards=kanbanCards.filter(c=>c.id!==id);save();renderKanban();if(openCardId===id)closeCardModal();}
@@ -585,8 +605,7 @@ function renderKanban(){
     const cards=kanbanCards.filter(c=>c.col===col);
     document.getElementById('cnt-'+col).textContent=cards.length;
     zone.innerHTML=cards.map(c=>{
-      const imgSrc=driveImg(c.img);
-      const imgEl=imgSrc?`<img src="${imgSrc}" class="kci-thumb" alt="${c.nome}" onerror="this.outerHTML='<div class=kci-thumb-ph><i class=ti style=font-size:20px;color:var(--muted)></i><span style=font-size:10px;color:var(--muted)>Sem imagem</span></div>'">`:`<div class="kci-thumb-ph"><i class="ti ti-photo" style="font-size:22px"></i><span style="font-size:10px">Sem imagem</span></div>`;
+      const imgEl=mediaEl(c,'kci-thumb','width:100%;height:110px;display:block;background:var(--bg);border:none;');
       const nComments=c.comentarios?.length||0;const nVars=c.variacoes?.length||0;
       return `<div class="kci" id="kci-${c.id}" draggable="true" ondragstart="onDragStart(event,${c.id})" ondragend="onDragEnd(event)" onclick="openCardModal(${c.id})">
         <i class="ti ti-grip-vertical kci-drag-handle" aria-hidden="true" onclick="event.stopPropagation()"></i>
@@ -616,7 +635,7 @@ function renderCardModal(id){
   const card=kanbanCards.find(c=>c.id===id);if(!card)return;
   document.getElementById('cardModalTitle').innerHTML=`<span style="color:var(--red);margin-right:6px"><i class="ti ti-photo"></i></span>${card.nome}`;
   const colLabels={test:'Para testar',testing:'Testando',valid:'Validado',nope:'Não funcionou',curation:'Curadoria'};
-  const imgSrc=driveImg(card.img);
+  
   const body=document.getElementById('cardModalBody');
   body.innerHTML=`
     <!-- MOVER ENTRE COLUNAS -->
@@ -630,8 +649,11 @@ function renderCardModal(id){
     <!-- IMAGEM + INFO -->
     <div class="two" style="margin-bottom:12px;gap:12px">
       <div>
-        ${imgSrc?`<img src="${imgSrc}" style="width:100%;border-radius:9px;object-fit:cover;max-height:200px" alt="${card.nome}">`:`<div style="background:var(--bg);border-radius:9px;height:160px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:6px"><i class="ti ti-photo" style="font-size:28px"></i><span style="font-size:11px">Sem imagem de capa</span></div>`}
-        ${card.link?`<a href="${card.link}" target="_blank" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--red);text-decoration:none;margin-top:8px"><i class="ti ti-external-link"></i> Ver anúncio original</a>`:''}
+        ${mediaEl(card,'','width:100%;border-radius:9px;max-height:220px;display:block;background:var(--bg);')}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          ${card.link?`<a href="${card.link}" target="_blank" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--red);text-decoration:none"><i class="ti ti-external-link"></i> Ver anúncio</a>`:''}
+          ${card.img?`<a href="${card.img}" download="${card.nome||'criativo'}" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;background:var(--bg);border:1px solid var(--border);padding:4px 9px;border-radius:6px" title="Baixar mídia"><i class="ti ti-download" style="font-size:12px"></i> Baixar</a>`:''}
+        </div>
       </div>
       <div>
         <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Detalhes</div>
@@ -901,3 +923,4 @@ else{renderE();updateH();refresh();}
 </script>
 </body>
 </html>
+ 
