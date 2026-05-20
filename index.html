@@ -1,4 +1,3 @@
-Index · HTML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -387,23 +386,28 @@ tr:hover td{background:var(--bg)}
 <!-- LANÇAR -->
 <div class="pane" id="pane-lancar">
   <p class="sec">Lançar entrada — campanha › conjunto › anúncio</p>
-  <div class="notice"><i class="ti ti-info-circle"></i> Campos com * são obrigatórios.</div>
+  <div id="editBanner" style="display:none;background:#FEF9E7;border:1px solid #FCD34D;border-radius:8px;padding:9px 12px;margin-bottom:10px;align-items:center;gap:8px;font-size:11px;color:#92400E">
+    <i class="ti ti-edit" style="font-size:14px;flex-shrink:0"></i>
+    <span></span>
+    <button onclick="document.getElementById('editBanner').style.display='none';limpar()" style="margin-left:auto;background:none;border:1px solid #FCD34D;border-radius:5px;cursor:pointer;font-size:10px;padding:3px 8px;color:#92400E">Cancelar edição</button>
+  </div>
+  <div class="notice"><i class="ti ti-info-circle"></i> Preencha o que tiver disponível.</div>
   <div class="cwrap">
     <div class="sec-block"><i class="ti ti-speakerphone"></i> 1. Campanha</div>
     <div class="fgrid">
-      <div class="fg"><label class="flbl">Data *</label><input class="finp" type="date" id="f_data"></div>
-      <div class="fg"><label class="flbl">Plataforma *</label><select class="finp fsel" id="f_plat"><option value="">Selecione</option><option>Meta</option><option>TikTok</option><option>Google</option></select></div>
-      <div class="fg"><label class="flbl">Produto *</label><select class="finp fsel" id="f_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
-      <div class="fg"><label class="flbl">Nome da campanha *</label><input class="finp" type="text" id="f_camp" placeholder="Ex: Bumbum — Conversão TOP"></div>
+      <div class="fg"><label class="flbl">Data</label><input class="finp" type="date" id="f_data"></div>
+      <div class="fg"><label class="flbl">Plataforma</label><select class="finp fsel" id="f_plat"><option value="">Selecione</option><option>Meta</option><option>TikTok</option><option>Google</option></select></div>
+      <div class="fg"><label class="flbl">Produto</label><select class="finp fsel" id="f_prod"><option value="">Selecione</option><option value="bumbum">Bumbum Dermo</option><option value="pro">Dermo Pro</option></select></div>
+      <div class="fg"><label class="flbl">Nome da campanha</label><input class="finp" type="text" id="f_camp" placeholder="Ex: Bumbum — Conversão TOP"></div>
       <div class="fg"><label class="flbl">Objetivo</label><select class="finp fsel" id="f_obj"><option value="">Selecione</option><option>Conversão</option><option>Tráfego</option><option>Alcance</option><option>Remarketing</option></select></div>
       <div class="fg"><label class="flbl">Faturamento da campanha (R$)</label><input class="finp" type="number" id="f_budget_camp" placeholder="0.00" step="0.01" title="Faturamento total gerado por essa campanha"></div>
     </div>
   </div>
   <div class="cwrap">
-    <div class="sec-block"><i class="ti ti-layers"></i> 2. Conjunto / Ad Set *</div>
+    <div class="sec-block"><i class="ti ti-layers"></i> 2. Conjunto / Ad Set</div>
     <div class="fgrid">
-      <div class="fg"><label class="flbl">Nome do conjunto *</label><input class="finp" type="text" id="f_conj" placeholder="Ex: Interesses Skincare 25-35"></div>
-      <div class="fg"><label class="flbl">Gasto do conjunto (R$) *</label><input class="finp" type="number" id="f_inv_conj" placeholder="0.00" step="0.01"></div>
+      <div class="fg"><label class="flbl">Nome do conjunto</label><input class="finp" type="text" id="f_conj" placeholder="Ex: Interesses Skincare 25-35"></div>
+      <div class="fg"><label class="flbl">Gasto do conjunto (R$)</label><input class="finp" type="number" id="f_inv_conj" placeholder="0.00" step="0.01"></div>
       <div class="fg"><label class="flbl">Público</label><input class="finp" type="text" id="f_pub" placeholder="Ex: LAL 2%"></div>
       <div class="fg"><label class="flbl">Faturamento (R$)</label><input class="finp" type="number" id="f_fat" placeholder="0.00" step="0.01"></div>
       <div class="fg"><label class="flbl">Vendas</label><input class="finp" type="number" id="f_vend" placeholder="0"></div>
@@ -454,7 +458,8 @@ tr:hover td{background:var(--bg)}
         <div class="fg"><label class="flbl">Link do anúncio</label><input class="finp" type="url" id="kn_link" placeholder="https://adsmanager.facebook.com/..."></div>
         <div class="fg full"><label class="flbl">Imagem de capa</label><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:6px;align-items:center"><label style="display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 11px;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap"><i class="ti ti-upload" style="font-size:13px"></i> Upload<input type="file" id="kn_file" accept="image/*,video/*" style="display:none" onchange="handleImgUpload(this)"></label><input class="finp" type="url" id="kn_img" placeholder="ou cole URL / link Google Drive" style="flex:1"></div><div id="kn_preview" style="display:none"><img id="kn_preview_img" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview"></div></div></div>
         <div style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:7px 10px">
-          <i class="ti ti-info-circle" style="margin-right:3px"></i>Google Drive: abra o arquivo → Compartilhar → Copiar link → cole aqui.
+          <i class="ti ti-info-circle" style="margin-right:3px"></i>
+          <b>Imagem:</b> salva permanentemente. <b>Vídeo:</b> fica disponível enquanto a aba estiver aberta — para persistir, use link do Google Drive ou Dropbox no campo URL.
         </div>
         <div class="fg"><label class="flbl">Observação</label><input class="finp" type="text" id="kn_obs" placeholder="Ex: Testar em Meta e TikTok"></div>
       </div>
@@ -548,11 +553,14 @@ function prodL(p){return p==='bumbum'?'Bumbum Dermo':'Dermo Pro';}
 function driveImg(url){if(!url)return '';const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);if(m)return`https://drive.google.com/thumbnail?id=${m[1]}&sz=w400`;return url;}
 function isVideoSrc(url){return url&&(url.startsWith('data:video')||/\.(mp4|mov|webm|ogg)$/i.test(url));}
 function mediaEl(card,cls,style){
-  const src=driveImg(card.img);
-  const isVid=card.isVideo||isVideoSrc(card.img);
-  if(!src)return `<div class="${cls}" style="${style}display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:4px"><i class="ti ti-photo" style="font-size:22px"></i><span style="font-size:10px">Sem mídia</span></div>`;
+  let src=card.img||'';
+  // resolve blob id if in store
+  if(src.startsWith('blob_')&&blobStore[src])src=blobStore[src];
+  else if(!src.startsWith('blob_'))src=driveImg(src);
+  const isVid=card.isVideo||isVideoSrc(card.img)||isVideoSrc(src);
+  if(!src||src.startsWith('blob_'))return `<div class="${cls}" style="${style}display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:4px;background:var(--bg);border-radius:9px"><i class="ti ti-video" style="font-size:22px"></i><span style="font-size:10px">Vídeo (recarregue para ver)</span></div>`;
   if(isVid)return `<video src="${src}" controls class="${cls}" style="${style}object-fit:cover" preload="metadata"></video>`;
-  return `<img src="${src}" class="${cls}" style="${style}object-fit:cover" alt="${card.nome}" onerror="this.parentElement.innerHTML='<div style=\'height:110px;display:flex;align-items:center;justify-content:center;color:var(--muted)\'><i class=\'ti ti-photo\' style=\'font-size:20px\'></i></div>'">`;}
+  return `<img src="${src}" class="${cls}" style="${style}object-fit:cover" alt="${card.nome||''}" onerror="this.parentElement.innerHTML='<div style=\'height:110px;display:flex;align-items:center;justify-content:center;color:var(--muted)\'><i class=\'ti ti-photo\' style=\'font-size:20px\'></i></div>'">`;}
 function tsNow(){return new Date().toLocaleString('pt-BR');}
 function platTag(p){
   const logos={Meta:`<svg width="12" height="12" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,TikTok:`<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>`,Google:`<svg width="12" height="12" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`};
@@ -572,23 +580,32 @@ function openKModal(col){
 }
 function closeKModal(){document.getElementById('kNewModal').style.display='none';document.getElementById('kn_preview').style.display='none';document.getElementById('kn_preview_img').src='';}
 let kn_uploadedBase64='';let kn_uploadedIsVideo=false;
+// Store blob URLs for videos (não persiste, mas funciona na sessão)
+const blobStore={};
 function handleImgUpload(input){
   const file=input.files[0];if(!file)return;
   const isVideo=file.type.startsWith('video/');
-  const reader=new FileReader();
-  reader.onload=e=>{
-    kn_uploadedBase64=e.target.result;
-    kn_uploadedIsVideo=isVideo;
-    const prev=document.getElementById('kn_preview');
-    prev.style.display='block';
-    if(isVideo){
-      prev.innerHTML=`<video src="${e.target.result}" controls style="width:100%;max-height:160px;border-radius:7px;border:1px solid var(--border)"></video>`;
-    } else {
+  const prev=document.getElementById('kn_preview');
+  prev.style.display='block';
+  document.getElementById('kn_img').value='';
+  if(isVideo){
+    // Para vídeo: usa blob URL (leve, funciona na sessão atual)
+    const blobUrl=URL.createObjectURL(file);
+    const blobId='blob_'+Date.now();
+    blobStore[blobId]=blobUrl;
+    kn_uploadedBase64=blobId;
+    kn_uploadedIsVideo=true;
+    prev.innerHTML=`<video src="${blobUrl}" controls style="width:100%;max-height:160px;border-radius:7px;border:1px solid var(--border)"></video>`;
+  } else {
+    // Para imagem: usa base64 (persiste no localStorage)
+    const reader=new FileReader();
+    reader.onload=e=>{
+      kn_uploadedBase64=e.target.result;
+      kn_uploadedIsVideo=false;
       prev.innerHTML=`<img src="${e.target.result}" style="width:100%;max-height:140px;object-fit:cover;border-radius:7px;border:1px solid var(--border)" alt="Preview">`;
-    }
-    document.getElementById('kn_img').value='';
-  };
-  reader.readAsDataURL(file);
+    };
+    reader.readAsDataURL(file);
+  }
 }
 function saveKCard(){
   const nome=document.getElementById('kn_nome').value.trim();if(!nome){alert('Informe o nome');return;}
@@ -652,7 +669,7 @@ function renderCardModal(id){
         ${mediaEl(card,'','width:100%;border-radius:9px;max-height:220px;display:block;background:var(--bg);')}
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
           ${card.link?`<a href="${card.link}" target="_blank" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--red);text-decoration:none"><i class="ti ti-external-link"></i> Ver anúncio</a>`:''}
-          ${card.img?`<a href="${card.img}" download="${card.nome||'criativo'}" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;background:var(--bg);border:1px solid var(--border);padding:4px 9px;border-radius:6px" title="Baixar mídia"><i class="ti ti-download" style="font-size:12px"></i> Baixar</a>`:''}
+          ${card.img?(()=>{let dlSrc=card.img;if(dlSrc.startsWith('blob_')&&blobStore[dlSrc])dlSrc=blobStore[dlSrc];return`<a href="${dlSrc}" download="${card.nome||'criativo'}" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;background:var(--bg);border:1px solid var(--border);padding:4px 9px;border-radius:6px" title="Baixar mídia"><i class="ti ti-download" style="font-size:12px"></i> Baixar</a>`;})():''}
         </div>
       </div>
       <div>
@@ -791,8 +808,7 @@ function onDrop(e,col){e.preventDefault();e.currentTarget.classList.remove('drag
  
 // ---- LANÇAR ----
 function salvar(){
-  const req=['f_data','f_plat','f_prod','f_camp','f_conj','f_inv_conj'];
-  for(const id of req){if(!document.getElementById(id).value.trim()){alert('Preencha os campos obrigatórios (*)');return;}}
+ 
   const inv_conj=parseFloat(document.getElementById('f_inv_conj').value)||0;
   const fat=parseFloat(document.getElementById('f_fat').value)||0;
   const vend=parseInt(document.getElementById('f_vend').value)||0;
@@ -802,8 +818,32 @@ function salvar(){
   const e={id:Date.now(),data:document.getElementById('f_data').value,plat:document.getElementById('f_plat').value,prod:document.getElementById('f_prod').value,camp:document.getElementById('f_camp').value,obj:document.getElementById('f_obj').value,budget_camp:parseFloat(document.getElementById('f_budget_camp').value)||0,conj:document.getElementById('f_conj').value,pub:document.getElementById('f_pub').value,inv_conj,fat,vend,imp,cli,ctr:ctrV,cpm:parseFloat(document.getElementById('f_cpm').value)||0,cpc:parseFloat(document.getElementById('f_cpc').value)||0,ad:document.getElementById('f_ad').value,inv_ad:parseFloat(document.getElementById('f_inv_ad').value)||0,fmt:document.getElementById('f_fmt').value,ad_ctr:parseFloat(document.getElementById('f_ad_ctr').value)||0,status:document.getElementById('f_status').value,link:document.getElementById('f_link').value,obs:document.getElementById('f_obs_ad').value,roas_v:cR(inv_conj,fat),cpa_v:cC(inv_conj,vend)};
   dados.unshift(e);save();limpar();renderE();updateH();alert('Entrada salva!');
 }
-function limpar(){['f_data','f_plat','f_prod','f_camp','f_obj','f_budget_camp','f_conj','f_pub','f_inv_conj','f_fat','f_vend','f_imp','f_cli','f_ctr','f_cpm','f_cpc','f_ad','f_inv_ad','f_fmt','f_ad_ctr','f_link','f_obs_ad'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_status').value='ativo';document.getElementById('f_data').value=new Date().toISOString().slice(0,10);}
-function delEntry(id){if(!confirm('Remover?'))return;dados=dados.filter(d=>d.id!==id);save();renderE();refresh();updateH();}
+function limpar(){['f_data','f_plat','f_prod','f_camp','f_obj','f_budget_camp','f_conj','f_pub','f_inv_conj','f_fat','f_vend','f_imp','f_cli','f_ctr','f_cpm','f_cpc','f_ad','f_inv_ad','f_fmt','f_ad_ctr','f_link','f_obs_ad'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_status').value='ativo';document.getElementById('f_data').value=new Date().toISOString().slice(0,10);const b=document.getElementById('editBanner');if(b)b.style.display='none';}
+function delEntry(id){if(!confirm('Excluir esta entrada?'))return;dados=dados.filter(d=>d.id!==id);save();renderE();refresh();updateH();}
+function editEntry(id){
+  const d=dados.find(e=>e.id===id);if(!d)return;
+  // Switch to lancar tab
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-lancar').classList.add('on');
+  document.querySelector('.tab[onclick*=lancar]').classList.add('on');
+  // Fill form
+  const sv=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||'';};
+  sv('f_data',d.data);sv('f_plat',d.plat);sv('f_prod',d.prod);sv('f_camp',d.camp);
+  sv('f_obj',d.obj);sv('f_budget_camp',d.budget_camp||'');sv('f_conj',d.conj);
+  sv('f_pub',d.pub);sv('f_inv_conj',d.inv_conj||'');sv('f_fat',d.fat||'');
+  sv('f_vend',d.vend||'');sv('f_imp',d.imp||'');sv('f_cli',d.cli||'');
+  sv('f_ctr',d.ctr||'');sv('f_cpm',d.cpm||'');sv('f_cpc',d.cpc||'');
+  sv('f_ad',d.ad);sv('f_inv_ad',d.inv_ad||'');sv('f_fmt',d.fmt);
+  sv('f_ad_ctr',d.ad_ctr||'');sv('f_status',d.status||'ativo');
+  sv('f_link',d.link);sv('f_obs_ad',d.obs);
+  // Remove original entry and set editing indicator
+  dados=dados.filter(e=>e.id!==id);save();renderE();updateH();
+  // Show banner
+  const banner=document.getElementById('editBanner');
+  if(banner){banner.style.display='flex';banner.querySelector('span').textContent='Editando entrada de '+d.data+' — '+( d.camp||d.conj||'sem nome')+'. Salve para confirmar.';}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function updateH(){if(!dados.length){document.getElementById('lastUp').textContent='Sem dados — comece lançando um relatório';return;}document.getElementById('lastUp').textContent='Última entrada: '+dados[0].data+' · '+dados.length+' registro(s)';}
  
 function renderE(){
@@ -811,7 +851,7 @@ function renderE(){
   document.getElementById('totalE').textContent=dados.length;
   if(!dados.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  tbody.innerHTML=dados.map(d=>`<tr><td>${d.data}</td><td>${platTag(d.plat)}</td><td>${pbB(d.prod)}</td><td style="font-weight:500;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.camp}</td><td style="max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.conj}</td><td style="max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.ad||'—'}</td><td>${d.inv_conj>0?'R$'+fd(d.inv_conj):'—'}</td><td>${d.fat>0?fR(d.fat):'—'}</td><td style="font-weight:500;color:${d.roas_v>=5?'var(--success)':'var(--red)'}">${d.roas_v>0?fd(d.roas_v)+'x':'—'}</td><td>${fp(d.ctr)}</td><td>${d.vend||'—'}</td><td>${d.link?`<a href="${d.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td><td>${stB(d.status)}</td><td><button onclick="delEntry(${d.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px"><i class="ti ti-trash"></i></button></td></tr>`).join('');
+  tbody.innerHTML=dados.map(d=>`<tr><td>${d.data}</td><td>${platTag(d.plat)}</td><td>${pbB(d.prod)}</td><td style="font-weight:500;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.camp}</td><td style="max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.conj}</td><td style="max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${d.ad||'—'}</td><td>${d.inv_conj>0?'R$'+fd(d.inv_conj):'—'}</td><td>${d.fat>0?fR(d.fat):'—'}</td><td style="font-weight:500;color:${d.roas_v>=5?'var(--success)':'var(--red)'}">${d.roas_v>0?fd(d.roas_v)+'x':'—'}</td><td>${fp(d.ctr)}</td><td>${d.vend||'—'}</td><td>${d.link?`<a href="${d.link}" target="_blank" class="link-ico"><i class="ti ti-external-link"></i></a>`:'—'}</td><td>${stB(d.status)}</td><td style="white-space:nowrap"><button onclick="editEntry(${d.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px;margin-right:4px" title="Editar"><i class="ti ti-edit"></i></button><button onclick="delEntry(${d.id})" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:12px" title="Excluir"><i class="ti ti-trash"></i></button></td></tr>`).join('');
 }
  
 function dc(id){if(charts[id]){charts[id].destroy();charts[id]=null;}}
@@ -923,4 +963,3 @@ else{renderE();updateH();refresh();}
 </script>
 </body>
 </html>
- 
