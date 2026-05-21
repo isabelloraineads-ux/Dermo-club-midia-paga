@@ -14,6 +14,9 @@
   --blk:#0F0F0F;--g1:#999;--g2:#666;--g4:#F3F3F3;--g5:#EFEFEF;
   --white:#FFF;--border:rgba(0,0,0,0.08);
   --font:'DM Sans',sans-serif;--sb:220px;
+  --meta:#1877F2;--meta-l:#EBF3FF;
+  --tiktok:#111111;--tiktok-l:#F0F0F0;
+  --google:#FBBC04;--google-l:#FFFBEA;--google-d:#B8860B;
 }
 html,body{height:100%;font-family:var(--font);color:var(--blk);background:var(--g5);}
  
@@ -351,6 +354,19 @@ tr:hover td{background:#FAFAFA;}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:4px;}
 .lib-ed{cursor:pointer;border-bottom:1px dashed transparent;transition:border-color .15s;display:inline-block;}
 .lib-ed:hover{border-bottom:1px dashed var(--red);color:var(--blk);}
+ 
+/* VIEW FILTER BAR */
+.view-filter-bar{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.vfb-left{display:flex;align-items:center;gap:7px;}
+.vfb-label{font-size:11px;font-weight:600;color:var(--g2);}
+.vfb-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.vfb-input{background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;color:var(--blk);transition:border-color .15s;cursor:pointer;}
+.vfb-input:focus{border-color:var(--red);}
+.vfb-sep{font-size:11px;color:var(--g1);}
+.vfb-clear{display:flex;align-items:center;gap:4px;background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .12s;}
+.vfb-clear:hover{border-color:var(--red);color:var(--red);}
+@media(max-width:600px){.vfb-right{width:100%;}.vfb-input{flex:1;min-width:110px;}}
+ 
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .spinning{animation:spin 1s linear infinite;display:inline-block;}
  
@@ -423,9 +439,9 @@ tr:hover td{background:#FAFAFA;}
       <div class="ni" onclick="go('kanban',this)"><i class="ti ti-columns"></i> Kanban</div>
       <div class="ni" onclick="go('library',this)"><i class="ti ti-photo"></i> Biblioteca</div>
       <div class="nav-sec">Midia Paga</div>
-      <div class="ni" onclick="go('meta',this)"><i class="ti ti-brand-meta"></i> Meta Ads</div>
-      <div class="ni" onclick="go('tiktok',this)"><i class="ti ti-brand-tiktok"></i> TikTok Shop</div>
-      <div class="ni" onclick="go('google',this)"><i class="ti ti-brand-google"></i> Google Ads</div>
+      <div class="ni" onclick="go('meta',this)"><i class="ti ti-brand-meta" style="color:#1877F2"></i> Meta Ads</div>
+      <div class="ni" onclick="go('tiktok',this)"><i class="ti ti-brand-tiktok" style="color:#aaa"></i> TikTok Shop</div>
+      <div class="ni" onclick="go('google',this)"><i class="ti ti-brand-google" style="color:#FBBC04"></i> Google Ads</div>
       <div class="nav-sec">Dados</div>
       <div class="ni" onclick="go('upload',this)"><i class="ti ti-upload"></i> Upload</div>
     </div>
@@ -445,8 +461,12 @@ tr:hover td{background:#FAFAFA;}
         <div class="tb-title" id="pg-title">Visao Geral</div>
       </div>
       <div class="tb-right">
-        <div class="tb-sel"><i class="ti ti-calendar" style="font-size:13px"></i>
-          <select id="dr"><option value="7">7d</option><option value="30" selected>30d</option><option value="60">60d</option><option value="90">90d</option></select>
+        <div style="display:flex;align-items:center;gap:4px;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:4px 8px;">
+          <i class="ti ti-calendar" style="font-size:12px;color:var(--g2);flex-shrink:0;"></i>
+          <input type="date" id="gf-from" style="background:transparent;border:none;font-size:11px;color:var(--g2);outline:none;font-family:var(--font);width:110px;" onchange="applyGlobalFilter()" title="Data inicio">
+          <span style="color:var(--g1);font-size:11px;">—</span>
+          <input type="date" id="gf-to" style="background:transparent;border:none;font-size:11px;color:var(--g2);outline:none;font-family:var(--font);width:110px;" onchange="applyGlobalFilter()" title="Data fim">
+          <button onclick="clearGlobalFilter()" style="background:none;border:none;cursor:pointer;color:var(--g1);font-size:13px;padding:0 2px;" title="Limpar filtro"><i class="ti ti-x"></i></button>
         </div>
         <div class="tb-sel"><i class="ti ti-filter" style="font-size:13px"></i>
           <select id="pf"><option value="all">Todos</option><option value="bd">Bumbum Dermo</option><option value="dp">Dermo Pro</option></select>
@@ -458,6 +478,15 @@ tr:hover td{background:#FAFAFA;}
  
       <!-- VISAO GERAL -->
       <div class="view on" id="v-overview">
+        <div class="view-filter-bar">
+          <div class="vfb-left"><i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i><span class="vfb-label" id="vfb-overview-label">Todos os periodos</span></div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="ov-from" onchange="syncGlobal('ov-from','ov-to')" placeholder="De">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="ov-to" onchange="syncGlobal('ov-from','ov-to')" placeholder="Ate">
+            <button class="vfb-clear" onclick="clearViewFilter('ov-from','ov-to','vfb-overview-label')"><i class="ti ti-x"></i> Limpar</button>
+          </div>
+        </div>
         <div class="kpi-grid">
           <div class="kpi"><div class="kpi-lbl">Faturamento</div><div class="kpi-val">—</div><div class="kpi-sub">Insira dados em Metricas</div></div>
           <div class="kpi"><div class="kpi-lbl">Pedidos</div><div class="kpi-val">—</div><div class="kpi-sub">Insira dados em Metricas</div></div>
@@ -467,13 +496,13 @@ tr:hover td{background:#FAFAFA;}
         <div class="ch-row">
           <div class="card">
             <div class="card-hd"><div class="card-title">Faturamento por Canal</div><span class="badge">30 dias</span></div>
-            <div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div>
+            <div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#1877F2"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#FBBC04"></div>Google</div></div>
             <div style="position:relative;height:170px;"><canvas id="cC"></canvas></div>
           </div>
           <div class="card">
             <div class="card-hd"><div class="card-title">Mix Canais</div></div>
             <div style="position:relative;height:140px;"><canvas id="pC"></canvas></div>
-            <div class="leg" style="margin-top:8px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div>
+            <div class="leg" style="margin-top:8px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#1877F2"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#FBBC04"></div>Google</div></div>
           </div>
         </div>
         <div class="prod-row">
@@ -484,6 +513,15 @@ tr:hover td{background:#FAFAFA;}
  
       <!-- METRICAS -->
       <div class="view" id="v-metrics">
+        <div class="view-filter-bar">
+          <div class="vfb-left"><i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i><span class="vfb-label" id="vfb-metrics-label">Todos os periodos</span></div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="mt-from" onchange="syncGlobal('mt-from','mt-to')">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="mt-to" onchange="syncGlobal('mt-from','mt-to')">
+            <button class="vfb-clear" onclick="clearViewFilter('mt-from','mt-to','vfb-metrics-label')"><i class="ti ti-x"></i> Limpar</button>
+          </div>
+        </div>
         <div class="ms-section">
           <div class="ms-hd">
             <div class="ms-title">Inserir Metricas da Campanha</div>
@@ -516,9 +554,7 @@ tr:hover td{background:#FAFAFA;}
                 <div class="ms-field"><label class="ms-label">LTV <span>(Lifetime Value)</span></label><input class="ms-input" id="m-ltv" placeholder=""></div>
                 <div class="ms-field"><label class="ms-label">LTV:CAC Ratio</label><input class="ms-input" id="m-ltvcac" placeholder=""></div>
               </div>
-            </div>
- 
-            <div class="ms-group">
+            </div><div class="ms-group">
               <div class="ms-group-title"><i class="ti ti-receipt" style="font-size:13px;color:#F59E0B"></i> Ticket e Receita</div>
               <div class="ms-grid">
                 <div class="ms-field"><label class="ms-label">Ticket Medio Geral <span>(R$)</span></label><input class="ms-input" id="m-ticket" placeholder=""></div>
@@ -623,16 +659,34 @@ tr:hover td{background:#FAFAFA;}
  
       <!-- PRODUTOS -->
       <div class="view" id="v-products">
+        <div class="view-filter-bar">
+          <div class="vfb-left"><i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i><span class="vfb-label" id="vfb-products-label">Todos os periodos</span></div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="pr-from" onchange="syncGlobal('pr-from','pr-to')">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="pr-to" onchange="syncGlobal('pr-from','pr-to')">
+            <button class="vfb-clear" onclick="clearViewFilter('pr-from','pr-to','vfb-products-label')"><i class="ti ti-x"></i> Limpar</button>
+          </div>
+        </div>
         <div class="prod-row" style="margin-bottom:12px;">
           <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">—</div></div></div><div class="prog"><div class="prog-f" style="width:0%"></div></div></div>
           <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">—</div></div></div><div class="prog"><div class="prog-f" style="width:0%"></div></div></div>
         </div>
-        <div class="card"><div class="card-hd"><div class="card-title">Historico de vendas por produto</div><span class="badge">30 dias</span></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Bumbum Dermo</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>Dermo Pro</div></div><div style="position:relative;height:200px;margin-top:8px;"><canvas id="prC"></canvas></div></div>
+        <div class="card"><div class="card-hd"><div class="card-title">Historico de vendas por produto</div><span class="badge" id="prod-period-badge">Todos os periodos</span></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#1877F2"></div>Bumbum Dermo</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>Dermo Pro</div></div><div style="position:relative;height:200px;margin-top:8px;"><canvas id="prC"></canvas></div></div>
       </div>
  
       <!-- CANAIS -->
       <div class="view" id="v-channels">
-        <div class="ch-grid3"><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#C8102E"></div><i class="ti ti-brand-meta"></i>Meta Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry">ROAS —</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#111"></div><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry">ROAS —</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#888"></div><i class="ti ti-brand-google"></i>Google Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry">ROAS —</span></div></div>
+        <div class="view-filter-bar">
+          <div class="vfb-left"><i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i><span class="vfb-label" id="vfb-channels-label">Todos os periodos</span></div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="ch-from" onchange="syncGlobal('ch-from','ch-to')">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="ch-to" onchange="syncGlobal('ch-from','ch-to')">
+            <button class="vfb-clear" onclick="clearViewFilter('ch-from','ch-to','vfb-channels-label')"><i class="ti ti-x"></i> Limpar</button>
+          </div>
+        </div>
+        <div class="ch-grid3"><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#1877F2"></div><i class="ti ti-brand-meta" style="color:var(--meta)"></i>Meta Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry" style="background:var(--meta-l);color:var(--meta)">ROAS —</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#111"></div><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry" style="background:var(--tiktok-l);color:var(--tiktok)">ROAS —</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#FBBC04"></div><i class="ti ti-brand-google" style="color:var(--google-d)"></i>Google Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry" style="background:var(--google-l);color:var(--google-d)">ROAS —</span></div></div>
         <div class="card"><div class="card-hd"><div class="card-title">Evolucao comparativa — adicione dados via Upload</div></div><div style="display:flex;align-items:center;justify-content:center;height:120px;color:var(--g1);font-size:12px;flex-direction:column;gap:6px;"><i class="ti ti-chart-line" style="font-size:28px"></i>Suba um relatorio CSV para ver o grafico</div></div>
       </div>
  
@@ -690,7 +744,8 @@ tr:hover td{background:#FAFAFA;}
                   <th>Nome</th>
                   <th>Produto</th>
                   <th>Tipo</th>
-                  <th>Canal</th><th>Status</th>
+                  <th>Canal</th>
+                  <th>Status</th>
                   <th>ROAS</th>
                   <th>CPA</th>
                   <th>CTR</th>
@@ -709,46 +764,59 @@ tr:hover td{background:#FAFAFA;}
  
       <!-- META ADS -->
       <div class="view" id="v-meta">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-          <div class="kpi-row-sm" style="margin-bottom:0;"><div class="kpi-pill">Invest: <strong id="meta-invest-kpi">—</strong></div><div class="kpi-pill">ROAS: <strong id="meta-roas-kpi">—</strong></div><div class="kpi-pill">CPA: <strong id="meta-cpa-kpi">—</strong></div><div class="kpi-pill">CTR: <strong id="meta-ctr-kpi">—</strong></div><div class="kpi-pill">CPM: <strong id="meta-cpm-kpi">—</strong></div><div class="kpi-pill">Freq: <strong id="meta-freq-kpi">—</strong></div></div>
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <input type="date" id="meta-date-from" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('meta')">
-            <span style="font-size:11px;color:var(--g1);">ate</span>
-            <input type="date" id="meta-date-to" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('meta')">
-            <button onclick="clearMediaFilter('meta')" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:var(--font);">Limpar</button>
+        <div class="view-filter-bar">
+          <div class="vfb-left">
+            <i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i>
+            <span class="vfb-label" id="vfb-meta-label">Todos os periodos</span>
+          </div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="meta-date-from" onchange="filterMediaTable('meta');updateVfbLabel('meta-date-from','meta-date-to','vfb-meta-label')">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="meta-date-to" onchange="filterMediaTable('meta');updateVfbLabel('meta-date-from','meta-date-to','vfb-meta-label')">
+            <button class="vfb-clear" onclick="clearMediaFilter('meta');document.getElementById('vfb-meta-label').textContent='Todos os periodos'"><i class="ti ti-x"></i> Limpar</button>
           </div>
         </div>
-        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-meta" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Conectar Meta Ads ou subir relatorio CSV</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Gerenciador de Anuncios > Exportar relatorio</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('meta')">+ Adicionar</button></div>
+        <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong id="meta-invest-kpi">—</strong></div><div class="kpi-pill">ROAS: <strong id="meta-roas-kpi">—</strong></div><div class="kpi-pill">CPA: <strong id="meta-cpa-kpi">—</strong></div><div class="kpi-pill">CTR: <strong id="meta-ctr-kpi">—</strong></div><div class="kpi-pill">CPM: <strong id="meta-cpm-kpi">—</strong></div><div class="kpi-pill">Freq: <strong id="meta-freq-kpi">—</strong></div></div>
+        <div style="border:1.5px dashed var(--meta);border-radius:9px;padding:12px 16px;background:var(--meta-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-meta" style="font-size:20px;color:var(--meta);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#0d5dbf">Conectar Meta Ads ou subir relatorio CSV</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Gerenciador de Anuncios > Exportar relatorio</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('meta')">+ Adicionar</button></div>
         <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas — Meta Ads</div><div style="display:flex;gap:6px;"><button style="background:var(--red);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="openAddCampaign('meta')"><i class="ti ti-plus" style="font-size:12px"></i> Nova</button><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportTableCSV('meta-table','meta_ads')"><i class="ti ti-download" style="font-size:12px"></i> CSV</button></div></div><div class="tbl-wrap"><table id="meta-table"><thead><tr><th>Campanha</th><th>Status</th><th>Data</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPA</th><th>CTR</th><th>CPM</th><th>Freq.</th><th>Impres.</th><th>Acoes</th></tr></thead><tbody id="meta-tbody"><tr><td colspan="12" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione uma campanha ou suba um CSV.</td></tr></tbody></table></div></div>
       </div>
  
       <!-- TIKTOK -->
       <div class="view" id="v-tiktok">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-          <div class="kpi-row-sm" style="margin-bottom:0;"><div class="kpi-pill">Invest: <strong>—</strong></div><div class="kpi-pill">ROAS: <strong>—</strong></div><div class="kpi-pill">CPA: <strong>—</strong></div><div class="kpi-pill">GMV: <strong>—</strong></div></div>
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <input type="date" id="tiktok-date-from" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('tiktok')">
-            <span style="font-size:11px;color:var(--g1);">ate</span>
-            <input type="date" id="tiktok-date-to" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('tiktok')">
-            <button onclick="clearMediaFilter('tiktok')" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:var(--font);">Limpar</button>
+        <div class="view-filter-bar">
+          <div class="vfb-left">
+            <i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i>
+            <span class="vfb-label" id="vfb-tiktok-label">Todos os periodos</span>
+          </div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="tiktok-date-from" onchange="filterMediaTable('tiktok');updateVfbLabel('tiktok-date-from','tiktok-date-to','vfb-tiktok-label')">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="tiktok-date-to" onchange="filterMediaTable('tiktok');updateVfbLabel('tiktok-date-from','tiktok-date-to','vfb-tiktok-label')">
+            <button class="vfb-clear" onclick="clearMediaFilter('tiktok');document.getElementById('vfb-tiktok-label').textContent='Todos os periodos'"><i class="ti ti-x"></i> Limpar</button>
           </div>
         </div>
-        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-tiktok" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio TikTok Shop</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Seller Center > Exportar relatorio</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('tiktok')">+ Adicionar</button></div>
+        <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>—</strong></div><div class="kpi-pill">ROAS: <strong>—</strong></div><div class="kpi-pill">CPA: <strong>—</strong></div><div class="kpi-pill">GMV: <strong>—</strong></div></div>
+        <div style="border:1.5px dashed var(--tiktok);border-radius:9px;padding:12px 16px;background:var(--tiktok-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-tiktok" style="font-size:20px;color:var(--tiktok);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:#111">Subir relatorio TikTok Shop</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Seller Center > Exportar relatorio</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('tiktok')">+ Adicionar</button></div>
         <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Performance TikTok Shop</div><div style="display:flex;gap:6px;"><button style="background:var(--red);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="openAddCampaign('tiktok')"><i class="ti ti-plus" style="font-size:12px"></i> Nova</button><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportTableCSV('tiktok-table','tiktok')"><i class="ti ti-download" style="font-size:12px"></i> CSV</button></div></div><div class="tbl-wrap"><table id="tiktok-table"><thead><tr><th>Produto/Campanha</th><th>Data</th><th>Pedidos</th><th>GMV</th><th>Invest.</th><th>ROAS</th><th>Conversao</th><th>CTR</th><th>Avaliacao</th><th>Acoes</th></tr></thead><tbody id="tiktok-tbody"><tr><td colspan="10" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione ou suba um CSV.</td></tr></tbody></table></div></div>
       </div>
  
       <!-- GOOGLE -->
       <div class="view" id="v-google">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-          <div class="kpi-row-sm" style="margin-bottom:0;"><div class="kpi-pill">Invest: <strong>—</strong></div><div class="kpi-pill">ROAS: <strong>—</strong></div><div class="kpi-pill">CPC: <strong>—</strong></div><div class="kpi-pill">Conv.: <strong>—</strong></div></div>
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <input type="date" id="google-date-from" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('google')">
-            <span style="font-size:11px;color:var(--g1);">ate</span>
-            <input type="date" id="google-date-to" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('google')">
-            <button onclick="clearMediaFilter('google')" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:var(--font);">Limpar</button>
+        <div class="view-filter-bar">
+          <div class="vfb-left">
+            <i class="ti ti-calendar-stats" style="font-size:13px;color:var(--red)"></i>
+            <span class="vfb-label" id="vfb-google-label">Todos os periodos</span>
+          </div>
+          <div class="vfb-right">
+            <input type="date" class="vfb-input" id="google-date-from" onchange="filterMediaTable('google');updateVfbLabel('google-date-from','google-date-to','vfb-google-label')">
+            <span class="vfb-sep">—</span>
+            <input type="date" class="vfb-input" id="google-date-to" onchange="filterMediaTable('google');updateVfbLabel('google-date-from','google-date-to','vfb-google-label')">
+            <button class="vfb-clear" onclick="clearMediaFilter('google');document.getElementById('vfb-google-label').textContent='Todos os periodos'"><i class="ti ti-x"></i> Limpar</button>
           </div>
         </div>
-        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-google" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio Google Ads</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Google Ads Manager > Exportar</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('google')">+ Adicionar</button></div>
+        <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>—</strong></div><div class="kpi-pill">ROAS: <strong>—</strong></div><div class="kpi-pill">CPC: <strong>—</strong></div><div class="kpi-pill">Conv.: <strong>—</strong></div></div>
+        </div>
+        <div style="border:1.5px dashed var(--google);border-radius:9px;padding:12px 16px;background:var(--google-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-google" style="font-size:20px;color:var(--google-d);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--google-d)">Subir relatorio Google Ads</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Google Ads Manager > Exportar</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('google')">+ Adicionar</button></div>
         <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas Google Ads</div><div style="display:flex;gap:6px;"><button style="background:var(--red);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="openAddCampaign('google')"><i class="ti ti-plus" style="font-size:12px"></i> Nova</button><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportTableCSV('google-table','google_ads')"><i class="ti ti-download" style="font-size:12px"></i> CSV</button></div></div><div class="tbl-wrap"><table id="google-table"><thead><tr><th>Campanha</th><th>Status</th><th>Data</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPC</th><th>CTR</th><th>Conv.</th><th>Acoes</th></tr></thead><tbody id="google-tbody"><tr><td colspan="10" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione ou suba um CSV.</td></tr></tbody></table></div></div>
       </div>
  
@@ -763,9 +831,9 @@ tr:hover td{background:#FAFAFA;}
           <div class="up-section">
             <div class="up-hd"><div class="ms-title">Subir Relatorio por Canal</div></div>
             <div class="up-channels">
-              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='Meta Ads';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-meta"></i><div class="up-ch-name">Meta Ads</div><div class="up-ch-sub">Gerenciador de Anuncios</div></div>
-              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='TikTok Shop';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-tiktok"></i><div class="up-ch-name">TikTok Shop</div><div class="up-ch-sub">Seller Center</div></div>
-              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='Google Ads';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-google"></i><div class="up-ch-name">Google Ads</div><div class="up-ch-sub">Ads Manager</div></div>
+              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='Meta Ads';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-meta" style="color:var(--meta)"></i><div class="up-ch-name">Meta Ads</div><div class="up-ch-sub">Gerenciador de Anuncios</div></div>
+              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='TikTok Shop';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-tiktok" style="color:var(--tiktok)"></i><div class="up-ch-name">TikTok Shop</div><div class="up-ch-sub">Seller Center</div></div>
+              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='Google Ads';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-google" style="color:var(--google-d)"></i><div class="up-ch-name">Google Ads</div><div class="up-ch-sub">Ads Manager</div></div>
             </div>
             <div class="up-drop" onclick="document.getElementById('csv-file-input').dataset.canal='Geral';document.getElementById('csv-file-input').click()" ondragover="event.preventDefault();this.style.background='#F5D5DA'" ondragleave="this.style.background=''" ondrop="handleCSVDrop(event)">
               <i class="ti ti-cloud-upload"></i>
@@ -930,8 +998,7 @@ tr:hover td{background:#FAFAFA;}
     <div class="nc-hd"><div class="nc-title">Novo Criativo</div><div class="modal-close" onclick="closeNC()"><i class="ti ti-x"></i></div></div>
     <div class="nc-body">
       <div class="mfield"><label class="mlabel">Nome</label><input class="minput" id="nc-name" placeholder="Ex: Hook dor nas costas v2"></div>
-      <div class="mrow">
-        <div class="mfield"><label class="mlabel">Tipo</label><select class="mselect" id="nc-type"><option value="video">Video</option><option value="ugc">UGC</option><option value="static">Estatico</option><option value="carousel">Carrossel</option></select></div>
+      <div class="mrow"><div class="mfield"><label class="mlabel">Tipo</label><select class="mselect" id="nc-type"><option value="video">Video</option><option value="ugc">UGC</option><option value="static">Estatico</option><option value="carousel">Carrossel</option></select></div>
         <div class="mfield"><label class="mlabel">Produto</label><select class="mselect" id="nc-prod"><option value="Bumbum Dermo">Bumbum Dermo</option><option value="Dermo Pro">Dermo Pro</option></select></div>
       </div>
       <div class="mrow">
@@ -1003,12 +1070,12 @@ function mkLine(id,a,b,c){
   if(charts[id])charts[id].destroy();
   const ctx=document.getElementById(id);if(!ctx)return;
   const lbl=['Sem','dados','insira','via','Metricas','ou Upload'];
-  charts[id]=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Meta',data:a,borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'TikTok',data:b,borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]},{label:'Google',data:c,borderColor:'#888',backgroundColor:'#888',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[2,2]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#CCC'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#CCC'}}}}});
+  charts[id]=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Meta',data:a,borderColor:'#1877F2',backgroundColor:'#1877F2',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'TikTok',data:b,borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]},{label:'Google',data:c,borderColor:'#FBBC04',backgroundColor:'#FBBC04',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[2,2]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#CCC'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#CCC'}}}}});
 }
 function mkPie(){
   if(charts.pC)charts.pC.destroy();
   const ctx=document.getElementById('pC');if(!ctx)return;
-  charts.pC=new Chart(ctx,{type:'doughnut',data:{labels:['Meta','TikTok','Google'],datasets:[{data:[1,1,1],backgroundColor:['#C8102E','#111','#888'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
+  charts.pC=new Chart(ctx,{type:'doughnut',data:{labels:['Meta','TikTok','Google'],datasets:[{data:[1,1,1],backgroundColor:['#1877F2','#111','#FBBC04'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
 }
 function initProdChart(){
   if(charts.prC)charts.prC.destroy();
@@ -1442,6 +1509,82 @@ function clearHistFilters(){
   document.getElementById('hist-filter-canal').value='';
   renderHistory();
 }
+ 
+// GLOBAL DATE FILTER
+function applyGlobalFilter(){
+  const from=document.getElementById('gf-from').value;
+  const to=document.getElementById('gf-to').value;
+  // sync all view filter bars with global values
+  const pairs=[
+    ['ov-from','ov-to','vfb-overview-label'],
+    ['mt-from','mt-to','vfb-metrics-label'],
+    ['pr-from','pr-to','vfb-products-label'],
+    ['ch-from','ch-to','vfb-channels-label'],
+  ];
+  pairs.forEach(([f,t,lbl])=>{
+    const ef=document.getElementById(f);const et=document.getElementById(t);
+    if(ef&&!ef.value)ef.value=from;
+    if(et&&!et.value)et.value=to;
+    updateVfbLabel(f,t,lbl);
+  });
+  // sync media channels
+  ['meta','tiktok','google'].forEach(c=>{
+    const ef=document.getElementById(c+'-date-from');
+    const et=document.getElementById(c+'-date-to');
+    if(ef&&!ef.value)ef.value=from;
+    if(et&&!et.value)et.value=to;
+    updateVfbLabel(c+'-date-from',c+'-date-to','vfb-'+c+'-label');
+    renderCampaigns(c);
+  });
+  renderHistory();
+}
+function clearGlobalFilter(){
+  document.getElementById('gf-from').value='';
+  document.getElementById('gf-to').value='';
+  // clear all view bars too
+  ['ov-from','ov-to','mt-from','mt-to','pr-from','pr-to','ch-from','ch-to',
+   'meta-date-from','meta-date-to','tiktok-date-from','tiktok-date-to','google-date-from','google-date-to'
+  ].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  ['vfb-overview-label','vfb-metrics-label','vfb-products-label','vfb-channels-label',
+   'vfb-meta-label','vfb-tiktok-label','vfb-google-label'
+  ].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='Todos os periodos';});
+  ['meta','tiktok','google'].forEach(c=>renderCampaigns(c));
+  renderHistory();
+}
+ 
+// sync a view-local filter back to global topbar
+function syncGlobal(fromId,toId){
+  const from=document.getElementById(fromId)?.value||'';
+  const to=document.getElementById(toId)?.value||'';
+  if(from){const gf=document.getElementById('gf-from');if(gf&&!gf.value)gf.value=from;}
+  if(to){const gt=document.getElementById('gf-to');if(gt&&!gt.value)gt.value=to;}
+  // update label for the current bar
+  const lbl=fromId.replace(/(ov|mt|pr|ch)-from/,'').replace('from','');
+  const lblMap={'ov-from':'vfb-overview-label','mt-from':'vfb-metrics-label','pr-from':'vfb-products-label','ch-from':'vfb-channels-label'};
+  updateVfbLabel(fromId,toId,lblMap[fromId]||'');
+}
+function updateVfbLabel(fromId,toId,lblId){
+  if(!lblId)return;
+  const f=document.getElementById(fromId)?.value||'';
+  const t=document.getElementById(toId)?.value||'';
+  const el=document.getElementById(lblId);if(!el)return;
+  if(f&&t)el.textContent=fmtDate(f)+' — '+fmtDate(t);
+  else if(f)el.textContent='A partir de '+fmtDate(f);
+  else if(t)el.textContent='Ate '+fmtDate(t);
+  else el.textContent='Todos os periodos';
+}
+function clearViewFilter(fromId,toId,lblId){
+  const ef=document.getElementById(fromId);const et=document.getElementById(toId);
+  if(ef)ef.value='';if(et)et.value='';
+  const el=document.getElementById(lblId);if(el)el.textContent='Todos os periodos';
+}
+function fmtDate(raw){
+  if(!raw)return'';
+  return new Date(raw+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'});
+}
+function getGlobalFilter(){
+  return{from:document.getElementById('gf-from')?.value||'',to:document.getElementById('gf-to')?.value||''};
+}
 function deleteReport(id){
   if(!confirm('Excluir este relatorio?'))return;
   reports=reports.filter(r=>r.id!==id);
@@ -1458,7 +1601,8 @@ function editReport(id){
   document.getElementById('man-roas').value=r.roas||'';
   document.getElementById('man-cpa').value=r.cpa||'';
   document.getElementById('man-ticket').value=r.ticket||'';
-  document.getElementById('man-ctr').value=r.ctr||'';document.getElementById('man-cpm').value=r.cpm||'';
+  document.getElementById('man-ctr').value=r.ctr||'';
+  document.getElementById('man-cpm').value=r.cpm||'';
   document.getElementById('man-cpc').value=r.cpc||'';
   document.getElementById('man-imp').value=r.imp||'';
   document.getElementById('man-cliques').value=r.cliques||'';
@@ -1473,8 +1617,9 @@ function saveManual(){
   const canal=g('man-canal');
   const fat=g('man-fat');
   const invest=g('man-invest');
+  if(!rawDate){alert('Selecione a data do relatorio.');return;}
   if(!canal){alert('Selecione o canal.');return;}
-  const dateStr=rawDate?new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR'):new Date().toLocaleDateString('pt-BR');
+  const dateStr=new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR');
   const id=Date.now();
   reports.unshift({
     id,rawDate,date:dateStr,canal,
@@ -1487,38 +1632,67 @@ function saveManual(){
   });
   ['man-fat','man-invest','man-pedidos','man-roas','man-cpa','man-ticket','man-ctr','man-cpm','man-cpc','man-imp','man-cliques','man-freq'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   renderHistory();
-  alert('Relatorio salvo com sucesso!');
+  // sync global filter
+  applyGlobalFilter();
+  const ok=document.createElement('div');ok.textContent='Salvo!';ok.style.cssText='position:fixed;bottom:20px;right:20px;background:#16A34A;color:#fff;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+  document.body.appendChild(ok);setTimeout(()=>ok.remove(),2500);
 }
  
 // CSV FILE HANDLING
 function handleCSVDrop(e){
   e.preventDefault();
   const f=e.dataTransfer.files[0];
-  if(f)processCSVFile(f,'Geral');
+  if(f)askCSVDate(f,'Geral');
 }
 function handleCSVFile(input){
   const f=input.files[0];if(!f)return;
   const canal=input.dataset.canal||'Geral';
-  processCSVFile(f,canal);
+  askCSVDate(f,canal);
   input.value='';
 }
-function processCSVFile(f,canal){
+function askCSVDate(f,canal){
+  // show mini modal asking for date
+  const today=new Date().toISOString().split('T')[0];
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:500;';
+  overlay.innerHTML=`<div style="background:#fff;border-radius:12px;padding:24px;width:320px;font-family:var(--font);">
+    <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Data do arquivo CSV</div>
+    <div style="font-size:11px;color:var(--g1);margin-bottom:16px;">${f.name} — ${canal}</div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:10px;color:var(--g2);font-weight:500;display:block;margin-bottom:5px;">Selecione a data de referencia *</label>
+      <input type="date" id="csv-date-pick" value="${today}" style="width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:13px;font-family:var(--font);outline:none;">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="background:var(--g4);color:var(--g2);border:none;border-radius:7px;padding:8px 16px;font-size:11px;cursor:pointer;font-family:var(--font);">Cancelar</button>
+      <button id="csv-confirm-btn" style="background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);">Confirmar</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#csv-confirm-btn').onclick=()=>{
+    const rawDate=overlay.querySelector('#csv-date-pick').value;
+    overlay.remove();
+    processCSVFile(f,canal,rawDate);
+  };
+}
+function processCSVFile(f,canal,rawDate){
   const reader=new FileReader();
   reader.onload=function(e){
     const text=e.target.result;
     const lines=text.split('\n').filter(l=>l.trim());
     const rows=lines.length-1;
     const id=Date.now();
-    const dateStr=new Date().toLocaleDateString('pt-BR');
+    const dateStr=rawDate?new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR'):new Date().toLocaleDateString('pt-BR');
     reports.unshift({
-      id,rawDate:new Date().toISOString().split('T')[0],
+      id,rawDate:rawDate||new Date().toISOString().split('T')[0],
       date:dateStr,canal,desc:f.name,tipo:'CSV',
       fat:'',invest:'',roas:'',cpa:'',pedidos:String(rows),
       ticket:'',ctr:'',cpm:'',cpc:'',imp:'',cliques:'',freq:'',
       rawCSV:text,filename:f.name
     });
     renderHistory();
-    alert('Arquivo "'+f.name+'" processado — '+rows+' linhas.');
+    applyGlobalFilter();
+    const ok=document.createElement('div');ok.textContent='Arquivo processado — '+rows+' linhas';ok.style.cssText='position:fixed;bottom:20px;right:20px;background:#16A34A;color:#fff;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+    document.body.appendChild(ok);setTimeout(()=>ok.remove(),2500);
   };
   reader.readAsText(f);
 }
@@ -1543,85 +1717,180 @@ function dlFile(content,filename,type){
 }
  
 // CAMPAIGNS STORE
+// CAMPAIGNS — structure: campaigns[canal] = [{id, nome, status, entries:[{rawDate,date,...metrics}]}]
 let campaigns={meta:[],tiktok:[],google:[]};
-let editingCampaign={canal:null,id:null};
+let editingCampaign={canal:null,campId:null,entryIdx:null}; // campId=null means new campaign
  
-function openAddCampaign(canal,id){
-  editingCampaign={canal,id:id||null};
+function openAddCampaign(canal,campId,entryIdx){
+  editingCampaign={canal,campId:campId??null,entryIdx:entryIdx??null};
+  const isNewCamp=campId==null;
+  const isNewEntry=campId!=null&&entryIdx==null;
+  const isEditEntry=campId!=null&&entryIdx!=null;
+  const label=canal==='meta'?'Meta Ads':canal==='tiktok'?'TikTok':'Google Ads';
   const title=document.getElementById('camp-modal-title');
-  const isEdit=id!=null;
-  title.textContent=(isEdit?'Editar':'Nova Campanha')+' — '+(canal==='meta'?'Meta Ads':canal==='tiktok'?'TikTok':'Google Ads');
+  title.textContent=isNewCamp?('Nova Campanha — '+label):isNewEntry?('Novo Registro — '+label):('Editar Registro — '+label);
+ 
+  // show/hide name+status fields (only for new campaign)
+  document.getElementById('camp-name-row').style.display=isNewCamp?'block':'none';
+  document.getElementById('camp-name-readonly').style.display=!isNewCamp?'block':'none';
+ 
   // reset fields
-  ['camp-name','camp-status','camp-date','camp-invest','camp-receita','camp-roas','camp-cpa','camp-ctr','camp-cpm','camp-freq','camp-imp','camp-cliques','camp-col2','camp-col3'].forEach(fid=>{const el=document.getElementById(fid);if(el)el.value='';});
-  if(isEdit){
-    const c=campaigns[canal].find(x=>x.id===id);
-    if(c){
-      document.getElementById('camp-name').value=c.nome||'';
-      document.getElementById('camp-status').value=c.status||'Ativa';
-      document.getElementById('camp-date').value=c.rawDate||'';
-      document.getElementById('camp-invest').value=c.invest||'';
-      document.getElementById('camp-receita').value=c.receita||'';
-      document.getElementById('camp-roas').value=c.roas||'';
-      document.getElementById('camp-cpa').value=c.cpa||'';
-      document.getElementById('camp-ctr').value=c.ctr||'';
-      document.getElementById('camp-cpm').value=c.cpm||'';
-      document.getElementById('camp-freq').value=c.freq||'';
-      document.getElementById('camp-imp').value=c.imp||'';
-      document.getElementById('camp-cliques').value=c.cliques||'';
+  ['camp-name','camp-date','camp-invest','camp-receita','camp-roas','camp-cpa','camp-ctr','camp-cpm','camp-freq','camp-imp','camp-cliques'].forEach(fid=>{const el=document.getElementById(fid);if(el)el.value='';});
+  document.getElementById('camp-status').value='Ativa';
+  document.getElementById('camp-date').value=new Date().toISOString().split('T')[0];
+ 
+  if(!isNewCamp){
+    const camp=campaigns[canal].find(x=>x.id===campId);
+    if(camp){
+      document.getElementById('camp-name-readonly').textContent='Campanha: '+camp.nome;
+      if(isEditEntry&&camp.entries[entryIdx]){
+        const en=camp.entries[entryIdx];
+        document.getElementById('camp-date').value=en.rawDate||'';
+        document.getElementById('camp-invest').value=en.invest||'';
+        document.getElementById('camp-receita').value=en.receita||'';
+        document.getElementById('camp-roas').value=en.roas||'';
+        document.getElementById('camp-cpa').value=en.cpa||'';
+        document.getElementById('camp-ctr').value=en.ctr||'';
+        document.getElementById('camp-cpm').value=en.cpm||'';
+        document.getElementById('camp-freq').value=en.freq||'';
+        document.getElementById('camp-imp').value=en.imp||'';
+        document.getElementById('camp-cliques').value=en.cliques||'';
+        document.getElementById('camp-gmv').value=en.gmv||'';
+        document.getElementById('camp-conversao').value=en.conversao||'';
+        document.getElementById('camp-avaliacao').value=en.avaliacao||'';
+        document.getElementById('camp-cpc').value=en.cpc||'';
+        document.getElementById('camp-conv').value=en.conv||'';
+      }
     }
   }
-  // show/hide catiktok')return`<tr><td>${c.nome}</td><td>${c.date}</td><td>${c.pedidos||c.cliques||'—'}</td><td>${c.gmv||c.receita||'—'}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.roas||'—'}</td><td>${c.conversao||c.cpa||'—'}</td><td>${c.ctr||'—'}</td><td>${c.avaliacao||'—'}</td>${acoes}</tretElementById('camp-extra-google').style.display=isGoogle?'grid':'none';
+  const isGoogle=canal==='google',isTiktok=canal==='tiktok';
+  document.getElementById('camp-extra-meta').style.display=(!isGoogle&&!isTiktok)?'grid':'none';
+  document.getElementById('camp-extra-tiktok').style.display=isTiktok?'grid':'none';
+  document.getElementById('camp-extra-google').style.display=isGoogle?'grid':'none';
   document.getElementById('camp-modal').classList.add('open');
 }
 function closeCampModal(){document.getElementById('camp-modal').classList.remove('open');}
+ 
 function saveCampaign(){
   const g=id=>{const e=document.getElementById(id);return e?e.value.trim():''};
   const canal=editingCampaign.canal;
   const rawDate=g('camp-date');
-  const dateStr=rawDate?new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR'):new Date().toLocaleDateString('pt-BR');
+  if(!rawDate){alert('Selecione a data do registro.');return;}
+  const dateStr=new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR');
   const entry={
-    id:editingCampaign.id||Date.now(),rawDate,date:dateStr,
-    nome:g('camp-name')||'Campanha sem nome',
-    status:g('camp-status')||'Ativa',
+    rawDate,date:dateStr,
     invest:g('camp-invest'),receita:g('camp-receita'),
     roas:g('camp-roas'),cpa:g('camp-cpa'),ctr:g('camp-ctr'),
     cpm:g('camp-cpm'),freq:g('camp-freq'),imp:g('camp-imp'),
     cliques:g('camp-cliques'),
-    gmv:g('camp-gmv')||'',conversao:g('camp-conversao')||'',avaliacao:g('camp-avaliacao')||'',
-    cpc:g('camp-cpc')||'',conv:g('camp-conv')||'',
+    gmv:g('camp-gmv'),conversao:g('camp-conversao'),avaliacao:g('camp-avaliacao'),
+    cpc:g('camp-cpc'),conv:g('camp-conv'),
   };
-  if(editingCampaign.id){
-    const idx=campaigns[canal].findIndex(x=>x.id===editingCampaign.id);
-    if(idx>=0)campaigns[canal][idx]=entry;
+  const {campId,entryIdx}=editingCampaign;
+  if(campId==null){
+    // new campaign
+    const nomeCamp=g('camp-name')||'Campanha sem nome';
+    const status=g('camp-status')||'Ativa';
+    campaigns[canal].push({id:Date.now(),nome:nomeCamp,status,entries:[entry]});
   } else {
-    campaigns[canal].push(entry);
+    const camp=campaigns[canal].find(x=>x.id===campId);
+    if(camp){
+      if(entryIdx!=null)camp.entries[entryIdx]=entry;
+      else camp.entries.push(entry);
+      // sort entries by date
+      camp.entries.sort((a,b)=>a.rawDate.localeCompare(b.rawDate));
+    }
   }
   closeCampModal();
   renderCampaigns(canal);
 }
-function deleteCampaign(canal,id){
-  if(!confirm('Excluir esta campanha?'))return;
-  campaigns[canal]=campaigns[canal].filter(c=>c.id!==id);
+ 
+function deleteCampaignEntry(canal,campId,entryIdx){
+  const camp=campaigns[canal].find(x=>x.id===campId);
+  if(!camp)return;
+  if(camp.entries.length===1){
+    if(!confirm('Excluir este registro? A campanha sera removida.'))return;
+    campaigns[canal]=campaigns[canal].filter(c=>c.id!==campId);
+  } else {
+    if(!confirm('Excluir este registro de data?'))return;
+    camp.entries.splice(entryIdx,1);
+  }
   renderCampaigns(canal);
 }
+function deleteCampaign(canal,campId){
+  if(!confirm('Excluir esta campanha e todos os seus registros?'))return;
+  campaigns[canal]=campaigns[canal].filter(c=>c.id!==campId);
+  renderCampaigns(canal);
+}
+ 
 function renderCampaigns(canal){
-  const dfrom=document.getElementById(canal+'-date-from')?.value;
-  const dto=document.getElementById(canal+'-date-to')?.value;
-  let rows=campaigns[canal].filter(c=>{
-    if(dfrom&&c.rawDate&&c.rawDate<dfrom)return false;
-    if(dto&&c.rawDate&&c.rawDate>dto)return false;
-    return true;
-  });
+  const dfrom=document.getElementById(canal+'-date-from')?.value||'';
+  const dto=document.getElementById(canal+'-date-to')?.value||'';
   const tbody=document.getElementById(canal+'-tbody');if(!tbody)return;
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione ou suba um CSV.</td></tr>';return;}
   const sMap={'Ativa':'s-on','Pausada':'s-pau','Encerrada':'s-off'};
-  tbody.innerHTML=rows.map(c=>{
-    const sc=sMap[c.status]||'s-pau';
-    const acoes=`<td style="white-space:nowrap;"><button onclick="openAddCampaign('${canal}',${c.id})" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);margin-right:4px;"><i class="ti ti-pencil" style="font-size:10px"></i></button><button onclick="deleteCampaign('${canal}',${c.id})" style="background:#FEE2E2;color:#9B1C1C;border:none;border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);"><i class="ti ti-trash" style="font-size:10px"></i></button></td>`;
-    if(canal==='tiktok')return`<tr><td>${c.nome}</td><td>${c.date}</td><td>${c.pedidos||c.cliques||'—'}</td><td>${c.gmv||c.receita||'—'}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.roas||'—'}</td><td>${c.conversao||c.cpa||'—'}</td><td>${c.ctr||'—'}</td><td>${c.avaliacao||'—'}</td>${acoes}</tr>`;
-    if(canal==='google')return`<tr><td>${c.nome}</td><td><span class="sb-badge ${sc}">${c.status}</span></td><td>${c.date}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.receita?'R$ '+c.receita:'—'}</td><td>${c.roas||'—'}</td><td>${c.cpc?'R$ '+c.cpc:'—'}</td><td>${c.ctr||'—'}</td><td>${c.conv||'—'}</td>${acoes}</tr>`;
-    return`<tr><td>${c.nome}</td><td><span class="sb-badge ${sc}">${c.status}</span></td><td>${c.date}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.receita?'R$ '+c.receita:'—'}</td><td>${c.roas||'—'}</td><td>${c.cpa?'R$ '+c.cpa:'—'}</td><td>${c.ctr||'—'}</td><td>${c.cpm||'—'}</td><td>${c.freq||'—'}</td><td>${c.imp||'—'}</td>${acoes}</tr>`;
-  }).join('');
+ 
+  // also apply global filter if no local filter
+  const gFrom=document.getElementById('gf-from')?.value||'';
+  const gTo=document.getElementById('gf-to')?.value||'';
+  const from=dfrom||gFrom;
+  const to=dto||gTo;
+ 
+  if(!campaigns[canal].length){tbody.innerHTML='<tr><td colspan="14" style="text-align:center;color:var(--g1);padding:20px;">Nenhuma campanha. Clique em "+ Nova" para adicionar.</td></tr>';return;}
+ 
+  let html='';
+  campaigns[canal].forEach(camp=>{
+    // filter entries by date range
+    const entries=camp.entries.filter(en=>{
+      if(from&&en.rawDate&&en.rawDate<from)return false;
+      if(to&&en.rawDate&&en.rawDate>to)return false;
+      return true;
+    });
+    if(!entries.length)return; // skip campaigns with no entries in range
+ 
+    const isSingle=entries.length===1;
+    const sc=sMap[camp.status]||'s-pau';
+ 
+    entries.forEach((en,ei)=>{
+      const realIdx=camp.entries.indexOf(en);
+      const acoes=`<td style="white-space:nowrap;">
+        <button onclick="openAddCampaign('${canal}',${camp.id},null)" title="Novo registro" style="background:#DBEAFE;color:#1D4ED8;border:none;border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-family:var(--font);margin-right:3px;"><i class="ti ti-plus" style="font-size:10px"></i></button>
+        <button onclick="openAddCampaign('${canal}',${camp.id},${realIdx})" title="Editar" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-family:var(--font);margin-right:3px;"><i class="ti ti-pencil" style="font-size:10px"></i></button>
+        <button onclick="deleteCampaignEntry('${canal}',${camp.id},${realIdx})" title="Excluir registro" style="background:#FEE2E2;color:#9B1C1C;border:none;border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-family:var(--font);margin-right:3px;"><i class="ti ti-trash" style="font-size:10px"></i></button>
+        ${ei===0?`<button onclick="deleteCampaign('${canal}',${camp.id})" title="Excluir campanha toda" style="background:#9B1C1C;color:#fff;border:none;border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-family:var(--font);" title="Excluir campanha"><i class="ti ti-x" style="font-size:10px"></i></button>`:''}
+      </td>`;
+      // first row of this campaign shows name + status, rest shows arrow
+      const nameCell=ei===0
+        ?`<td rowspan="${entries.length}" style="vertical-align:top;border-right:3px solid ${sc==='s-on'?'#16A34A':sc==='s-pau'?'#D97706':'#9B1C1C'};"><strong>${camp.nome}</strong></td><td rowspan="${entries.length}" style="vertical-align:top;"><span class="sb-badge ${sc}">${camp.status}</span></td>`
+        :'';
+      if(canal==='tiktok'){
+        html+=`<tr ${ei===0?'style="border-top:2px solid var(--g5)"':''}>
+          ${nameCell}
+          <td style="color:var(--g2);font-size:10px;">${en.date}</td>
+          <td>${en.cliques||'—'}</td><td>${en.gmv||en.receita||'—'}</td>
+          <td>${en.invest?'R$ '+en.invest:'—'}</td><td>${en.roas||'—'}</td>
+          <td>${en.conversao||en.cpa||'—'}</td><td>${en.ctr||'—'}</td><td>${en.avaliacao||'—'}</td>
+          ${acoes}</tr>`;
+      } else if(canal==='google'){
+        html+=`<tr ${ei===0?'style="border-top:2px solid var(--g5)"':''}>
+          ${nameCell}
+          <td style="color:var(--g2);font-size:10px;">${en.date}</td>
+          <td>${en.invest?'R$ '+en.invest:'—'}</td><td>${en.receita?'R$ '+en.receita:'—'}</td>
+          <td>${en.roas||'—'}</td><td>${en.cpc?'R$ '+en.cpc:'—'}</td>
+          <td>${en.ctr||'—'}</td><td>${en.conv||'—'}</td>
+          ${acoes}</tr>`;
+      } else {
+        html+=`<tr ${ei===0?'style="border-top:2px solid var(--g5)"':''}>
+          ${nameCell}
+          <td style="color:var(--g2);font-size:10px;">${en.date}</td>
+          <td>${en.invest?'R$ '+en.invest:'—'}</td><td>${en.receita?'R$ '+en.receita:'—'}</td>
+          <td>${en.roas||'—'}</td><td>${en.cpa?'R$ '+en.cpa:'—'}</td>
+          <td>${en.ctr||'—'}</td><td>${en.cpm||'—'}</td>
+          <td>${en.freq||'—'}</td><td>${en.imp||'—'}</td>
+          ${acoes}</tr>`;
+      }
+    });
+  });
+  tbody.innerHTML=html||'<tr><td colspan="14" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado no periodo selecionado.</td></tr>';
 }
 function filterMediaTable(canal){renderCampaigns(canal);}
 function clearMediaFilter(canal){
@@ -1636,30 +1905,31 @@ function clearMediaFilter(canal){
   <div class="nc-modal" style="max-width:520px;">
     <div class="nc-hd"><div class="nc-title" id="camp-modal-title">Nova Campanha</div><div class="modal-close" onclick="closeCampModal()"><i class="ti ti-x"></i></div></div>
     <div class="nc-body">
-      <div class="mrow"><div class="mfield"><label class="mlabel">Nome da Campanha</label><input class="minput" id="camp-name" placeholder="Ex: BD | Conv | LAL 2%"></div><div class="mfield"><label class="mlabel">Status</label><select class="mselect" id="camp-status"><option>Ativa</option><option>Pausada</option><option>Encerrada</option></select></div></div>
-      <div class="mfield"><label class="mlabel">Data</label><input class="minput" id="camp-date" type="date"></div>
+      <!-- name+status: only for new campaigns -->
+      <div id="camp-name-row">
+        <div class="mrow"><div class="mfield"><label class="mlabel">Nome da Campanha *</label><input class="minput" id="camp-name" placeholder="Ex: BD | Conv | LAL 2%"></div><div class="mfield"><label class="mlabel">Status</label><select class="mselect" id="camp-status"><option>Ativa</option><option>Pausada</option><option>Encerrada</option></select></div></div>
+      </div>
+      <div id="camp-name-readonly" style="display:none;font-size:12px;font-weight:600;color:var(--g2);background:var(--g4);padding:8px 11px;border-radius:7px;margin-bottom:10px;"></div>
+      <!-- date always shown and required -->
+      <div class="mfield"><label class="mlabel">Data do Registro *</label><input class="minput" id="camp-date" type="date"></div>
       <div class="mrow"><div class="mfield"><label class="mlabel">Investimento (R$)</label><input class="minput" id="camp-invest" placeholder=""></div><div class="mfield"><label class="mlabel">Receita/GMV (R$)</label><input class="minput" id="camp-receita" placeholder=""></div></div>
       <div class="mrow"><div class="mfield"><label class="mlabel">ROAS</label><input class="minput" id="camp-roas" placeholder=""></div><div class="mfield"><label class="mlabel">CPA (R$)</label><input class="minput" id="camp-cpa" placeholder=""></div></div>
       <div class="mrow"><div class="mfield"><label class="mlabel">CTR (%)</label><input class="minput" id="camp-ctr" placeholder=""></div><div class="mfield"><label class="mlabel">Impressoes</label><input class="minput" id="camp-imp" placeholder=""></div></div>
-      <!-- Meta specific -->
-      <div id="camp-extra-meta" class="mrow" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div id="camp-extra-meta" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div class="mfield"><label class="mlabel">CPM (R$)</label><input class="minput" id="camp-cpm" placeholder=""></div>
         <div class="mfield"><label class="mlabel">Frequencia</label><input class="minput" id="camp-freq" placeholder=""></div>
         <div class="mfield"><label class="mlabel">Cliques</label><input class="minput" id="camp-cliques" placeholder=""></div>
-        <div class="mfield" id="camp-col3"></div>
+        <div class="mfield"></div>
       </div>
-      <!-- TikTok specific -->
       <div id="camp-extra-tiktok" style="display:none;grid-template-columns:1fr 1fr;gap:8px;">
         <div class="mfield"><label class="mlabel">Pedidos</label><input class="minput" id="camp-pedidos-t" placeholder=""></div>
         <div class="mfield"><label class="mlabel">Taxa de Conversao</label><input class="minput" id="camp-conversao" placeholder=""></div>
         <div class="mfield"><label class="mlabel">GMV (R$)</label><input class="minput" id="camp-gmv" placeholder=""></div>
         <div class="mfield"><label class="mlabel">Avaliacao</label><input class="minput" id="camp-avaliacao" placeholder="4.8"></div>
       </div>
-      <!-- Google specific -->
       <div id="camp-extra-google" style="display:none;grid-template-columns:1fr 1fr;gap:8px;">
         <div class="mfield"><label class="mlabel">CPC (R$)</label><input class="minput" id="camp-cpc" placeholder=""></div>
         <div class="mfield"><label class="mlabel">Conversoes</label><input class="minput" id="camp-conv" placeholder=""></div>
-        <div class="mfield" id="camp-col2"></div>
       </div>
     </div>
     <div class="nc-foot"><button class="btn-cancel" onclick="closeCampModal()">Cancelar</button><button class="btn-confirm" onclick="saveCampaign()">Salvar</button></div>
