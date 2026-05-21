@@ -4,41 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dermo Club</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --red:#C8102E;--red-d:#9B0B22;--red-l:#FCEEF0;--red-m:#E8304A;
-  --blk:#0F0F0F;--blk2:#181818;
-  --g1:#999;--g2:#666;--g3:#444;--g4:#F3F3F3;--g5:#EFEFEF;
-  --white:#FFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);
-  --font:'DM Sans',sans-serif;
-  --sb:220px;
+  --red:#C8102E;--red-d:#9B0B22;--red-l:#FCEEF0;
+  --blk:#0F0F0F;--g1:#999;--g2:#666;--g4:#F3F3F3;--g5:#EFEFEF;
+  --white:#FFF;--border:rgba(0,0,0,0.08);
+  --font:'DM Sans',sans-serif;--sb:220px;
 }
 html,body{height:100%;font-family:var(--font);color:var(--blk);background:var(--g5);}
  
-/* ======= LOGIN ======= */
+/* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--blk);display:flex;align-items:center;justify-content:center;z-index:999;}
-.login-box{width:360px;padding:40px;background:#1A1A1A;border-radius:16px;border:1px solid rgba(255,255,255,0.08);}
-.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;justify-content:center;}
-.login-logo-box{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;}
-.login-logo-name{color:#fff;font-size:20px;font-weight:700;}
-.login-title{color:#fff;font-size:16px;font-weight:600;margin-bottom:4px;}
-.login-sub{color:rgba(255,255,255,0.4);font-size:12px;margin-bottom:28px;}
-.login-label{color:rgba(255,255,255,0.6);font-size:11px;font-weight:500;margin-bottom:6px;display:block;}
-.login-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:#fff;font-family:var(--font);outline:none;margin-bottom:14px;transition:border-color .15s;}
-.login-input:focus{border-color:var(--red);}
-.login-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s;margin-top:4px;}
-.login-btn:hover{background:var(--red-d);}
-.login-err{color:#F87171;font-size:11px;margin-top:-8px;margin-bottom:10px;display:none;}
+.lbox{width:360px;padding:40px;background:#1A1A1A;border-radius:16px;border:1px solid rgba(255,255,255,0.08);}
+.llogo{display:flex;align-items:center;gap:12px;margin-bottom:32px;justify-content:center;}
+.llogobox{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;}
+.llogoname{color:#fff;font-size:20px;font-weight:700;}
+.ltitle{color:#fff;font-size:16px;font-weight:600;margin-bottom:4px;}
+.lsub{color:rgba(255,255,255,0.4);font-size:12px;margin-bottom:28px;}
+.llabel{color:rgba(255,255,255,0.6);font-size:11px;font-weight:500;margin-bottom:6px;display:block;}
+.linput{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:#fff;font-family:var(--font);outline:none;margin-bottom:14px;transition:border-color .15s;}
+.linput:focus{border-color:var(--red);}
+.lbtn{width:100%;background:var(--red);color:#fff;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);margin-top:4px;}
+.lbtn:hover{background:var(--red-d);}
+.lerr{color:#F87171;font-size:11px;margin-top:-8px;margin-bottom:10px;display:none;}
  
-/* ======= APP ======= */
+/* APP */
 #app{display:flex;height:100vh;overflow:hidden;}
- 
-/* SIDEBAR */
-.sb{width:var(--sb);min-width:var(--sb);background:var(--blk);display:flex;flex-direction:column;height:100vh;transition:transform .25s;}
+.sb{width:var(--sb);min-width:var(--sb);background:var(--blk);display:flex;flex-direction:column;height:100vh;transition:transform .25s;z-index:60;}
 .sb-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
 .logo-row{display:flex;align-items:center;gap:9px;}
 .logo-box{width:30px;height:30px;background:var(--red);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
@@ -56,55 +52,30 @@ html,body{height:100%;font-family:var(--font);color:var(--blk);background:var(--
 .ava{width:28px;height:28px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
 .usr-name{color:rgba(255,255,255,0.65);font-size:11px;}
 .usr-role{color:rgba(255,255,255,0.3);font-size:9px;}
-.usr-logout{margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px;}
  
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;}
 .tb-left{display:flex;align-items:center;gap:10px;}
 .tb-menu{display:none;color:var(--g2);font-size:22px;cursor:pointer;padding:4px;}
 .tb-title{font-size:14px;font-weight:600;}
 .tb-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.tb-sel{display:flex;align-items:center;gap:5px;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--g2);cursor:pointer;}
-.tb-sel i{font-size:13px;}
+.tb-sel{display:flex;align-items:center;gap:5px;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--g2);}
 .tb-sel select{background:transparent;border:none;font-size:11px;color:var(--g2);outline:none;font-family:var(--font);cursor:pointer;}
-.btn-r{display:flex;align-items:center;gap:5px;background:var(--red);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background .15s;white-space:nowrap;}
+.btn-r{display:flex;align-items:center;gap:5px;background:var(--red);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);white-space:nowrap;}
 .btn-r:hover{background:var(--red-d);}
- 
 .scroll{flex:1;overflow-y:auto;padding:16px 20px;}
 .view{display:none;}.view.on{display:block;}
  
-/* KPI GRID */
+/* KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
 .kpi{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:14px;position:relative;overflow:hidden;}
 .kpi::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red);}
 .kpi-lbl{font-size:10px;color:var(--g1);text-transform:uppercase;letter-spacing:.5px;font-weight:500;margin-bottom:5px;}
-.kpi-val{font-size:20px;font-weight:700;letter-spacing:-.5px;}
-.kpi-delta{font-size:10px;margin-top:3px;display:flex;align-items:center;gap:3px;}
-.up{color:#16A34A;}.dn{color:var(--red);}
+.kpi-val{font-size:18px;font-weight:700;letter-spacing:-.5px;}
 .kpi-sub{font-size:9px;color:var(--g1);margin-top:2px;}
  
-/* METRICS INPUT AREA */
-.metrics-section{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
-.ms-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.ms-title{font-size:12px;font-weight:600;}
-.ms-period{font-size:10px;color:var(--g1);}
-.ms-body{padding:16px;}
-.ms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
-.ms-field{display:flex;flex-direction:column;gap:4px;}
-.ms-label{font-size:10px;color:var(--g2);font-weight:500;}
-.ms-input{background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-weight:600;color:var(--blk);font-family:var(--font);outline:none;transition:border-color .15s;width:100%;}
-.ms-input:focus{border-color:var(--red);background:#fff;}
-.ms-segment{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.ms-seg-card{background:var(--g4);border-radius:8px;padding:12px;}
-.ms-seg-title{font-size:10px;color:var(--g2);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;display:flex;align-items:center;gap:5px;}
-.ms-seg-title i{font-size:12px;}
-.ms-seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.btn-save-metrics{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 20px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s;}
-.btn-save-metrics:hover{background:var(--red-d);}
-.saved-toast{display:none;color:#16A34A;font-size:11px;font-weight:500;margin-left:10px;align-items:center;gap:4px;}
- 
-/* CHARTS */
+/* CARDS/CHARTS */
 .ch-row{display:grid;grid-template-columns:1.5fr 1fr;gap:10px;margin-bottom:14px;}
 .card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:16px;}
 .card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
@@ -125,7 +96,7 @@ html,body{height:100%;font-family:var(--font);color:var(--blk);background:var(--
 .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .ps{background:var(--g4);border-radius:7px;padding:9px 10px;}
 .ps-l{font-size:9px;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;}
-.ps-v{font-size:15px;font-weight:700;margin-top:2px;}
+.ps-v{font-size:14px;font-weight:700;margin-top:2px;}
 .prog{height:3px;background:#EEE;border-radius:3px;margin-top:10px;}
 .prog-f{height:100%;border-radius:3px;background:var(--red);}
  
@@ -139,213 +110,277 @@ html,body{height:100%;font-family:var(--font);color:var(--blk);background:var(--
 .roas-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;display:inline-block;}
 .rg{background:#DCFCE7;color:#15803D;}.ry{background:#FEF9C3;color:#854D0E;}
  
-/* UPLOAD REPORT */
-.upload-section{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
-.up-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.up-title{font-size:12px;font-weight:600;}
-.up-body{padding:16px;}
-.up-channels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
-.up-ch{border:1.5px dashed var(--border2);border-radius:9px;padding:14px;cursor:pointer;transition:all .15s;text-align:center;}
-.up-ch:hover{border-color:var(--red);background:var(--red-l);}
-.up-ch i{font-size:22px;color:var(--g1);margin-bottom:6px;}
-.up-ch:hover i{color:var(--red);}
-.up-ch-name{font-size:11px;font-weight:600;color:var(--g2);margin-bottom:3px;}
-.up-ch-sub{font-size:9px;color:var(--g1);}
-.up-drop{border:2px dashed var(--red);border-radius:9px;padding:22px;text-align:center;background:var(--red-l);cursor:pointer;transition:all .15s;}
-.up-drop:hover{background:#F5D5DA;}
-.up-drop-ico{font-size:24px;color:var(--red);margin-bottom:6px;}
-.up-drop-txt{font-size:12px;font-weight:600;color:var(--red-d);}
-.up-drop-sub{font-size:10px;color:var(--g1);margin-top:3px;}
-.up-drop-btn{background:var(--red);color:#fff;border:none;border-radius:6px;padding:7px 16px;font-size:11px;font-weight:600;cursor:pointer;margin-top:10px;font-family:var(--font);}
+/* TABLE */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .tbl-card{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px;}
-.tbl-hd{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.tbl-hd{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .tbl-title{font-size:12px;font-weight:600;}
-table{width:100%;border-collapse:collapse;}
+table{width:100%;border-collapse:collapse;min-width:600px;}
 thead{background:#FAFAFA;}
-th{padding:9px 16px;text-align:left;font-size:10px;font-weight:600;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);}
-td{padding:10px 16px;font-size:11px;color:var(--blk);border-bottom:1px solid rgba(0,0,0,0.04);}
+th{padding:9px 14px;text-align:left;font-size:10px;font-weight:600;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:10px 14px;font-size:11px;color:var(--blk);border-bottom:1px solid rgba(0,0,0,0.04);white-space:nowrap;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:#FAFAFA;}
 .sb-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:4px;display:inline-block;}
 .s-on{background:#DCFCE7;color:#15803D;}.s-off{background:#FEE2E2;color:#9B1C1C;}.s-pau{background:#FEF9C3;color:#854D0E;}
  
-/* ====== KANBAN FLOWI STYLE ====== */
+/* METRICS */
+.ms-section{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.ms-hd{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ms-title{font-size:12px;font-weight:600;}
+.ms-body{padding:16px;}
+.ms-group{margin-bottom:18px;}
+.ms-group-title{font-size:10px;color:var(--g2);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;}
+.ms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ms-field{display:flex;flex-direction:column;gap:4px;}
+.ms-label{font-size:10px;color:var(--g2);font-weight:500;}
+.ms-label span{color:var(--g1);font-size:9px;font-weight:400;}
+.ms-input{background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-weight:600;color:var(--blk);font-family:var(--font);outline:none;transition:border-color .15s;width:100%;}
+.ms-input:focus{border-color:var(--red);background:#fff;}
+.ms-input::placeholder{color:#CCC;font-weight:400;}
+.ms-seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.ms-seg-card{background:var(--g4);border-radius:8px;padding:12px;}
+.ms-seg-title{font-size:10px;color:var(--g2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.ms-seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.btn-save{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 20px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);}
+.btn-save:hover{background:var(--red-d);}
+.saved-ok{display:none;color:#16A34A;font-size:11px;font-weight:500;align-items:center;gap:4px;}
+ 
+/* METRICS DISPLAY PANEL */
+.met-panel{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.met-panel-hd{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.met-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 16px;}
+.met-kpi{background:var(--g4);border-radius:8px;padding:10px 12px;}
+.met-kpi-l{font-size:9px;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;font-weight:500;}
+.met-kpi-v{font-size:16px;font-weight:700;margin-top:3px;}
+.met-kpi-s{font-size:9px;color:var(--g1);margin-top:1px;}
+.seg-panels{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px;}
+.seg-panel{border-radius:8px;padding:12px;}
+.seg-panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.seg-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.seg-stat{padding:8px;border-radius:6px;background:rgba(255,255,255,0.6);}
+.seg-stat-l{font-size:9px;font-weight:500;}
+.seg-stat-v{font-size:13px;font-weight:700;margin-top:2px;}
+ 
+/* UPLOAD */
+.up-section{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.up-hd{padding:14px 16px;border-bottom:1px solid var(--border);}
+.up-channels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px;padding-bottom:0;}
+.up-ch{border:1.5px dashed var(--border);border-radius:9px;padding:14px;cursor:pointer;transition:all .15s;text-align:center;}
+.up-ch:hover{border-color:var(--red);background:var(--red-l);}
+.up-ch i{font-size:22px;color:var(--g1);margin-bottom:6px;display:block;}
+.up-ch:hover i{color:var(--red);}
+.up-ch-name{font-size:11px;font-weight:600;color:var(--g2);margin-bottom:3px;}
+.up-ch-sub{font-size:9px;color:var(--g1);}
+.up-drop{border:2px dashed var(--red);border-radius:9px;padding:22px;text-align:center;background:var(--red-l);cursor:pointer;margin:16px;}
+.up-drop:hover{background:#F5D5DA;}
+.up-drop i{font-size:26px;color:var(--red);margin-bottom:6px;display:block;}
+.up-drop-txt{font-size:12px;font-weight:600;color:var(--red-d);}
+.up-drop-sub{font-size:10px;color:var(--g1);margin-top:3px;}
+.up-btn{background:var(--red);color:#fff;border:none;border-radius:6px;padding:7px 16px;font-size:11px;font-weight:600;cursor:pointer;margin-top:10px;font-family:var(--font);}
+ 
+/* KANBAN */
 .kan-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
-.kan-filters{display:flex;gap:7px;flex-wrap:wrap;}
-.kan-filter{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;color:var(--g2);cursor:pointer;transition:all .12s;}
+.kan-filters{display:flex;gap:6px;flex-wrap:wrap;}
+.kan-filter{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;color:var(--g2);cursor:pointer;transition:all .12s;user-select:none;}
 .kan-filter.on{background:var(--red);color:#fff;border-color:var(--red);}
-.btn-new-card{display:flex;align-items:center;gap:5px;background:var(--red);color:#fff;border:none;border-radius:7px;padding:7px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);}
+.btn-new{display:flex;align-items:center;gap:5px;background:var(--red);color:#fff;border:none;border-radius:7px;padding:7px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);}
  
 .kan-board{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;align-items:flex-start;}
-.kan-col{min-width:220px;width:220px;flex-shrink:0;}
-.kan-col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:8px 10px;border-radius:8px;}
+.kan-col{min-width:215px;width:215px;flex-shrink:0;}
+.kan-col-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:8px 10px;border-radius:8px;}
 .kan-col-left{display:flex;align-items:center;gap:7px;}
 .kan-col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.kan-col-name{font-size:11px;font-weight:700;letter-spacing:.2px;}
-.kan-col-count{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;}
-.kan-add-btn{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.15);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g2);font-size:14px;transition:all .12s;}
-.kan-add-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.kan-col-name{font-size:11px;font-weight:700;}
+.kan-col-cnt{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;}
+.kan-col-add{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.15);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g2);font-size:14px;transition:all .12s;}
+.kan-col-add:hover{background:var(--red);border-color:var(--red);color:#fff;}
  
-/* COL THEMES */
-.col-testar .kan-col-head{background:#F0F4FF;}
+.col-testar .kan-col-hd{background:#F0F4FF;}
 .col-testar .kan-col-dot{background:#3B82F6;}
 .col-testar .kan-col-name{color:#1D4ED8;}
-.col-testar .kan-col-count{background:#DBEAFE;color:#1D4ED8;}
- 
-.col-testando .kan-col-head{background:#FFF7ED;}
+.col-testar .kan-col-cnt{background:#DBEAFE;color:#1D4ED8;}
+.col-testando .kan-col-hd{background:#FFF7ED;}
 .col-testando .kan-col-dot{background:#F59E0B;}
 .col-testando .kan-col-name{color:#B45309;}
-.col-testando .kan-col-count{background:#FEF3C7;color:#B45309;}
- 
-.col-validado .kan-col-head{background:#F0FDF4;}
+.col-testando .kan-col-cnt{background:#FEF3C7;color:#B45309;}
+.col-validado .kan-col-hd{background:#F0FDF4;}
 .col-validado .kan-col-dot{background:#22C55E;}
 .col-validado .kan-col-name{color:#15803D;}
-.col-validado .kan-col-count{background:#DCFCE7;color:#15803D;}
- 
-.col-nao-funcionou .kan-col-head{background:#FFF1F2;}
-.col-nao-funcionou .kan-col-dot{background:#F43F5E;}
-.col-nao-funcionou .kan-col-name{color:#BE123C;}
-.col-nao-funcionou .kan-col-count{background:#FFE4E6;color:#BE123C;}
- 
-.col-arquivado .kan-col-head{background:#F9FAFB;}
+.col-validado .kan-col-cnt{background:#DCFCE7;color:#15803D;}
+.col-nao .kan-col-hd{background:#FFF1F2;}
+.col-nao .kan-col-dot{background:#F43F5E;}
+.col-nao .kan-col-name{color:#BE123C;}
+.col-nao .kan-col-cnt{background:#FFE4E6;color:#BE123C;}
+.col-arquivado .kan-col-hd{background:#F9FAFB;}
 .col-arquivado .kan-col-dot{background:#9CA3AF;}
 .col-arquivado .kan-col-name{color:#6B7280;}
-.col-arquivado .kan-col-count{background:#F3F4F6;color:#6B7280;}
+.col-arquivado .kan-col-cnt{background:#F3F4F6;color:#6B7280;}
  
-.kan-cards{display:flex;flex-direction:column;gap:8px;min-height:60px;}
+.kan-cards{display:flex;flex-direction:column;gap:8px;min-height:40px;}
  
-/* CARD FLOWI STYLE */
-.kc{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:box-shadow .15s,transform .1s;}
+/* CARD */
+.kc{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:box-shadow .15s,transform .1s;user-select:none;}
 .kc:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);transform:translateY(-1px);}
-.kc-thumb{height:80px;background:linear-gradient(135deg,#F3F4F6,#E5E7EB);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.kc-thumb-icon{font-size:28px;color:rgba(0,0,0,0.15);}
-.kc-thumb-type{position:absolute;top:7px;left:7px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;backdrop-filter:blur(4px);}
-.kc-thumb-roas{position:absolute;top:7px;right:7px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;}
-.tag-video{background:rgba(237,233,254,.9);color:#5B21B6;}
-.tag-static{background:rgba(220,252,231,.9);color:#15803D;}
-.tag-ugc{background:rgba(254,249,195,.9);color:#854D0E;}
-.tag-carousel{background:rgba(252,231,243,.9);color:#9D174D;}
-.roas-ok{background:rgba(220,252,231,.9);color:#15803D;}
-.roas-warn{background:rgba(254,249,195,.9);color:#854D0E;}
-.roas-bad{background:rgba(254,226,226,.9);color:#9B1C1C;}
- 
+.kc.dragging{opacity:.5;transform:rotate(2deg);}
+.kc-thumb{height:80px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.kc-thumb i.kc-ti{font-size:28px;color:rgba(0,0,0,0.15);}
+.kc-thumb video,.kc-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.kc-type-badge{position:absolute;top:7px;left:7px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;backdrop-filter:blur(4px);}
+.kc-roas-badge{position:absolute;top:7px;right:7px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;backdrop-filter:blur(4px);}
+.tag-video{background:rgba(237,233,254,.92);color:#5B21B6;}
+.tag-ugc{background:rgba(254,249,195,.92);color:#854D0E;}
+.tag-static{background:rgba(220,252,231,.92);color:#15803D;}
+.tag-carousel{background:rgba(252,231,243,.92);color:#9D174D;}
+.roas-ok{background:rgba(220,252,231,.92);color:#15803D;}
+.roas-warn{background:rgba(254,249,195,.92);color:#854D0E;}
+.roas-bad{background:rgba(254,226,226,.92);color:#9B1C1C;}
 .kc-body{padding:10px 11px 11px;}
-.kc-title{font-size:11px;font-weight:600;line-height:1.35;margin-bottom:6px;color:var(--blk);}
-.kc-meta-row{display:flex;align-items:center;gap:5px;margin-bottom:7px;flex-wrap:wrap;}
-.kc-prod-tag{font-size:9px;color:var(--g1);background:var(--g4);padding:1px 6px;border-radius:4px;}
-.kc-channel{font-size:9px;color:var(--g1);background:var(--g4);padding:1px 6px;border-radius:4px;}
- 
-.kc-metrics-strip{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;}
+.kc-title{font-size:11px;font-weight:600;line-height:1.35;margin-bottom:6px;}
+.kc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+.kc-tag{font-size:9px;color:var(--g1);background:var(--g4);padding:1px 6px;border-radius:4px;}
+.kc-metrics{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
 .kc-m{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;}
-.m-green{background:#DCFCE7;color:#15803D;}
-.m-yellow{background:#FEF9C3;color:#854D0E;}
-.m-red{background:#FEE2E2;color:#9B1C1C;}
-.m-blue{background:#DBEAFE;color:#1D4ED8;}
- 
+.m-g{background:#DCFCE7;color:#15803D;}
+.m-y{background:#FEF9C3;color:#854D0E;}
+.m-r{background:#FEE2E2;color:#9B1C1C;}
+.m-b{background:#DBEAFE;color:#1D4ED8;}
 .kc-foot{display:flex;align-items:center;justify-content:space-between;}
 .kc-date{font-size:9px;color:var(--g1);display:flex;align-items:center;gap:3px;}
-.kc-avs{display:flex;gap:-2px;}
-.kc-av{width:18px;height:18px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;margin-left:-4px;}
-.kc-av:first-child{margin-left:0;}
- 
+.kc-cmts{font-size:9px;color:var(--g1);display:flex;align-items:center;gap:3px;}
 .fatigue-strip{background:var(--red-l);border-top:1px solid rgba(200,16,46,0.15);padding:5px 11px;display:flex;align-items:center;gap:4px;font-size:9px;font-weight:600;color:var(--red);}
-.motivo-strip{background:#F9FAFB;border-top:1px solid var(--border);padding:5px 11px;display:flex;align-items:center;gap:4px;font-size:9px;color:var(--g2);}
+.motivo-strip{background:#F9FAFB;border-top:1px solid var(--border);padding:5px 11px;font-size:9px;color:var(--g2);display:flex;align-items:center;gap:4px;}
+.kan-empty{text-align:center;padding:18px 10px;color:var(--g1);font-size:11px;border:1.5px dashed var(--border);border-radius:8px;}
+.drop-zone-active{background:rgba(200,16,46,0.05) !important;border:2px dashed var(--red) !important;}
  
-.kan-empty{text-align:center;padding:20px 10px;color:var(--g1);font-size:11px;border:1.5px dashed var(--border);border-radius:8px;}
+/* CARD DETAIL MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:flex-start;justify-content:flex-end;z-index:200;padding:0;}
+.overlay.open{display:flex;}
+.modal{background:var(--white);width:100%;max-width:460px;height:100vh;overflow-y:auto;display:flex;flex-direction:column;box-shadow:-4px 0 30px rgba(0,0,0,0.15);}
+.modal-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;background:var(--white);z-index:10;}
+.modal-title{font-size:13px;font-weight:600;}
+.modal-close{color:var(--g1);font-size:20px;cursor:pointer;padding:4px;}
+.modal-body{padding:20px;flex:1;}
+.modal-section{margin-bottom:20px;}
+.modal-section-title{font-size:10px;font-weight:700;color:var(--g2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.mfield{margin-bottom:10px;}
+.mlabel{font-size:11px;color:var(--g2);font-weight:500;margin-bottom:4px;display:block;}
+.minput{width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:var(--font);outline:none;color:var(--blk);transition:border-color .15s;}
+.minput:focus{border-color:var(--red);}
+.mselect{width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:var(--font);outline:none;color:var(--blk);cursor:pointer;}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mrow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+ 
+/* VIDEO/IMAGE UPLOAD */
+.media-drop{border:2px dashed var(--border);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:all .15s;margin-bottom:10px;}
+.media-drop:hover,.media-drop.over{border-color:var(--red);background:var(--red-l);}
+.media-drop i{font-size:28px;color:var(--g1);margin-bottom:8px;display:block;}
+.media-drop:hover i,.media-drop.over i{color:var(--red);}
+.media-drop-txt{font-size:12px;font-weight:600;color:var(--g2);}
+.media-drop-sub{font-size:10px;color:var(--g1);margin-top:3px;}
+.media-preview{width:100%;border-radius:8px;overflow:hidden;background:#000;position:relative;margin-bottom:10px;display:none;}
+.media-preview video,.media-preview img{width:100%;max-height:240px;object-fit:contain;display:block;}
+.media-preview-close{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
+ 
+/* MOVE CARD */
+.move-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.move-btn{font-size:10px;font-weight:600;padding:4px 10px;border-radius:6px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;font-family:var(--font);transition:all .12s;}
+.move-btn:hover{border-color:var(--red);color:var(--red);}
+.move-btn.current{background:var(--red);color:#fff;border-color:var(--red);}
+ 
+/* COMMENTS */
+.cmt-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;max-height:200px;overflow-y:auto;}
+.cmt{background:var(--g4);border-radius:8px;padding:10px 12px;}
+.cmt-meta{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.cmt-av{width:20px;height:20px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;}
+.cmt-author{font-size:10px;font-weight:600;}
+.cmt-time{font-size:9px;color:var(--g1);}
+.cmt-text{font-size:11px;line-height:1.45;}
+.cmt-input-row{display:flex;gap:8px;align-items:flex-end;}
+.cmt-ta{flex:1;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:11px;font-family:var(--font);resize:none;outline:none;height:44px;transition:border-color .15s;}
+.cmt-ta:focus{border-color:var(--red);}
+.cmt-send{background:var(--red);color:#fff;border:none;border-radius:7px;padding:0 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);height:44px;}
  
 /* NEW CARD MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--white);border-radius:12px;width:100%;max-width:440px;overflow:hidden;max-height:90vh;overflow-y:auto;}
-.modal-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.modal-title{font-size:13px;font-weight:600;}
-.modal-close{color:var(--g1);font-size:20px;cursor:pointer;}
-.modal-body{padding:16px 20px;}
-.modal-field{margin-bottom:12px;}
-.modal-label{font-size:11px;font-weight:500;color:var(--g2);margin-bottom:5px;display:block;}
-.modal-input{width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:var(--font);outline:none;color:var(--blk);transition:border-color .15s;}
-.modal-input:focus{border-color:var(--red);}
-.modal-select{width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:var(--font);outline:none;color:var(--blk);cursor:pointer;}
-.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+.nc-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:300;padding:20px;}
+.nc-overlay.open{display:flex;}
+.nc-modal{background:var(--white);border-radius:12px;width:100%;max-width:400px;overflow:hidden;max-height:90vh;overflow-y:auto;}
+.nc-hd{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.nc-title{font-size:13px;font-weight:600;}
+.nc-body{padding:16px 18px;}
+.nc-foot{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
 .btn-cancel{background:var(--g4);color:var(--g2);border:none;border-radius:7px;padding:8px 16px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);}
 .btn-confirm{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);}
  
-/* KPI PILLS */
-.kpi-row-sm{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
-.kpi-pill{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-size:11px;color:var(--g2);}
-.kpi-pill strong{color:var(--blk);font-weight:700;}
- 
 /* AI */
-.ai-section{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px;}
-.ai-header{background:var(--blk);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;}
-.ai-hd-left{display:flex;align-items:center;gap:9px;}
+.ai-sec{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px;}
+.ai-hd{background:var(--blk);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;}
+.ai-hd-l{display:flex;align-items:center;gap:9px;}
 .ai-badge{width:28px;height:28px;border-radius:7px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ai-badge i{font-size:14px;color:#fff;}
-.ai-hd-title{color:#fff;font-size:12px;font-weight:600;}
-.ai-hd-sub{color:rgba(255,255,255,0.4);font-size:10px;margin-top:1px;}
-.ai-dot-live{width:6px;height:6px;border-radius:50%;background:#22C55E;animation:blink 2s ease-in-out infinite;}
+.ai-name{color:#fff;font-size:12px;font-weight:600;}
+.ai-sub{color:rgba(255,255,255,0.4);font-size:10px;margin-top:1px;}
+.ai-live{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,0.4);}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:#22C55E;animation:blink 2s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.ai-status{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,0.4);}
-.ai-msgs{height:180px;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
+.ai-msgs{height:175px;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
 .ai-msg{font-size:11px;line-height:1.55;padding:9px 12px;border-radius:8px;max-width:85%;}
 .ai-msg.user{background:var(--red);color:#fff;align-self:flex-end;border-radius:8px 8px 2px 8px;}
 .ai-msg.bot{background:var(--g4);color:var(--blk);align-self:flex-start;border-radius:8px 8px 8px 2px;}
-.ai-msg.bot strong{color:var(--red);}
 .ai-typing{display:flex;gap:4px;padding:9px 12px;background:var(--g4);border-radius:8px;align-self:flex-start;}
 .ai-d{width:6px;height:6px;border-radius:50%;background:var(--g1);animation:ap 1.2s ease-in-out infinite;}
 .ai-d:nth-child(2){animation-delay:.2s;}.ai-d:nth-child(3){animation-delay:.4s;}
 @keyframes ap{0%,100%{opacity:.3;}50%{opacity:1;}}
 .ai-quick{padding:8px 16px;border-top:1px solid var(--border);display:flex;gap:6px;overflow-x:auto;}
 .qb{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;color:var(--g2);cursor:pointer;white-space:nowrap;transition:all .12s;font-family:var(--font);flex-shrink:0;}
-.qb:hover{border-color:var(--red);color:var(--red);background:var(--red-l);}
+.qb:hover{border-color:var(--red);color:var(--red);}
 .ai-input-row{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end;}
-.ai-ta{flex:1;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:11px;font-family:var(--font);resize:none;outline:none;color:var(--blk);height:48px;transition:border-color .15s;}
-.ai-ta:focus{border-color:var(--red);background:#fff;}
-.ai-send{background:var(--red);color:#fff;border:none;border-radius:7px;padding:0 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);height:48px;display:flex;align-items:center;gap:5px;transition:background .15s;}
-.ai-send:hover{background:var(--red-d);}
+.ai-ta{flex:1;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:11px;font-family:var(--font);resize:none;outline:none;height:46px;transition:border-color .15s;}
+.ai-ta:focus{border-color:var(--red);}
+.ai-send{background:var(--red);color:#fff;border:none;border-radius:7px;padding:0 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);height:46px;display:flex;align-items:center;gap:5px;}
 .ai-send:disabled{background:var(--g1);cursor:not-allowed;}
+.kpi-row-sm{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.kpi-pill{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-size:11px;color:var(--g2);}
+.kpi-pill strong{color:var(--blk);font-weight:700;}
  
 /* MOBILE OVERLAY */
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:50;}
  
-/* SCROLLBAR */
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:4px;}
- 
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.lib-ed{cursor:pointer;border-bottom:1px dashed transparent;transition:border-color .15s;display:inline-block;}
+.lib-ed:hover{border-bottom:1px dashed var(--red);color:var(--blk);}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .spinning{animation:spin 1s linear infinite;display:inline-block;}
  
-/* ====== RESPONSIVE ====== */
+/* RESPONSIVE */
 @media(max-width:768px){
   :root{--sb:260px;}
-  .sb{position:fixed;top:0;left:0;height:100vh;z-index:100;transform:translateX(-100%);}
+  .sb{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);}
   .sb.open{transform:translateX(0);}
   .sb-close{display:block;}
   .sb-overlay.open{display:block;}
   .tb-menu{display:block;}
-  .main{width:100%;}
   .kpi-grid{grid-template-columns:1fr 1fr;}
   .ch-row{grid-template-columns:1fr;}
   .prod-row{grid-template-columns:1fr;}
   .ch-grid3{grid-template-columns:1fr;}
   .ms-grid{grid-template-columns:1fr 1fr;}
-  .ms-segment{grid-template-columns:1fr;}
-  .up-channels{grid-template-columns:1fr;}
+  .ms-seg{grid-template-columns:1fr;}
+  .ms-seg-grid{grid-template-columns:1fr 1fr;}
   .scroll{padding:12px 14px;}
   .topbar{padding:0 14px;}
-  .kan-col{min-width:185px;width:185px;}
-  .btn-r span{display:none;}
-  .tb-sel span{display:none;}
-  .modal{border-radius:12px 12px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%;max-height:80vh;}
-  .modal-overlay.open{align-items:flex-end;}
+  .overlay{padding:0;}
+  .modal{max-width:100%;border-radius:0;}
+  .nc-overlay{padding:10px;}
+  .seg-panels{grid-template-columns:1fr;}
+  .met-kpis{grid-template-columns:1fr 1fr;}
+  .mrow3{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:480px){
   .kpi-grid{grid-template-columns:1fr 1fr;}
   .ms-grid{grid-template-columns:1fr 1fr;}
-  .ms-seg-grid{grid-template-columns:1fr 1fr;}
-  .tb-right .tb-sel{display:none;}
 }
 </style>
 </head>
@@ -353,23 +388,19 @@ tr:hover td{background:#FAFAFA;}
  
 <!-- LOGIN -->
 <div id="login-screen">
-  <div class="login-box">
-    <div class="login-logo">
-      <div class="login-logo-box">DC</div>
-      <div class="login-logo-name">Dermo Club</div>
-    </div>
-    <div class="login-title">Bem-vindo de volta</div>
-    <div class="login-sub">Digite seu nome e a senha do time para entrar</div>
-    <label class="login-label">Seu nome</label>
-    <input class="login-input" id="l-email" type="text" placeholder="Ex: Davi, Isabel, Gobbi..." onkeydown="if(event.key==='Enter')doLogin()">
-    <label class="login-label">Senha</label>
-    <input class="login-input" id="l-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    <div class="login-err" id="l-err">E-mail ou senha incorretos. Tente novamente.</div>
-    <button class="login-btn" onclick="doLogin()">Entrar</button>
+  <div class="lbox">
+    <div class="llogo"><div class="llogobox">DC</div><div class="llogoname">Dermo Club</div></div>
+    <div class="ltitle">Bem-vindo de volta</div>
+    <div class="lsub" style="margin-bottom:24px;">Digite seu nome e a senha do time</div>
+    <label class="llabel">Seu nome</label>
+    <input class="linput" id="l-name" type="text" placeholder="Ex: Davi, Isabel, Gobbi..." onkeydown="if(event.key==='Enter')doLogin()">
+    <label class="llabel">Senha</label>
+    <input class="linput" id="l-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="lerr" id="l-err">Senha incorreta ou nome muito curto.</div>
+    <button class="lbtn" onclick="doLogin()">Entrar</button>
   </div>
 </div>
  
-<!-- MOBILE OVERLAY -->
 <div class="sb-overlay" id="sb-overlay" onclick="closeSb()"></div>
  
 <!-- APP -->
@@ -390,19 +421,19 @@ tr:hover td{background:#FAFAFA;}
       <div class="ni" onclick="go('channels',this)"><i class="ti ti-chart-bar"></i> Canais</div>
       <div class="nav-sec">Criativos</div>
       <div class="ni" onclick="go('kanban',this)"><i class="ti ti-columns"></i> Kanban</div>
-      <div class="ni" onclick="go('library',this)"><i class="ti ti-photo"></i> Criativos + IA</div>
+      <div class="ni" onclick="go('library',this)"><i class="ti ti-photo"></i> Biblioteca</div>
       <div class="nav-sec">Midia Paga</div>
       <div class="ni" onclick="go('meta',this)"><i class="ti ti-brand-meta"></i> Meta Ads</div>
       <div class="ni" onclick="go('tiktok',this)"><i class="ti ti-brand-tiktok"></i> TikTok Shop</div>
       <div class="ni" onclick="go('google',this)"><i class="ti ti-brand-google"></i> Google Ads</div>
       <div class="nav-sec">Dados</div>
-      <div class="ni" onclick="go('upload',this)"><i class="ti ti-upload"></i> Upload Relatorio</div>
+      <div class="ni" onclick="go('upload',this)"><i class="ti ti-upload"></i> Upload</div>
     </div>
     <div class="sb-foot">
       <div class="usr" onclick="doLogout()">
-        <div class="ava" id="usr-ava">DL</div>
-        <div><div class="usr-name" id="usr-name">Davi Luis</div><div class="usr-role">Admin</div></div>
-        <i class="ti ti-logout usr-logout"></i>
+        <div class="ava" id="usr-ava">--</div>
+        <div><div class="usr-name" id="usr-name">-</div><div class="usr-role">Admin</div></div>
+        <i class="ti ti-logout" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px;"></i>
       </div>
     </div>
   </div>
@@ -414,25 +445,24 @@ tr:hover td{background:#FAFAFA;}
         <div class="tb-title" id="pg-title">Visao Geral</div>
       </div>
       <div class="tb-right">
-        <div class="tb-sel"><i class="ti ti-calendar"></i>
-          <select id="dr" onchange="upd()"><option value="7">7d</option><option value="30" selected>30d</option><option value="60">60d</option><option value="90">90d</option></select>
+        <div class="tb-sel"><i class="ti ti-calendar" style="font-size:13px"></i>
+          <select id="dr"><option value="7">7d</option><option value="30" selected>30d</option><option value="60">60d</option><option value="90">90d</option></select>
         </div>
-        <div class="tb-sel"><i class="ti ti-filter"></i>
+        <div class="tb-sel"><i class="ti ti-filter" style="font-size:13px"></i>
           <select id="pf"><option value="all">Todos</option><option value="bd">Bumbum Dermo</option><option value="dp">Dermo Pro</option></select>
         </div>
-        <button class="btn-r" onclick="go('library',null)"><i class="ti ti-robot"></i> <span>IA</span></button>
+        <button class="btn-r" onclick="go('library',null)"><i class="ti ti-photo"></i> Biblioteca</button>
       </div>
     </div>
- 
     <div class="scroll">
  
       <!-- VISAO GERAL -->
       <div class="view on" id="v-overview">
         <div class="kpi-grid">
-          <div class="kpi"><div class="kpi-lbl">Faturamento</div><div class="kpi-val" id="k-fat">R$ 287k</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:10px"></i> +18%</div></div>
-          <div class="kpi"><div class="kpi-lbl">Pedidos</div><div class="kpi-val" id="k-ped">1.847</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:10px"></i> +12%</div></div>
-          <div class="kpi"><div class="kpi-lbl">Ticket Medio</div><div class="kpi-val" id="k-tkt">R$ 155</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:10px"></i> +5%</div></div>
-          <div class="kpi"><div class="kpi-lbl">ROAS Geral</div><div class="kpi-val" id="k-roas">4,2x</div><div class="kpi-delta dn"><i class="ti ti-trending-down" style="font-size:10px"></i> -0,3</div></div>
+          <div class="kpi"><div class="kpi-lbl">Faturamento</div><div class="kpi-val">—</div><div class="kpi-sub">Insira dados em Metricas</div></div>
+          <div class="kpi"><div class="kpi-lbl">Pedidos</div><div class="kpi-val">—</div><div class="kpi-sub">Insira dados em Metricas</div></div>
+          <div class="kpi"><div class="kpi-lbl">Ticket Medio</div><div class="kpi-val">—</div><div class="kpi-sub">Insira dados em Metricas</div></div>
+          <div class="kpi"><div class="kpi-lbl">ROAS Geral</div><div class="kpi-val">—</div><div class="kpi-sub">Insira dados em Metricas</div></div>
         </div>
         <div class="ch-row">
           <div class="card">
@@ -443,97 +473,148 @@ tr:hover td{background:#FAFAFA;}
           <div class="card">
             <div class="card-hd"><div class="card-title">Mix Canais</div></div>
             <div style="position:relative;height:140px;"><canvas id="pC"></canvas></div>
-            <div class="leg" style="margin-top:8px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta 62%</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok 24%</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google 14%</div></div>
+            <div class="leg" style="margin-top:8px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div>
           </div>
         </div>
         <div class="prod-row">
-          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">62%</div></div></div><div class="prog"><div class="prog-f" style="width:62%"></div></div></div>
-          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">38%</div></div></div><div class="prog"><div class="prog-f" style="width:38%"></div></div></div>
+          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">—</div></div></div><div class="prog"><div class="prog-f" style="width:0%"></div></div></div>
+          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">—</div></div></div><div class="prog"><div class="prog-f" style="width:0%"></div></div></div>
         </div>
       </div>
  
       <!-- METRICAS -->
       <div class="view" id="v-metrics">
-        <div class="metrics-section">
-          <div class="ms-header">
-            <div class="ms-title">Inserir Metricas do Periodo</div>
-            <div class="ms-period" id="ms-period-label">Maio 2025</div>
+        <div class="ms-section">
+          <div class="ms-hd">
+            <div class="ms-title">Inserir Metricas da Campanha</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="saved-ok" id="saved-ok"><i class="ti ti-check" style="font-size:12px"></i> Salvo!</div>
+              <button class="btn-save" onclick="saveMetrics()">Salvar Metricas</button>
+            </div>
           </div>
           <div class="ms-body">
-            <div style="font-size:11px;color:var(--g2);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Metricas Gerais</div>
-            <div class="ms-grid">
-              <div class="ms-field"><label class="ms-label">ROAS</label><input class="ms-input" id="m-roas" type="text" placeholder="4,2x" value="4,2x"></div>
-              <div class="ms-field"><label class="ms-label">CAC (Custo de Aquisicao)</label><input class="ms-input" id="m-cac" type="text" placeholder="R$ 45,00" value="R$ 45,00"></div>
-              <div class="ms-field"><label class="ms-label">CTR Medio</label><input class="ms-input" id="m-ctr" type="text" placeholder="2,8%" value="2,8%"></div>
-              <div class="ms-field"><label class="ms-label">Taxa de Conversao</label><input class="ms-input" id="m-conv" type="text" placeholder="1,4%" value="1,4%"></div>
-              <div class="ms-field"><label class="ms-label">Ticket Medio Geral</label><input class="ms-input" id="m-ticket" type="text" placeholder="R$ 155,00" value="R$ 155,00"></div>
-              <div class="ms-field"><label class="ms-label">CPA Medio</label><input class="ms-input" id="m-cpa" type="text" placeholder="R$ 33,42" value="R$ 33,42"></div>
+ 
+            <div class="ms-group">
+              <div class="ms-group-title"><i class="ti ti-trending-up" style="font-size:13px;color:var(--red)"></i> Resultados Financeiros</div>
+              <div class="ms-grid">
+                <div class="ms-field"><label class="ms-label">Faturamento Total <span>(R$)</span></label><input class="ms-input" id="m-fat" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Investimento Total <span>(R$)</span></label><input class="ms-input" id="m-invest" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Lucro Bruto <span>(R$)</span></label><input class="ms-input" id="m-lucro" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">ROAS <span>(Receita / Invest)</span></label><input class="ms-input" id="m-roas" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">MER <span>(Marketing Efficiency)</span></label><input class="ms-input" id="m-mer" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">ROI <span>(%)</span></label><input class="ms-input" id="m-roi" placeholder=""></div>
+              </div>
             </div>
  
-            <div style="font-size:11px;color:var(--g2);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Ticket por Segmento de Cliente</div>
-            <div class="ms-segment">
-              <div class="ms-seg-card">
-                <div class="ms-seg-title"><i class="ti ti-user-plus"></i> Novo Cliente</div>
-                <div class="ms-seg-grid">
-                  <div class="ms-field"><label class="ms-label">Ticket Medio</label><input class="ms-input" id="m-ticket-novo" type="text" placeholder="R$ 135,00" value="R$ 135,00"></div>
-                  <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-novo" type="text" placeholder="1,1%" value="1,1%"></div>
-                  <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-novo" type="text" placeholder="R$ 52,00" value="R$ 52,00"></div>
-                  <div class="ms-field"><label class="ms-label">% do total</label><input class="ms-input" id="m-pct-novo" type="text" placeholder="68%" value="68%"></div>
-                </div></div>
-              <div class="ms-seg-card">
-                <div class="ms-seg-title"><i class="ti ti-repeat"></i> Cliente Recorrente</div>
-                <div class="ms-seg-grid">
-                  <div class="ms-field"><label class="ms-label">Ticket Medio</label><input class="ms-input" id="m-ticket-rec" type="text" placeholder="R$ 189,00" value="R$ 189,00"></div>
-                  <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-rec" type="text" placeholder="3,8%" value="3,8%"></div>
-                  <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-rec" type="text" placeholder="R$ 18,00" value="R$ 18,00"></div>
-                  <div class="ms-field"><label class="ms-label">% do total</label><input class="ms-input" id="m-pct-rec" type="text" placeholder="32%" value="32%"></div>
+            <div class="ms-group">
+              <div class="ms-group-title"><i class="ti ti-users" style="font-size:13px;color:#3B82F6"></i> Aquisicao e Clientes</div>
+              <div class="ms-grid">
+                <div class="ms-field"><label class="ms-label">Pedidos Totais</label><input class="ms-input" id="m-pedidos" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Novos Clientes</label><input class="ms-input" id="m-novos" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Clientes Recorrentes</label><input class="ms-input" id="m-rec" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">CAC <span>(Custo Aquis. Cliente)</span></label><input class="ms-input" id="m-cac" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">LTV <span>(Lifetime Value)</span></label><input class="ms-input" id="m-ltv" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">LTV:CAC Ratio</label><input class="ms-input" id="m-ltvcac" placeholder=""></div>
+              </div>
+            </div>
+ 
+            <div class="ms-group">
+              <div class="ms-group-title"><i class="ti ti-receipt" style="font-size:13px;color:#F59E0B"></i> Ticket e Receita</div>
+              <div class="ms-grid">
+                <div class="ms-field"><label class="ms-label">Ticket Medio Geral <span>(R$)</span></label><input class="ms-input" id="m-ticket" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">APS <span>(Avg Purchase Size)</span></label><input class="ms-input" id="m-aps" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">RPS <span>(Revenue Per Session)</span></label><input class="ms-input" id="m-rps" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">RPV <span>(Revenue Per Visitor)</span></label><input class="ms-input" id="m-rpv" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">AOV <span>(Avg Order Value)</span></label><input class="ms-input" id="m-aov" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Taxa de Recompra <span>(%)</span></label><input class="ms-input" id="m-recompra" placeholder=""></div>
+              </div>
+            </div>
+ 
+            <div class="ms-group">
+              <div class="ms-group-title"><i class="ti ti-mouse" style="font-size:13px;color:#8B5CF6"></i> Performance de Midia</div>
+              <div class="ms-grid">
+                <div class="ms-field"><label class="ms-label">CTR <span>(Click-Through Rate)</span></label><input class="ms-input" id="m-ctr" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">CPC <span>(Custo por Clique)</span></label><input class="ms-input" id="m-cpc" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">CPM <span>(Custo por 1k Impres.)</span></label><input class="ms-input" id="m-cpm" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">CPA <span>(Custo por Acao)</span></label><input class="ms-input" id="m-cpa" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">CPL <span>(Custo por Lead)</span></label><input class="ms-input" id="m-cpl" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Frequencia Media</label><input class="ms-input" id="m-freq" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Impressoes</label><input class="ms-input" id="m-impressoes" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Alcance</label><input class="ms-input" id="m-alcance" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Cliques Totais</label><input class="ms-input" id="m-cliques" placeholder=""></div>
+              </div>
+            </div>
+ 
+            <div class="ms-group">
+              <div class="ms-group-title"><i class="ti ti-funnel" style="font-size:13px;color:#22C55E"></i> Funil de Conversao</div>
+              <div class="ms-grid">
+                <div class="ms-field"><label class="ms-label">Taxa de Conversao <span>(%)</span></label><input class="ms-input" id="m-conv" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">CVR <span>(Checkout/Sessao)</span></label><input class="ms-input" id="m-cvr" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Add to Cart Rate <span>(%)</span></label><input class="ms-input" id="m-atc" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Abandon Rate <span>(%)</span></label><input class="ms-input" id="m-abandon" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Sessoes Totais</label><input class="ms-input" id="m-sessoes" placeholder=""></div>
+                <div class="ms-field"><label class="ms-label">Bounce Rate <span>(%)</span></label><input class="ms-input" id="m-bounce" placeholder=""></div>
+              </div>
+            </div>
+ 
+            <div class="ms-group" style="margin-bottom:0;">
+              <div class="ms-group-title"><i class="ti ti-user-plus" style="font-size:13px;color:#C8102E"></i> Ticket por Segmento</div>
+              <div class="ms-seg">
+                <div class="ms-seg-card" style="background:#F0F4FF;">
+                  <div class="ms-seg-title" style="color:#1D4ED8;"><i class="ti ti-user-plus" style="font-size:12px"></i>Novo Cliente</div>
+                  <div class="ms-seg-grid">
+                    <div class="ms-field"><label class="ms-label">Ticket Medio</label><input class="ms-input" id="m-tk-novo" placeholder=""></div>
+                    <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-novo" placeholder=""></div>
+                    <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-novo" placeholder=""></div>
+                    <div class="ms-field"><label class="ms-label">% do Total</label><input class="ms-input" id="m-pct-novo" placeholder=""></div>
+                  </div>
+                </div>
+                <div class="ms-seg-card" style="background:#F0FDF4;">
+                  <div class="ms-seg-title" style="color:#15803D;"><i class="ti ti-repeat" style="font-size:12px"></i>Recorrente</div>
+                  <div class="ms-seg-grid">
+                    <div class="ms-field"><label class="ms-label">Ticket Medio</label><input class="ms-input" id="m-tk-rec" placeholder=""></div>
+                    <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-rec" placeholder=""></div>
+                    <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-rec" placeholder=""></div>
+                    <div class="ms-field"><label class="ms-label">% do Total</label><input class="ms-input" id="m-pct-rec" placeholder=""></div>
+                  </div>
                 </div>
               </div>
             </div>
  
-            <div style="font-size:11px;color:var(--g2);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Por Canal</div>
-            <div class="ms-grid">
-              <div class="ms-field"><label class="ms-label">ROAS Meta Ads</label><input class="ms-input" id="m-roas-meta" type="text" placeholder="4,6x" value="4,6x"></div>
-              <div class="ms-field"><label class="ms-label">ROAS TikTok Shop</label><input class="ms-input" id="m-roas-tiktok" type="text" placeholder="3,6x" value="3,6x"></div>
-              <div class="ms-field"><label class="ms-label">ROAS Google Ads</label><input class="ms-input" id="m-roas-google" type="text" placeholder="2,8x" value="2,8x"></div>
-              <div class="ms-field"><label class="ms-label">CPM Meta</label><input class="ms-input" id="m-cpm" type="text" placeholder="R$ 18,40" value="R$ 18,40"></div>
-              <div class="ms-field"><label class="ms-label">Freq. Media Meta</label><input class="ms-input" id="m-freq" type="text" placeholder="2,3x" value="2,3x"></div>
-              <div class="ms-field"><label class="ms-label">LTV Estimado</label><input class="ms-input" id="m-ltv" type="text" placeholder="R$ 420,00" value="R$ 420,00"></div>
-            </div>
- 
-            <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
-              <button class="btn-save-metrics" onclick="saveMetrics()">Salvar Metricas</button>
-              <div class="saved-toast" id="saved-toast"><i class="ti ti-check" style="font-size:13px"></i> Salvo com sucesso!</div>
-            </div>
           </div>
         </div>
  
-        <!-- PAINEL DE METRICAS SALVAS -->
-        <div class="card" style="margin-bottom:14px;">
-          <div class="card-hd"><div class="card-title">Painel de Metricas — Visao Consolidada</div><span class="badge" id="saved-period-badge">Maio 2025</span></div>
-          <div class="kpi-grid" style="margin-bottom:0;" id="metrics-display">
-            <div class="kpi"><div class="kpi-lbl">ROAS</div><div class="kpi-val" id="d-roas">4,2x</div><div class="kpi-sub">Media ponderada</div></div>
-            <div class="kpi"><div class="kpi-lbl">CAC</div><div class="kpi-val" id="d-cac">R$ 45</div><div class="kpi-sub">Custo de aquisicao</div></div>
-            <div class="kpi"><div class="kpi-lbl">CTR</div><div class="kpi-val" id="d-ctr">2,8%</div><div class="kpi-sub">Click-through rate</div></div>
-            <div class="kpi"><div class="kpi-lbl">Tx. Conversao</div><div class="kpi-val" id="d-conv">1,4%</div><div class="kpi-sub">Geral</div></div>
+        <div class="met-panel">
+          <div class="met-panel-hd"><div class="card-title">Painel — Metricas Salvas</div><div style="display:flex;align-items:center;gap:8px;"><span class="badge" id="met-badge">Sem dados</span><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:3px 10px;font-size:10px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="go('metrics',document.querySelector('.ni:nth-child(2))'))"><i class="ti ti-pencil" style="font-size:11px"></i> Editar</button></div></div>
+          <div class="met-kpis" id="met-display">
+            <div class="met-kpi"><div class="met-kpi-l">ROAS</div><div class="met-kpi-v" id="d-roas">—</div><div class="met-kpi-s">Ret. sobre invest.</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">CAC</div><div class="met-kpi-v" id="d-cac">—</div><div class="met-kpi-s">Custo de aquisicao</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">CTR</div><div class="met-kpi-v" id="d-ctr">—</div><div class="met-kpi-s">Click-through rate</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">CPA</div><div class="met-kpi-v" id="d-cpa">—</div><div class="met-kpi-s">Custo por acao</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">Tx. Conversao</div><div class="met-kpi-v" id="d-conv">—</div><div class="met-kpi-s">Geral</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">Ticket Medio</div><div class="met-kpi-v" id="d-ticket">—</div><div class="met-kpi-s">Geral</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">RPS</div><div class="met-kpi-v" id="d-rps">—</div><div class="met-kpi-s">Rev. por sessao</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">APS</div><div class="met-kpi-v" id="d-aps">—</div><div class="met-kpi-s">Avg purchase size</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">CPM</div><div class="met-kpi-v" id="d-cpm">—</div><div class="met-kpi-s">Custo 1k impres.</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">Frequencia</div><div class="met-kpi-v" id="d-freq">—</div><div class="met-kpi-s">Media Meta Ads</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">LTV</div><div class="met-kpi-v" id="d-ltv">—</div><div class="met-kpi-s">Lifetime value</div></div>
+            <div class="met-kpi"><div class="met-kpi-l">MER</div><div class="met-kpi-v" id="d-mer">—</div><div class="met-kpi-s">Mkt efficiency ratio</div></div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
-            <div style="background:#F0F4FF;border-radius:8px;padding:12px;">
-              <div style="font-size:10px;font-weight:600;color:#1D4ED8;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px;"><i class="ti ti-user-plus" style="font-size:12px"></i> Novo Cliente</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                <div><div style="font-size:9px;color:#3B82F6;">Ticket Medio</div><div style="font-size:14px;font-weight:700;" id="d-tk-novo">R$ 135</div></div>
-                <div><div style="font-size:9px;color:#3B82F6;">CAC</div><div style="font-size:14px;font-weight:700;" id="d-cac-novo">R$ 52</div></div>
-                <div><div style="font-size:9px;color:#3B82F6;">Tx. Conv.</div><div style="font-size:14px;font-weight:700;" id="d-conv-novo">1,1%</div></div>
-                <div><div style="font-size:9px;color:#3B82F6;">Volume</div><div style="font-size:14px;font-weight:700;" id="d-pct-novo">68%</div></div>
+          <div class="seg-panels">
+            <div class="seg-panel" style="background:#F0F4FF;">
+              <div class="seg-panel-title" style="color:#1D4ED8;"><i class="ti ti-user-plus" style="font-size:12px"></i>Novo Cliente</div>
+              <div class="seg-stats">
+                <div class="seg-stat"><div class="seg-stat-l" style="color:#3B82F6;">Ticket</div><div class="seg-stat-v" id="d-tk-novo">—</div></div>
+                <div class="seg-stat"><div class="seg-stat-l" style="color:#3B82F6;">CAC</div><div class="seg-stat-v" id="d-cac-novo">—</div></div>
+                <div class="seg-stat"><div class="seg-stat-l" style="color:#3B82F6;">Conv.</div><div class="seg-stat-v" id="d-conv-novo">—</div></div>
               </div>
             </div>
-            <div style="background:#F0FDF4;border-radius:8px;padding:12px;">
-              <div style="font-size:10px;font-weight:600;color:#15803D;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px;"><i class="ti ti-repeat" style="font-size:12px"></i> Recorrente</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                <div><div style="font-size:9px;color:#16A34A;">Ticket Medio</div><div style="font-size:14px;font-weight:700;" id="d-tk-rec">R$ 189</div></div>
-                <div><div style="font-size:9px;color:#16A34A;">CAC</div><div style="font-size:14px;font-weight:700;" id="d-cac-rec">R$ 18</div></div>
-                <div><div style="font-size:9px;color:#16A34A;">Tx. Conv.</div><div style="font-size:14px;font-weight:700;" id="d-conv-rec">3,8%</div></div>
-                <div><div style="font-size:9px;color:#16A34A;">Volume</div><div style="font-size:14px;font-weight:700;" id="d-pct-rec">32%</div></div>
+            <div class="seg-panel" style="background:#F0FDF4;">
+              <div class="seg-panel-title" style="color:#15803D;"><i class="ti ti-repeat" style="font-size:12px"></i>Recorrente</div>
+              <div class="seg-stats">
+                <div class="seg-stat"><div class="seg-stat-l" style="color:#16A34A;">Ticket</div><div class="seg-stat-v" id="d-tk-rec">—</div></div>
+                <div class="seg-stat"><div class="seg-stat-l" style="color:#16A34A;">CAC</div><div class="seg-stat-v" id="d-cac-rec">—</div></div>
+                <div class="seg-stat"><div class="seg-stat-l" style="color:#16A34A;">Conv.</div><div class="seg-stat-v" id="d-conv-rec">—</div></div>
               </div>
             </div>
           </div>
@@ -542,17 +623,20 @@ tr:hover td{background:#FAFAFA;}
  
       <!-- PRODUTOS -->
       <div class="view" id="v-products">
-        <div class="prod-row" style="margin-bottom:12px;"><div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">2,1%</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div></div><div class="prog" style="margin-top:12px;"><div class="prog-f" style="width:62%"></div></div></div><div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">1,4%</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div></div><div class="prog" style="margin-top:12px;"><div class="prog-f" style="width:38%"></div></div></div></div>
+        <div class="prod-row" style="margin-bottom:12px;">
+          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">—</div></div></div><div class="prog"><div class="prog-f" style="width:0%"></div></div></div>
+          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">—</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">—</div></div></div><div class="prog"><div class="prog-f" style="width:0%"></div></div></div>
+        </div>
         <div class="card"><div class="card-hd"><div class="card-title">Historico de vendas por produto</div><span class="badge">30 dias</span></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Bumbum Dermo</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>Dermo Pro</div></div><div style="position:relative;height:200px;margin-top:8px;"><canvas id="prC"></canvas></div></div>
       </div>
  
       <!-- CANAIS -->
       <div class="view" id="v-channels">
-        <div class="ch-grid3"><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#C8102E"></div><i class="ti ti-brand-meta"></i>Meta Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 178k</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 38.300</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 33,42</span></div><span class="roas-tag rg">ROAS 4,6x</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#111"></div><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 69k</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 19.200</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 43,24</span></div><span class="roas-tag ry">ROAS 3,6x</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#888"></div><i class="ti ti-brand-google"></i>Google Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 40k</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 14.500</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 56,42</span></div><span class="roas-tag ry">ROAS 2,8x</span></div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">Evolucao comparativa</div></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div><div style="position:relative;height:200px;margin-top:8px;"><canvas id="cC2"></canvas></div></div>
+        <div class="ch-grid3"><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#C8102E"></div><i class="ti ti-brand-meta"></i>Meta Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry">ROAS —</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#111"></div><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry">ROAS —</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#888"></div><i class="ti ti-brand-google"></i>Google Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">—</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">—</span></div><span class="roas-tag ry">ROAS —</span></div></div>
+        <div class="card"><div class="card-hd"><div class="card-title">Evolucao comparativa — adicione dados via Upload</div></div><div style="display:flex;align-items:center;justify-content:center;height:120px;color:var(--g1);font-size:12px;flex-direction:column;gap:6px;"><i class="ti ti-chart-line" style="font-size:28px"></i>Suba um relatorio CSV para ver o grafico</div></div>
       </div>
  
-      <!-- KANBAN FLOWI STYLE -->
+      <!-- KANBAN -->
       <div class="view" id="v-kanban">
         <div class="kan-topbar">
           <div class="kan-filters">
@@ -562,121 +646,323 @@ tr:hover td{background:#FAFAFA;}
             <div class="kan-filter" onclick="filterKan('static',this)">Estatico</div>
             <div class="kan-filter" onclick="filterKan('carousel',this)">Carrossel</div>
           </div>
-          <button class="btn-new-card" onclick="openModal()"><i class="ti ti-plus"></i> Novo Criativo</button>
+          <button class="btn-new" onclick="openNC()"><i class="ti ti-plus"></i> Novo Criativo</button>
         </div>
         <div class="kan-board" id="kanban-board"></div>
       </div>
  
-      <!-- CRIATIVOS + IA -->
+      <!-- BIBLIOTECA DE CRIATIVOS -->
       <div class="view" id="v-library">
-        <div class="ai-section">
-          <div class="ai-header">
-            <div class="ai-hd-left"><div class="ai-badge"><i class="ti ti-robot"></i></div><div><div class="ai-hd-title">Analise de Criativos — Claude AI</div><div class="ai-hd-sub">Pergunte sobre performance, fadiga ou peca briefs</div></div></div>
-            <div class="ai-status"><div class="ai-dot-live"></div>API conectada</div>
+        <div class="tbl-card">
+          <div class="tbl-hd" style="flex-wrap:wrap;gap:8px;">
+            <div>
+              <div class="tbl-title">Biblioteca de Criativos</div>
+              <div style="font-size:10px;color:var(--g1);margin-top:2px;">Alimentada pelo Kanban — clique em qualquer campo para editar</div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+              <select id="lib-filter-col" onchange="renderLibrary()" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:11px;font-family:var(--font);outline:none;cursor:pointer;">
+                <option value="">Todas colunas</option>
+                <option value="testando">Testando (Ativos)</option>
+                <option value="validado">Validados</option>
+                <option value="testar">A Testar</option>
+                <option value="nao">Nao Funcionou</option>
+                <option value="arquivado">Arquivados</option>
+              </select>
+              <select id="lib-filter-prod" onchange="renderLibrary()" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:11px;font-family:var(--font);outline:none;cursor:pointer;">
+                <option value="">Todos produtos</option>
+                <option value="Bumbum Dermo">Bumbum Dermo</option>
+                <option value="Dermo Pro">Dermo Pro</option>
+              </select>
+              <select id="lib-filter-type" onchange="renderLibrary()" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:11px;font-family:var(--font);outline:none;cursor:pointer;">
+                <option value="">Todos tipos</option>
+                <option value="video">Video</option>
+                <option value="ugc">UGC</option>
+                <option value="static">Estatico</option>
+                <option value="carousel">Carrossel</option>
+              </select>
+              <button onclick="exportLibCSV()" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;"><i class="ti ti-download" style="font-size:12px"></i> CSV</button>
+            </div>
           </div>
-          <div class="ai-msgs" id="ai-msgs"><div class="ai-msg bot">Ola! Sou o analista do Dermo Club. Tenho acesso aos dados de todos os criativos, campanhas e metricas. Pergunte sobre fadiga, ROAS, angulos ou peca um brief completo.</div></div>
-          <div class="ai-quick">
-            <button class="qb" onclick="sendQ('Quais criativos estao com fadiga?')">Fadiga criativa</button>
-            <button class="qb" onclick="sendQ('Qual angulo testar pro Bumbum Dermo?')">Novo angulo</button>
-            <button class="qb" onclick="sendQ('Brief completo do proximo video do Bumbum Dermo')">Gerar brief</button>
-            <button class="qb" onclick="sendQ('Analise completa do funil Meta Ads')">Funil Meta</button>
-            <button class="qb" onclick="sendQ('Compare TikTok vs Meta Ads')">TikTok vs Meta</button>
-          </div>
-          <div class="ai-input-row">
-            <textarea class="ai-ta" id="ai-q" placeholder="Pergunte sobre criativos, ROAS, fadiga..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
-            <button class="ai-send" id="ai-btn" onclick="sendAI()"><i class="ti ti-send"></i> Enviar</button>
+          <div class="tbl-wrap">
+            <table id="lib-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Produto</th>
+                  <th>Tipo</th>
+                  <th>Canal</th><th>Status</th>
+                  <th>ROAS</th>
+                  <th>CPA</th>
+                  <th>CTR</th>
+                  <th>Freq.</th>
+                  <th>Angulo</th>
+                  <th>Acao</th>
+                </tr>
+              </thead>
+              <tbody id="lib-tbody">
+                <tr><td colspan="11" style="text-align:center;color:var(--g1);padding:24px;">Adicione criativos no Kanban para ver aqui.</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Biblioteca de Criativos</div></div><table><thead><tr><th>Nome</th><th>Produto</th><th>Tipo</th><th>Status</th><th>ROAS</th><th>CPA</th><th>CTR</th><th>Freq.</th></tr></thead><tbody><tr><td>Hook dor nas costas v1</td><td>Bumbum Dermo</td><td>Video</td><td><span class="sb-badge s-on">Live</span></td><td>5,2x</td><td>R$ 28</td><td>3,4%</td><td>1,8x</td></tr><tr><td>Antes e depois UGC</td><td>Bumbum Dermo</td><td>UGC</td><td><span class="sb-badge s-on">Live</span></td><td>4,8x</td><td>R$ 31</td><td>2,9%</td><td>2,4x</td></tr><tr><td>Kit Premium unboxing</td><td>Dermo Pro</td><td>Video</td><td><span class="sb-badge s-on">Live</span></td><td>4,1x</td><td>R$ 37</td><td>2,1%</td><td>3,1x</td></tr><tr><td>Carrossel beneficios</td><td>Bumbum Dermo</td><td>Carrossel</td><td><span class="sb-badge s-pau">Pausado</span></td><td>2,9x</td><td>R$ 52</td><td>1,4%</td><td>4,2x</td></tr><tr><td>Static oferta 30%off</td><td>Bumbum Dermo</td><td>Estatico</td><td><span class="sb-badge s-off">Fadiga</span></td><td>1,8x</td><td>R$ 84</td><td>0,8%</td><td>5,6x</td></tr></tbody></table></div>
       </div>
  
       <!-- META ADS -->
       <div class="view" id="v-meta">
-        <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>R$ 38.300</strong></div><div class="kpi-pill">ROAS: <strong>4,6x</strong></div><div class="kpi-pill">CPA: <strong>R$ 33,42</strong></div><div class="kpi-pill">CTR: <strong>2,8%</strong></div><div class="kpi-pill">CPM: <strong>R$ 18,40</strong></div><div class="kpi-pill">Freq: <strong>2,3x</strong></div></div>
-        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="simUp('meta')"><i class="ti ti-brand-meta" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Conectar Meta Ads ou subir CSV</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Gerenciador de Anuncios > Exportar</div></div><button class="up-drop-btn" style="margin:0;font-size:10px;white-space:nowrap;">Subir CSV</button></div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas — Meta Ads</div></div><table><thead><tr><th>Campanha</th><th>Status</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPA</th><th>CTR</th></tr></thead><tbody><tr><td>BD | Conv | Prosp LAL2%</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 14.200</td><td>R$ 71.000</td><td>5,0x</td><td>R$ 29</td><td>3,1%</td></tr><tr><td>BD | Retargeting 30d</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 8.100</td><td>R$ 40.500</td><td>5,0x</td><td>R$ 27</td><td>3,8%</td></tr><tr><td>DP | Conv | LAL 2%</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 9.500</td><td>R$ 38.000</td><td>4,0x</td><td>R$ 38</td><td>2,4%</td></tr><tr><td>BD | TOF | Video Views</td><td><span class="sb-badge s-pau">Pausada</span></td><td>R$ 4.200</td><td>R$ 14.700</td><td>3,5x</td><td>R$ 42</td><td>2,1%</td></tr><tr><td>DP | BOF | Carrinho</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 2.300</td><td>R$ 14.010</td><td>6,1x</td><td>R$ 23</td><td>4,2%</td></tr></tbody></table></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <div class="kpi-row-sm" style="margin-bottom:0;"><div class="kpi-pill">Invest: <strong id="meta-invest-kpi">—</strong></div><div class="kpi-pill">ROAS: <strong id="meta-roas-kpi">—</strong></div><div class="kpi-pill">CPA: <strong id="meta-cpa-kpi">—</strong></div><div class="kpi-pill">CTR: <strong id="meta-ctr-kpi">—</strong></div><div class="kpi-pill">CPM: <strong id="meta-cpm-kpi">—</strong></div><div class="kpi-pill">Freq: <strong id="meta-freq-kpi">—</strong></div></div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <input type="date" id="meta-date-from" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('meta')">
+            <span style="font-size:11px;color:var(--g1);">ate</span>
+            <input type="date" id="meta-date-to" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('meta')">
+            <button onclick="clearMediaFilter('meta')" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:var(--font);">Limpar</button>
+          </div>
+        </div>
+        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-meta" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Conectar Meta Ads ou subir relatorio CSV</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Gerenciador de Anuncios > Exportar relatorio</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('meta')">+ Adicionar</button></div>
+        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas — Meta Ads</div><div style="display:flex;gap:6px;"><button style="background:var(--red);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="openAddCampaign('meta')"><i class="ti ti-plus" style="font-size:12px"></i> Nova</button><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportTableCSV('meta-table','meta_ads')"><i class="ti ti-download" style="font-size:12px"></i> CSV</button></div></div><div class="tbl-wrap"><table id="meta-table"><thead><tr><th>Campanha</th><th>Status</th><th>Data</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPA</th><th>CTR</th><th>CPM</th><th>Freq.</th><th>Impres.</th><th>Acoes</th></tr></thead><tbody id="meta-tbody"><tr><td colspan="12" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione uma campanha ou suba um CSV.</td></tr></tbody></table></div></div>
       </div>
  
       <!-- TIKTOK -->
       <div class="view" id="v-tiktok">
-        <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>R$ 19.200</strong></div><div class="kpi-pill">ROAS: <strong>3,6x</strong></div><div class="kpi-pill">CPA: <strong>R$ 43,24</strong></div><div class="kpi-pill">GMV: <strong>R$ 68.960</strong></div></div>
-        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="simUp('tiktok')"><i class="ti ti-brand-tiktok" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio TikTok Shop</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Seller Center > Exportar relatorio</div></div><button class="up-drop-btn" style="margin:0;font-size:10px;white-space:nowrap;">Subir CSV</button></div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Performance TikTok Shop</div></div><table><thead><tr><th>Produto</th><th>Pedidos</th><th>GMV</th><th>Conversao</th><th>Avaliacao</th></tr></thead><tbody><tr><td>Bumbum Dermo 200g</td><td>298</td><td>R$ 46.190</td><td>4,2%</td><td>4.8</td></tr><tr><td>Dermo Pro Kit</td><td>146</td><td>R$ 22.770</td><td>3,1%</td><td>4.7</td></tr></tbody></table></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <div class="kpi-row-sm" style="margin-bottom:0;"><div class="kpi-pill">Invest: <strong>—</strong></div><div class="kpi-pill">ROAS: <strong>—</strong></div><div class="kpi-pill">CPA: <strong>—</strong></div><div class="kpi-pill">GMV: <strong>—</strong></div></div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <input type="date" id="tiktok-date-from" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('tiktok')">
+            <span style="font-size:11px;color:var(--g1);">ate</span>
+            <input type="date" id="tiktok-date-to" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('tiktok')">
+            <button onclick="clearMediaFilter('tiktok')" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:var(--font);">Limpar</button>
+          </div>
+        </div>
+        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-tiktok" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio TikTok Shop</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Seller Center > Exportar relatorio</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('tiktok')">+ Adicionar</button></div>
+        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Performance TikTok Shop</div><div style="display:flex;gap:6px;"><button style="background:var(--red);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="openAddCampaign('tiktok')"><i class="ti ti-plus" style="font-size:12px"></i> Nova</button><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportTableCSV('tiktok-table','tiktok')"><i class="ti ti-download" style="font-size:12px"></i> CSV</button></div></div><div class="tbl-wrap"><table id="tiktok-table"><thead><tr><th>Produto/Campanha</th><th>Data</th><th>Pedidos</th><th>GMV</th><th>Invest.</th><th>ROAS</th><th>Conversao</th><th>CTR</th><th>Avaliacao</th><th>Acoes</th></tr></thead><tbody id="tiktok-tbody"><tr><td colspan="10" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione ou suba um CSV.</td></tr></tbody></table></div></div>
       </div>
  
       <!-- GOOGLE -->
       <div class="view" id="v-google">
-        <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>R$ 14.500</strong></div><div class="kpi-pill">ROAS: <strong>2,8x</strong></div><div class="kpi-pill">CPC: <strong>R$ 1,80</strong></div><div class="kpi-pill">Conv.: <strong>257</strong></div></div>
-        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="simUp('google')"><i class="ti ti-brand-google" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio Google Ads</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Google Ads Manager > Exportar</div></div><button class="up-drop-btn" style="margin:0;font-size:10px;white-space:nowrap;">Subir CSV</button></div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas Google Ads</div></div><table><thead><tr><th>Campanha</th><th>Status</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPC</th></tr></thead><tbody><tr><td>Shopping | Bumbum Dermo</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 7.200</td><td>R$ 22.320</td><td>3,1x</td><td>R$ 1,60</td></tr><tr><td>Shopping | Dermo Pro</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 4.800</td><td>R$ 13.440</td><td>2,8x</td><td>R$ 1,90</td></tr><tr><td>Search | Marca</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 2.500</td><td>R$ 4.500</td><td>1,8x</td><td>R$ 2,10</td></tr></tbody></table></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <div class="kpi-row-sm" style="margin-bottom:0;"><div class="kpi-pill">Invest: <strong>—</strong></div><div class="kpi-pill">ROAS: <strong>—</strong></div><div class="kpi-pill">CPC: <strong>—</strong></div><div class="kpi-pill">Conv.: <strong>—</strong></div></div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <input type="date" id="google-date-from" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('google')">
+            <span style="font-size:11px;color:var(--g1);">ate</span>
+            <input type="date" id="google-date-to" style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;" onchange="filterMediaTable('google')">
+            <button onclick="clearMediaFilter('google')" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:var(--font);">Limpar</button>
+          </div>
+        </div>
+        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="go('upload',null)"><i class="ti ti-brand-google" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio Google Ads</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Google Ads Manager > Exportar</div></div><button class="up-btn" style="margin:0;font-size:10px;white-space:nowrap" onclick="event.stopPropagation();openAddCampaign('google')">+ Adicionar</button></div>
+        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas Google Ads</div><div style="display:flex;gap:6px;"><button style="background:var(--red);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="openAddCampaign('google')"><i class="ti ti-plus" style="font-size:12px"></i> Nova</button><button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportTableCSV('google-table','google_ads')"><i class="ti ti-download" style="font-size:12px"></i> CSV</button></div></div><div class="tbl-wrap"><table id="google-table"><thead><tr><th>Campanha</th><th>Status</th><th>Data</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPC</th><th>CTR</th><th>Conv.</th><th>Acoes</th></tr></thead><tbody id="google-tbody"><tr><td colspan="10" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione ou suba um CSV.</td></tr></tbody></table></div></div>
       </div>
  
-      <!-- UPLOAD RELATORIO -->
+      <!-- UPLOAD -->
       <div class="view" id="v-upload">
-        <div class="upload-section">
-          <div class="up-header"><div class="up-title">Subir Relatorio por Canal</div></div>
-          <div class="up-body">
+        <div style="display:flex;gap:4px;background:var(--white);padding:4px;border-radius:10px;border:1px solid var(--border);width:fit-content;margin-bottom:14px;">
+          <div class="up-tab on" id="tab-csv" onclick="switchUpTab('csv',this)" style="display:flex;align-items:center;gap:5px;padding:6px 14px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;background:var(--red);color:#fff;"><i class="ti ti-file-upload" style="font-size:13px"></i> Subir CSV</div>
+          <div class="up-tab" id="tab-manual" onclick="switchUpTab('manual',this)" style="display:flex;align-items:center;gap:5px;padding:6px 14px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;color:var(--g2);"><i class="ti ti-pencil" style="font-size:13px"></i> Manual</div>
+        </div>
+ 
+        <div id="up-csv-panel">
+          <div class="up-section">
+            <div class="up-hd"><div class="ms-title">Subir Relatorio por Canal</div></div>
             <div class="up-channels">
-              <div class="up-ch" onclick="simUp('meta')"><i class="ti ti-brand-meta"></i><div class="up-ch-name">Meta Ads</div><div class="up-ch-sub">Gerenciador de Anuncios</div></div>
-              <div class="up-ch" onclick="simUp('tiktok')"><i class="ti ti-brand-tiktok"></i><div class="up-ch-name">TikTok Shop</div><div class="up-ch-sub">Seller Center</div></div>
-              <div class="up-ch" onclick="simUp('google')"><i class="ti ti-brand-google"></i><div class="up-ch-name">Google Ads</div><div class="up-ch-sub">Ads Manager</div></div>
+              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='Meta Ads';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-meta"></i><div class="up-ch-name">Meta Ads</div><div class="up-ch-sub">Gerenciador de Anuncios</div></div>
+              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='TikTok Shop';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-tiktok"></i><div class="up-ch-name">TikTok Shop</div><div class="up-ch-sub">Seller Center</div></div>
+              <div class="up-ch" onclick="document.getElementById('csv-file-input').dataset.canal='Google Ads';document.getElementById('csv-file-input').click()"><i class="ti ti-brand-google"></i><div class="up-ch-name">Google Ads</div><div class="up-ch-sub">Ads Manager</div></div>
             </div>
-            <div class="up-drop" onclick="simUp('sales')">
-              <div class="up-drop-ico"><i class="ti ti-cloud-upload"></i></div>
-              <div class="up-drop-txt">Arraste ou clique para subir relatorio de vendas</div>
-              <div class="up-drop-sub">Formatos aceitos: .xlsx, .csv — max. 10MB</div>
-              <button class="up-drop-btn">Selecionar Arquivo</button>
+            <div class="up-drop" onclick="document.getElementById('csv-file-input').dataset.canal='Geral';document.getElementById('csv-file-input').click()" ondragover="event.preventDefault();this.style.background='#F5D5DA'" ondragleave="this.style.background=''" ondrop="handleCSVDrop(event)">
+              <i class="ti ti-cloud-upload"></i>
+              <div class="up-drop-txt">Arraste ou clique para subir CSV de vendas</div>
+              <div class="up-drop-sub">Formatos aceitos: .csv, .xlsx — max. 10MB</div>
+              <button class="up-btn" onclick="event.stopPropagation();document.getElementById('csv-file-input').dataset.canal='Geral';document.getElementById('csv-file-input').click()">Selecionar Arquivo</button>
+            </div>
+            <input type="file" id="csv-file-input" accept=".csv,.xlsx" style="display:none" onchange="handleCSVFile(this)">
+          </div>
+        </div>
+ 
+        <div id="up-manual-panel" style="display:none;">
+          <div class="ms-section">
+            <div class="ms-hd">
+              <div class="ms-title">Inserir Relatorio Manual</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <input type="date" id="man-date" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;color:var(--blk);">
+                <select id="man-canal" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font);outline:none;color:var(--blk);cursor:pointer;">
+                  <option value="Meta Ads">Meta Ads</option><option value="TikTok Shop">TikTok Shop</option><option value="Google Ads">Google Ads</option><option value="Geral">Geral</option>
+                </select>
+              </div>
+            </div>
+            <div class="ms-body">
+              <div class="ms-group">
+                <div class="ms-group-title"><i class="ti ti-trending-up" style="font-size:13px;color:var(--red)"></i> Financeiro</div>
+                <div class="ms-grid">
+                  <div class="ms-field"><label class="ms-label">Faturamento (R$)</label><input class="ms-input" id="man-fat" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">Investimento (R$)</label><input class="ms-input" id="man-invest" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">Pedidos</label><input class="ms-input" id="man-pedidos" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">ROAS</label><input class="ms-input" id="man-roas" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">CPA (R$)</label><input class="ms-input" id="man-cpa" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">Ticket Medio (R$)</label><input class="ms-input" id="man-ticket" placeholder=""></div>
+                </div>
+              </div>
+              <div class="ms-group" style="margin-bottom:0">
+                <div class="ms-group-title"><i class="ti ti-mouse" style="font-size:13px;color:#8B5CF6"></i> Midia</div>
+                <div class="ms-grid">
+                  <div class="ms-field"><label class="ms-label">CTR (%)</label><input class="ms-input" id="man-ctr" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">CPM (R$)</label><input class="ms-input" id="man-cpm" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">CPC (R$)</label><input class="ms-input" id="man-cpc" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">Impressoes</label><input class="ms-input" id="man-imp" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">Cliques</label><input class="ms-input" id="man-cliques" placeholder=""></div>
+                  <div class="ms-field"><label class="ms-label">Frequencia</label><input class="ms-input" id="man-freq" placeholder=""></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;">
+                <button class="btn-save" onclick="saveManual()">Salvar Relatorio</button>
+                <button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:8px 14px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:5px;" onclick="exportCSV()"><i class="ti ti-download" style="font-size:13px"></i> Exportar CSV</button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Historico de Uploads</div></div><table><thead><tr><th>Arquivo</th><th>Canal</th><th>Data</th><th>Linhas</th><th>Status</th></tr></thead><tbody id="up-log"><tr><td>meta_maio_2025.csv</td><td>Meta Ads</td><td>21/05/2025</td><td>1.847</td><td><span class="sb-badge s-on">Processado</span></td></tr><tr><td>tiktok_abr_2025.csv</td><td>TikTok Shop</td><td>02/05/2025</td><td>444</td><td><span class="sb-badge s-on">Processado</span></td></tr></tbody></table></div>
+ 
+        <div class="tbl-card">
+          <div class="tbl-hd" style="flex-wrap:wrap;gap:8px;">
+            <div class="tbl-title">Historico de Relatorios</div>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <input type="date" id="hist-filter-date" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:11px;font-family:var(--font);outline:none;color:var(--blk);" onchange="filterHistory()">
+              <select id="hist-filter-canal" style="background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:11px;font-family:var(--font);outline:none;cursor:pointer;" onchange="filterHistory()">
+                <option value="">Todos canais</option><option value="Meta Ads">Meta Ads</option><option value="TikTok Shop">TikTok Shop</option><option value="Google Ads">Google Ads</option><option value="Geral">Geral</option>
+              </select>
+              <button style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--font);" onclick="clearHistFilters()">Limpar</button>
+              <button style="background:var(--red);color:#fff;border:none;border-radius:7px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:4px;" onclick="exportCSV()"><i class="ti ti-download" style="font-size:13px"></i> Exportar</button>
+            </div>
+          </div>
+          <div class="tbl-wrap"><table><thead><tr><th>Descricao</th><th>Canal</th><th>Data</th><th>Faturamento</th><th>Invest.</th><th>ROAS</th><th>Tipo</th><th>Acoes</th></tr></thead><tbody id="up-log"><tr id="empty-log-row"><td colspan="8" style="text-align:center;color:var(--g1);padding:20px;">Nenhum relatorio. Suba um CSV ou insira manualmente.</td></tr></tbody></table></div>
+        </div>
       </div>
  
     </div>
   </div>
 </div>
  
-<!-- MODAL NOVO CARD -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="modal-hd"><div class="modal-title">Novo Criativo</div><div class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></div></div>
-    <div class="modal-body">
-      <div class="modal-field"><label class="modal-label">Nome do criativo</label><input class="modal-input" id="nc-title" placeholder="Ex: Hook antes e depois Bumbum v2"></div>
-      <div class="modal-row">
-        <div class="modal-field"><label class="modal-label">Tipo</label><select class="modal-select" id="nc-type"><option value="video">Video</option><option value="ugc">UGC</option><option value="static">Estatico</option><option value="carousel">Carrossel</option></select></div>
-        <div class="modal-field"><label class="modal-label">Produto</label><select class="modal-select" id="nc-prod"><option value="Bumbum Dermo">Bumbum Dermo</option><option value="Dermo Pro">Dermo Pro</option></select></div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-field"><label class="modal-label">Canal</label><select class="modal-select" id="nc-channel"><option value="Meta">Meta Ads</option><option value="TikTok">TikTok Shop</option><option value="Google">Google Ads</option></select></div>
-        <div class="modal-field"><label class="modal-label">Coluna</label><select class="modal-select" id="nc-col"><option value="testar">A Testar</option><option value="testando">Testando</option><option value="validado">Validado</option><option value="nao-funcionou">Nao Funcionou</option><option value="arquivado">Arquivado</option></select></div>
-      </div>
-      <div class="modal-field"><label class="modal-label">Angulo / Hipotese</label><input class="modal-input" id="nc-angulo" placeholder="Ex: Hook de dor — mulher nao consegue usar calca favorita"></div>
-      <div class="modal-row">
-        <div class="modal-field"><label class="modal-label">ROAS (se disponivel)</label><input class="modal-input" id="nc-roas" placeholder="Ex: 4,8x"></div>
-        <div class="modal-field"><label class="modal-label">CPA (se disponivel)</label><input class="modal-input" id="nc-cpa" placeholder="Ex: R$ 32"></div>
+<!-- CARD DETAIL MODAL (slide-in panel) -->
+<div class="overlay" id="card-overlay" onclick="if(event.target===this)closeCard()">
+  <div class="modal" id="card-modal">
+    <div class="modal-hd">
+      <div class="modal-title" id="cm-title">Criativo</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button style="font-size:10px;background:var(--red-l);color:var(--red);border:none;border-radius:5px;padding:4px 10px;cursor:pointer;font-family:var(--font);font-weight:600;" onclick="deleteCard()">Excluir</button>
+        <div class="modal-close" onclick="closeCard()"><i class="ti ti-x"></i></div>
       </div>
     </div>
-    <div class="modal-foot"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-confirm" onclick="confirmCard()">Criar Card</button></div>
+    <div class="modal-body">
+ 
+      <!-- MEDIA -->
+      <div class="modal-section">
+        <div class="modal-section-title"><i class="ti ti-photo-video" style="font-size:13px;color:var(--red)"></i>Midia do Criativo</div>
+        <div class="media-drop" id="media-drop" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleDrop(event)" onclick="document.getElementById('media-file').click()">
+          <i class="ti ti-upload"></i>
+          <div class="media-drop-txt">Clique ou arraste para subir video ou imagem</div>
+          <div class="media-drop-sub">MP4, MOV, JPG, PNG — max. 50MB</div>
+        </div>
+        <input type="file" id="media-file" accept="video/*,image/*" style="display:none" onchange="handleFile(this.files[0])">
+        <div class="media-preview" id="media-preview">
+          <button class="media-preview-close" onclick="removeMedia()"><i class="ti ti-x" style="font-size:12px"></i></button>
+          <video id="media-video" controls style="display:none"></video>
+          <img id="media-img" style="display:none">
+        </div>
+      </div>
+ 
+      <!-- INFO -->
+      <div class="modal-section">
+        <div class="modal-section-title"><i class="ti ti-info-circle" style="font-size:13px;color:#3B82F6"></i>Informacoes</div>
+        <div class="mfield"><label class="mlabel">Nome do criativo</label><input class="minput" id="cm-name" placeholder="Nome do criativo" oninput="updateCardTitle()"></div>
+        <div class="mrow">
+          <div class="mfield"><label class="mlabel">Tipo</label><select class="mselect" id="cm-type"><option value="video">Video</option><option value="ugc">UGC</option><option value="static">Estatico</option><option value="carousel">Carrossel</option></select></div>
+          <div class="mfield"><label class="mlabel">Produto</label><select class="mselect" id="cm-prod"><option value="Bumbum Dermo">Bumbum Dermo</option><option value="Dermo Pro">Dermo Pro</option></select></div>
+        </div>
+        <div class="mrow">
+          <div class="mfield"><label class="mlabel">Canal</label><select class="mselect" id="cm-channel"><option value="Meta">Meta Ads</option><option value="TikTok">TikTok</option><option value="Google">Google</option><option value="Organico">Organico</option></select></div>
+          <div class="mfield"><label class="mlabel">Responsavel</label><input class="minput" id="cm-resp" placeholder="Ex: Isabel"></div>
+        </div>
+        <div class="mfield"><label class="mlabel">Angulo / Hipotese</label><input class="minput" id="cm-angulo" placeholder="Qual o angulo criativo testado?"></div>
+      </div>
+ 
+      <!-- MOVER -->
+      <div class="modal-section">
+        <div class="modal-section-title"><i class="ti ti-arrows-move" style="font-size:13px;color:#F59E0B"></i>Mover para Coluna</div>
+        <div class="move-row" id="move-row"></div>
+      </div>
+ 
+      <!-- METRICAS (so aparece se validado/testando/nao) -->
+      <div class="modal-section" id="cm-metrics-section">
+        <div class="modal-section-title"><i class="ti ti-chart-bar" style="font-size:13px;color:#22C55E"></i>Metricas de Performance <span style="font-size:9px;color:var(--g1);font-weight:400">(preencha apos subir no Meta)</span></div>
+        <div class="mrow3">
+          <div class="mfield"><label class="mlabel">ROAS</label><input class="minput" id="cm-roas" placeholder="—" oninput="updateCardMetrics()"></div>
+          <div class="mfield"><label class="mlabel">CPA</label><input class="minput" id="cm-cpa" placeholder="—" oninput="updateCardMetrics()"></div>
+          <div class="mfield"><label class="mlabel">CTR</label><input class="minput" id="cm-ctr" placeholder="—" oninput="updateCardMetrics()"></div>
+          <div class="mfield"><label class="mlabel">CPM</label><input class="minput" id="cm-cpm-m" placeholder="—"></div>
+          <div class="mfield"><label class="mlabel">Frequencia</label><input class="minput" id="cm-freq" placeholder="—" oninput="checkFatigue()"></div>
+          <div class="mfield"><label class="mlabel">Impressoes</label><input class="minput" id="cm-imp" placeholder="—"></div>
+        </div>
+        <div class="mfield" id="cm-fatigue-note" style="display:none;background:var(--red-l);border-radius:7px;padding:8px 11px;font-size:11px;color:var(--red);font-weight:500;margin-top:4px;">
+          <i class="ti ti-alert-triangle" style="font-size:12px"></i> Frequencia alta detectada — considere pausar este criativo.
+        </div>
+        <div class="mfield" style="margin-top:8px;"><label class="mlabel">Motivo / Observacao</label><input class="minput" id="cm-motivo" placeholder="Ex: ROAS caiu apos freq 4x, publico saturado..."></div>
+      </div>
+ 
+      <!-- COMENTARIOS -->
+      <div class="modal-section">
+        <div class="modal-section-title"><i class="ti ti-message-circle" style="font-size:13px;color:#8B5CF6"></i>Comentarios <span id="cmt-count" style="font-size:9px;color:var(--g1);font-weight:400"></span></div>
+        <div class="cmt-list" id="cmt-list"></div>
+        <div class="cmt-input-row">
+          <textarea class="cmt-ta" id="cmt-ta" placeholder="Adicionar comentario... (Enter envia)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendCmt();}"></textarea>
+          <button class="cmt-send" onclick="sendCmt()"><i class="ti ti-send"></i></button>
+        </div>
+      </div>
+ 
+      <div style="padding-top:10px;display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn-cancel" onclick="closeCard()">Fechar</button>
+        <button class="btn-confirm" onclick="saveCard()">Salvar Alteracoes</button>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- NEW CARD MODAL -->
+<div class="nc-overlay" id="nc-overlay" onclick="if(event.target===this)closeNC()">
+  <div class="nc-modal">
+    <div class="nc-hd"><div class="nc-title">Novo Criativo</div><div class="modal-close" onclick="closeNC()"><i class="ti ti-x"></i></div></div>
+    <div class="nc-body">
+      <div class="mfield"><label class="mlabel">Nome</label><input class="minput" id="nc-name" placeholder="Ex: Hook dor nas costas v2"></div>
+      <div class="mrow">
+        <div class="mfield"><label class="mlabel">Tipo</label><select class="mselect" id="nc-type"><option value="video">Video</option><option value="ugc">UGC</option><option value="static">Estatico</option><option value="carousel">Carrossel</option></select></div>
+        <div class="mfield"><label class="mlabel">Produto</label><select class="mselect" id="nc-prod"><option value="Bumbum Dermo">Bumbum Dermo</option><option value="Dermo Pro">Dermo Pro</option></select></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label class="mlabel">Canal</label><select class="mselect" id="nc-channel"><option value="Meta">Meta Ads</option><option value="TikTok">TikTok</option><option value="Google">Google</option><option value="Organico">Organico</option></select></div>
+        <div class="mfield"><label class="mlabel">Coluna</label><select class="mselect" id="nc-col"><option value="testar">A Testar</option><option value="testando">Testando</option><option value="validado">Validado</option><option value="nao">Nao Funcionou</option><option value="arquivado">Arquivado</option></select></div>
+      </div>
+      <div class="mfield"><label class="mlabel">Angulo / Hipotese</label><input class="minput" id="nc-angulo" placeholder="Qual angulo criativo?"></div>
+    </div>
+    <div class="nc-foot"><button class="btn-cancel" onclick="closeNC()">Cancelar</button><button class="btn-confirm" onclick="confirmNC()">Criar Card</button></div>
   </div>
 </div>
  
 <script>
-// ====== AUTH ======
-const PASS = 'dermo2026';
+// ---- AUTH ----
+const PASS='dermo2026';
+let currentUser='';
 function doLogin(){
-  const nome=document.getElementById('l-email').value.trim();
+  const n=document.getElementById('l-name').value.trim();
   const p=document.getElementById('l-pass').value;
   const err=document.getElementById('l-err');
-  if(nome.length>=2 && p===PASS){
+  if(n.length>=2&&p===PASS){
+    currentUser=n;
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='flex';
-    const initials=nome.split(' ').map(w=>w[0].toUpperCase()).slice(0,2).join('');
-    document.getElementById('usr-ava').textContent=initials;
-    document.getElementById('usr-name').textContent=nome;
-    setTimeout(()=>{mkLine('cC',mD,tD,gD);mkPie();},80);
+    const ini=n.split(' ').map(w=>w[0].toUpperCase()).slice(0,2).join('');
+    document.getElementById('usr-ava').textContent=ini;
+    document.getElementById('usr-name').textContent=n;
+    setTimeout(()=>{initCharts();},80);
   } else {
     err.style.display='block';
-    err.textContent=nome.length<2?'Digite seu nome para continuar.':'Senha incorreta. Tente novamente.';
+    err.textContent=n.length<2?'Digite seu nome (min 2 caracteres).':'Senha incorreta.';
     document.getElementById('l-pass').value='';
   }
 }
@@ -684,173 +970,149 @@ function doLogout(){
   document.getElementById('app').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('l-pass').value='';
+  document.getElementById('l-name').value='';
   document.getElementById('l-err').style.display='none';
 }
  
-// ====== SIDEBAR MOBILE ======
+// ---- SIDEBAR ----
 function openSb(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('open');}
 function closeSb(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');}
  
-// ====== NAV ======
-const TITLES={overview:'Visao Geral',metrics:'Metricas',products:'Produtos',channels:'Canais',kanban:'Kanban de Criativos',library:'Criativos + IA',meta:'Meta Ads',tiktok:'TikTok Shop',google:'Google Ads',upload:'Upload de Relatorio'};
+// ---- NAV ----
+const TITLES={overview:'Visao Geral',metrics:'Metricas da Campanha',products:'Produtos',channels:'Canais',kanban:'Kanban de Criativos',library:'Criativos + IA',meta:'Meta Ads',tiktok:'TikTok Shop',google:'Google Ads',upload:'Upload de Relatorio'};
 function go(p,el){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   const v=document.getElementById('v-'+p);if(v)v.classList.add('on');
   if(el)el.classList.add('on');
+  else{document.querySelectorAll('.ni').forEach(n=>{if(n.textContent.trim().startsWith(TITLES[p]?.split(' ')[0]))n.classList.add('on');});}
   document.getElementById('pg-title').textContent=TITLES[p]||p;
   closeSb();
-  setTimeout(()=>{
-    if(p==='overview'){mkLine('cC',mD,tD,gD);mkPie();}
-    if(p==='channels')mkLine('cC2',mD,tD,gD);
-    if(p==='products')mkProd();
-    if(p==='kanban')buildKanban();
-  },30);
+  if(p==='kanban')setTimeout(buildKanban,30);
+  if(p==='products')setTimeout(()=>{initProdChart();},30);
+  if(p==='library')setTimeout(renderLibrary,30);
 }
  
-// ====== CHARTS ======
+// ---- CHARTS ----
 const charts={};
-const lbl=['1/5','5/5','9/5','13/5','17/5','21/5'];
-const mD=[5200,7100,8400,6300,9500,8100];
-const tD=[1800,2400,2900,2200,3100,2800];
-const gD=[900,1300,1800,1200,2000,1700];
+function initCharts(){
+  mkPie();
+  mkLine('cC',[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]);
+}
 function mkLine(id,a,b,c){
   if(charts[id])charts[id].destroy();
   const ctx=document.getElementById(id);if(!ctx)return;
-  charts[id]=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Meta',data:a,borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'TikTok',data:b,borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]},{label:'Google',data:c,borderColor:'#888',backgroundColor:'#888',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[2,2]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#888',callback:v=>'R$'+Math.round(v/1000)+'k'}}}}});
+  const lbl=['Sem','dados','insira','via','Metricas','ou Upload'];
+  charts[id]=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Meta',data:a,borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'TikTok',data:b,borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]},{label:'Google',data:c,borderColor:'#888',backgroundColor:'#888',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[2,2]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#CCC'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#CCC'}}}}});
 }
 function mkPie(){
   if(charts.pC)charts.pC.destroy();
   const ctx=document.getElementById('pC');if(!ctx)return;
-  charts.pC=new Chart(ctx,{type:'doughnut',data:{labels:['Meta','TikTok','Google'],datasets:[{data:[62,24,14],backgroundColor:['#C8102E','#111','#888'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
+  charts.pC=new Chart(ctx,{type:'doughnut',data:{labels:['Meta','TikTok','Google'],datasets:[{data:[1,1,1],backgroundColor:['#C8102E','#111','#888'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
 }
-function mkProd(){
+function initProdChart(){
   if(charts.prC)charts.prC.destroy();
   const ctx=document.getElementById('prC');if(!ctx)return;
-  charts.prC=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Bumbum',data:[4200,5800,6900,5100,7800,6500],borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'Dermo Pro',data:[2800,3600,4200,3100,4700,3900],borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#888',callback:v=>'R$'+Math.round(v/1000)+'k'}}}}});
-}
-function upd(){
-  const r=document.getElementById('dr').value;
-  const m={7:.25,30:1,60:1.9,90:2.6};const x=m[r]||1;
-  const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
-  s('k-fat','R$ '+Math.round(287430*x/1000)+'k');
-  s('k-ped',Math.round(1847*x).toLocaleString('pt-BR'));
-  s('k-tkt','R$ '+Math.round(155));
-  s('k-roas',(4.2+(x-1)*.1).toFixed(1)+'x');
+  charts.prC=new Chart(ctx,{type:'line',data:{labels:['Sem dados'],datasets:[{label:'Bumbum',data:[0],borderColor:'#C8102E',fill:false,borderWidth:2,pointRadius:2,tension:.4},{label:'Dermo Pro',data:[0],borderColor:'#111',fill:false,borderWidth:2,pointRadius:2,tension:.4,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#CCC'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#CCC'}}}}});
 }
  
-// ====== METRICS ======
+// ---- METRICS ----
 function saveMetrics(){
-  const g=(id)=>document.getElementById(id).value;
-  document.getElementById('d-roas').textContent=g('m-roas');
-  document.getElementById('d-cac').textContent=g('m-cac');
-  document.getElementById('d-ctr').textContent=g('m-ctr');
-  document.getElementById('d-conv').textContent=g('m-conv');
-  document.getElementById('d-tk-novo').textContent=g('m-ticket-novo');
-  document.getElementById('d-cac-novo').textContent=g('m-cac-novo');
-  document.getElementById('d-conv-novo').textContent=g('m-conv-novo');
-  document.getElementById('d-pct-novo').textContent=g('m-pct-novo');
-  document.getElementById('d-tk-rec').textContent=g('m-ticket-rec');
-  document.getElementById('d-cac-rec').textContent=g('m-cac-rec');
-  document.getElementById('d-conv-rec').textContent=g('m-conv-rec');
-  document.getElementById('d-pct-rec').textContent=g('m-pct-rec');
-  const toast=document.getElementById('saved-toast');
-  toast.style.display='flex';
-  setTimeout(()=>toast.style.display='none',2500);
+  const g=id=>{const e=document.getElementById(id);return e?e.value:'';};
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v||'—';};
+  set('d-roas',g('m-roas'));set('d-cac',g('m-cac'));set('d-ctr',g('m-ctr'));
+  set('d-cpa',g('m-cpa'));set('d-conv',g('m-conv'));set('d-ticket',g('m-ticket'));
+  set('d-rps',g('m-rps'));set('d-aps',g('m-aps'));set('d-cpm',g('m-cpm'));
+  set('d-freq',g('m-freq'));set('d-ltv',g('m-ltv'));set('d-mer',g('m-mer'));
+  set('d-tk-novo',g('m-tk-novo'));set('d-cac-novo',g('m-cac-novo'));set('d-conv-novo',g('m-conv-novo'));
+  set('d-tk-rec',g('m-tk-rec'));set('d-cac-rec',g('m-cac-rec'));set('d-conv-rec',g('m-conv-rec'));
+  const now=new Date();
+  document.getElementById('met-badge').textContent=now.toLocaleDateString('pt-BR',{month:'short',year:'numeric'});
+  const ok=document.getElementById('saved-ok');ok.style.display='flex';
+  setTimeout(()=>ok.style.display='none',2500);
 }
  
-// ====== KANBAN FLOWI STYLE ======
+// ---- KANBAN ----
 const COLS=[
   {id:'testar',name:'A Testar',cls:'col-testar'},
   {id:'testando',name:'Testando',cls:'col-testando'},
   {id:'validado',name:'Validado',cls:'col-validado'},
-  {id:'nao-funcionou',name:'Nao Funcionou',cls:'col-nao-funcionou'},
+  {id:'nao',name:'Nao Funcionou',cls:'col-nao'},
   {id:'arquivado',name:'Arquivado',cls:'col-arquivado'},
 ];
-const THUMB_COLORS={video:'linear-gradient(135deg,#EDE9FE,#DDD6FE)',ugc:'linear-gradient(135deg,#FEF9C3,#FDE68A)',static:'linear-gradient(135deg,#DCFCE7,#BBF7D0)',carousel:'linear-gradient(135deg,#FCE7F3,#FBCFE8)'};
-const THUMB_ICONS={video:'ti-video',ugc:'ti-user-circle',static:'ti-photo',carousel:'ti-layout-cards'};
+const THUMB={video:'linear-gradient(135deg,#EDE9FE,#DDD6FE)',ugc:'linear-gradient(135deg,#FEF9C3,#FDE68A)',static:'linear-gradient(135deg,#DCFCE7,#BBF7D0)',carousel:'linear-gradient(135deg,#FCE7F3,#FBCFE8)'};
+const ICON={video:'ti-video',ugc:'ti-user-circle',static:'ti-photo',carousel:'ti-layout-cards'};
  
-let kanbanData={
-  testar:[
-    {id:1,title:'Hook antes e depois Dermo Pro',type:'video',prod:'Dermo Pro',channel:'Meta',date:'26/05',roas:'',cpa:'',angulo:'Mulher nao consegue usar calca favorita',fatigue:false,motivo:''},
-    {id:2,title:'UGC dermatologista endossando',type:'ugc',prod:'Bumbum Dermo',channel:'Meta',date:'28/05',roas:'',cpa:'',angulo:'Prova social medica',fatigue:false,motivo:''},
-  ],
-  testando:[
-    {id:3,title:'Carrossel 5 beneficios v3',type:'carousel',prod:'Bumbum Dermo',channel:'Meta',date:'24/05',roas:'2,1x',cpa:'R$ 71',angulo:'Educacional beneficios',fatigue:false,motivo:''},
-    {id:4,title:'Estatico oferta kit duplo',type:'static',prod:'Dermo Pro',channel:'Meta',date:'23/05',roas:'3,2x',cpa:'R$ 48',angulo:'Oferta bundling',fatigue:false,motivo:''},
-  ],
-  validado:[
-    {id:5,title:'Hook dor nas costas v1',type:'video',prod:'Bumbum Dermo',channel:'Meta',date:'10/05',roas:'5,2x',cpa:'R$ 28',angulo:'Hook de dor fisica',fatigue:false,motivo:''},
-    {id:6,title:'Antes e depois UGC',type:'ugc',prod:'Bumbum Dermo',channel:'TikTok',date:'08/05',roas:'4,8x',cpa:'R$ 31',angulo:'Transformacao visual',fatigue:false,motivo:''},
-  ],
-  'nao-funcionou':[
-    {id:7,title:'Static oferta 30%off',type:'static',prod:'Bumbum Dermo',channel:'Meta',date:'03/05',roas:'1,8x',cpa:'R$ 84',angulo:'Desconto direto',fatigue:true,motivo:'Fadiga — freq 5.6x, ROAS caiu 60%'},
-  ],
-  arquivado:[
-    {id:8,title:'Carrossel ingredientes v1',type:'carousel',prod:'Bumbum Dermo',channel:'Meta',date:'01/04',roas:'2,3x',cpa:'R$ 65',angulo:'Educacional ingredientes',fatigue:false,motivo:'ROAS abaixo do breakeven'},
-  ],
-};
+let KD={testar:[],testando:[],validado:[],nao:[],arquivado:[]};
 let activeFilter='all';
 let kanbanBuilt=false;
+let dragCard=null,dragCol=null;
+let openCardId=null;
  
 function buildKanban(){
-  if(kanbanBuilt)return;kanbanBuilt=true;
-  renderKanban();
+  if(kanbanBuilt){renderKanban();return;}
+  kanbanBuilt=true;renderKanban();
 }
 function renderKanban(){
-  const board=document.getElementById('kanban-board');
-  board.innerHTML='';
+  const board=document.getElementById('kanban-board');board.innerHTML='';
   COLS.forEach(col=>{
-    const cards=(kanbanData[col.id]||[]).filter(c=>activeFilter==='all'||c.type===activeFilter);
-    const div=document.createElement('div');
-    div.className='kan-col';
+    const cards=KD[col.id].filter(c=>activeFilter==='all'||c.type===activeFilter);
+    const div=document.createElement('div');div.className='kan-col';
+    div.dataset.col=col.id;
     div.innerHTML=
-      '<div class="kan-col-head '+col.cls+'">'+
-        '<div class="kan-col-left">'+
-          '<div class="kan-col-dot"></div>'+
-          '<div class="kan-col-name">'+col.name+'</div>'+
-          '<span class="kan-col-count">'+cards.length+'</span>'+
-        '</div>'+
-        '<button class="kan-add-btn" onclick="openModal(\''+col.id+'\')"><i class="ti ti-plus"></i></button>'+
+      '<div class="kan-col-hd '+col.cls+'">'+
+        '<div class="kan-col-left"><div class="kan-col-dot"></div><div class="kan-col-name">'+col.name+'</div><span class="kan-col-cnt">'+cards.length+'</span></div>'+
+        '<button class="kan-col-add" onclick="openNC(\''+col.id+'\')"><i class="ti ti-plus"></i></button>'+
       '</div>'+
-      '<div class="kan-cards" id="col-cards-'+col.id+'">'+
-        (cards.length===0?'<div class="kan-empty">Nenhum criativo aqui</div>':cards.map(c=>renderCard(c)).join(''))+
+      '<div class="kan-cards" id="col-'+col.id+'" ondragover="onDragOver(event,\''+col.id+'\')" ondragleave="onDragLeave(event)" ondrop="onDrop(event,\''+col.id+'\')">'+
+        (cards.length?cards.map(c=>cardHTML(c)).join(''):'<div class="kan-empty">Nenhum criativo</div>')+
       '</div>';
     board.appendChild(div);
   });
+  board.querySelectorAll('.kc').forEach(el=>{
+    el.addEventListener('dragstart',e=>{dragCard=el.dataset.id;dragCol=el.dataset.col;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    el.addEventListener('dragend',e=>{el.classList.remove('dragging');document.querySelectorAll('.kan-cards').forEach(z=>z.classList.remove('drop-zone-active'));});
+    el.addEventListener('click',()=>openCard(el.dataset.id));
+  });
+  // keep library in sync
+  if(document.getElementById('v-library').classList.contains('on'))renderLibrary();
 }
-function renderCard(c){
-  const tagCls={video:'tag-video',ugc:'tag-ugc',static:'tag-static',carousel:'tag-carousel'}[c.type]||'tag-video';
-  const thumb=THUMB_COLORS[c.type]||THUMB_COLORS.video;
-  const icon=THUMB_ICONS[c.type]||'ti-photo';
-  let roasHtml='';
-  if(c.roas){const v=parseFloat(c.roas);const cls=v>=4?'roas-ok':v>=2.5?'roas-warn':'roas-bad';roasHtml='<span class="kc-thumb-roas '+cls+'">ROAS '+c.roas+'</span>';}
-  let metricsHtml='';
-  if(c.roas||c.cpa){
-    metricsHtml='<div class="kc-metrics-strip">';
-    if(c.roas){const v=parseFloat(c.roas);const cls=v>=4?'m-green':v>=2.5?'m-yellow':'m-red';metricsHtml+='<span class="kc-m '+cls+'">ROAS '+c.roas+'</span>';}
-    if(c.cpa)metricsHtml+='<span class="kc-m m-blue">CPA '+c.cpa+'</span>';
-    metricsHtml+='</div>';
+function cardHTML(c){
+  const tagCls={'video':'tag-video','ugc':'tag-ugc','static':'tag-static','carousel':'tag-carousel'}[c.type]||'tag-video';
+  const bg=THUMB[c.type]||THUMB.video;
+  const ico=ICON[c.type]||'ti-photo';
+  let roasBadge='';
+  if(c.roas){const v=parseFloat(c.roas);const cl=v>=4?'roas-ok':v>=2.5?'roas-warn':'roas-bad';roasBadge='<span class="kc-roas-badge '+cl+'">'+c.roas+'</span>';}
+  let mediaPrev='';
+  if(c.mediaURL&&c.mediaType==='video')mediaPrev='<video src="'+c.mediaURL+'" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"></video>';
+  else if(c.mediaURL)mediaPrev='<img src="'+c.mediaURL+'" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">';
+  let metrics='';
+  if(c.roas||c.cpa||c.ctr){
+    metrics='<div class="kc-metrics">';
+    if(c.roas){const v=parseFloat(c.roas);metrics+='<span class="kc-m '+(v>=4?'m-g':v>=2.5?'m-y':'m-r')+'">ROAS '+c.roas+'</span>';}
+    if(c.cpa)metrics+='<span class="kc-m m-b">CPA '+c.cpa+'</span>';
+    if(c.ctr)metrics+='<span class="kc-m m-g">CTR '+c.ctr+'</span>';
+    metrics+='</div>';
   }
-  return '<div class="kc" data-type="'+c.type+'">'+
-    '<div class="kc-thumb" style="background:'+thumb+'">'+
-      '<i class="ti '+icon+' kc-thumb-icon"></i>'+
-      '<span class="kc-thumb-type '+tagCls+'">'+c.type+'</span>'+
-      roasHtml+
+  return '<div class="kc" data-id="'+c.id+'" data-col="'+c.col+'" draggable="true">'+
+    '<div class="kc-thumb" style="background:'+bg+'">'+mediaPrev+
+      '<i class="ti '+ico+' kc-ti" style="'+(c.mediaURL?'display:none':'')+'"></i>'+
+      '<span class="kc-type-badge '+tagCls+'">'+c.type+'</span>'+roasBadge+
     '</div>'+
     '<div class="kc-body">'+
-      '<div class="kc-title">'+c.title+'</div>'+
-      '<div class="kc-meta-row"><span class="kc-prod-tag">'+c.prod+'</span><span class="kc-channel">'+c.channel+'</span></div>'+
-      metricsHtml+
+      '<div class="kc-title">'+c.name+'</div>'+
+      '<div class="kc-tags"><span class="kc-tag">'+c.prod+'</span><span class="kc-tag">'+c.channel+'</span></div>'+
+      metrics+
       '<div class="kc-foot">'+
         '<div class="kc-date"><i class="ti ti-calendar" style="font-size:10px"></i>'+c.date+'</div>'+
-        '<div class="kc-avs"><div class="kc-av" style="background:#C8102E">D</div></div>'+
+        '<div class="kc-cmts"><i class="ti ti-message-circle" style="font-size:10px"></i>'+(c.comments?c.comments.length:0)+'</div>'+
       '</div>'+
     '</div>'+
     (c.fatigue?'<div class="fatigue-strip"><i class="ti ti-alert-triangle"></i>Fadiga detectada</div>':'')+
     (c.motivo&&!c.fatigue?'<div class="motivo-strip"><i class="ti ti-info-circle"></i>'+c.motivo+'</div>':'')+
   '</div>';
 }
+ 
 function filterKan(f,el){
   activeFilter=f;
   document.querySelectorAll('.kan-filter').forEach(k=>k.classList.remove('on'));
@@ -858,82 +1120,550 @@ function filterKan(f,el){
   if(kanbanBuilt)renderKanban();
 }
  
-// ====== MODAL ======
-let targetCol='testar';
-function openModal(col){
-  targetCol=col||'testar';
-  document.getElementById('nc-col').value=targetCol;
-  document.getElementById('nc-title').value='';
-  document.getElementById('nc-roas').value='';
-  document.getElementById('nc-cpa').value='';
-  document.getElementById('nc-angulo').value='';
-  document.getElementById('modal').classList.add('open');
+// DRAG AND DROP
+function onDragOver(e,col){
+  e.preventDefault();e.dataTransfer.dropEffect='move';
+  document.getElementById('col-'+col).classList.add('drop-zone-active');
 }
-function closeModal(){document.getElementById('modal').classList.remove('open');}
-function confirmCard(){
-  const title=document.getElementById('nc-title').value.trim();
-  if(!title)return;
-  const col=document.getElementById('nc-col').value;
-  const newCard={
-    id:Date.now(),
-    title,
-    type:document.getElementById('nc-type').value,
-    prod:document.getElementById('nc-prod').value,
-    channel:document.getElementById('nc-channel').value,
-    date:new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),
-    roas:document.getElementById('nc-roas').value,
-    cpa:document.getElementById('nc-cpa').value,
-    angulo:document.getElementById('nc-angulo').value,
-    fatigue:false,motivo:''
-  };
-  if(!kanbanData[col])kanbanData[col]=[];
-  kanbanData[col].push(newCard);
-  closeModal();
+function onDragLeave(e){
+  e.currentTarget.classList.remove('drop-zone-active');
+}
+function onDrop(e,toCol){
+  e.preventDefault();
+  document.querySelectorAll('.kan-cards').forEach(z=>z.classList.remove('drop-zone-active'));
+  if(!dragCard)return;
+  const fromCol=dragCol;
+  if(fromCol===toCol)return;
+  const idx=KD[fromCol].findIndex(c=>c.id==dragCard);
+  if(idx<0)return;
+  const card=KD[fromCol].splice(idx,1)[0];
+  card.col=toCol;
+  KD[toCol].push(card);
+  dragCard=null;dragCol=null;
   renderKanban();
 }
  
-// ====== AI ======
-const SYS='Voce e o analista de criativos do Dermo Club (dermocosmeticos). Produtos: Bumbum Dermo (BD-001, creme redutor, R$155) e Dermo Pro (DP-002, kit premium). ROAS geral 4,2x. Meta Ads: ROAS 4,6x, CPA R$33,42, CTR 2,8%, freq 2,3x. TikTok: ROAS 3,6x. Google: ROAS 2,8x. Melhor criativo: Hook dor nas costas v1 (ROAS 5,2x, CTR 3,4%). Fadiga: Static 30%off (ROAS 1,8x, freq 5,6x). Responda em portugues, seja direto e use numeros. Max 200 palavras.';
-let hist=[];let loading=false;
-function sendQ(q){document.getElementById('ai-q').value=q;sendAI();}
-function addMsg(r,t){
-  const msgs=document.getElementById('ai-msgs');
-  const d=document.createElement('div');d.className='ai-msg '+r;
-  d.innerHTML=t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+// NEW CARD
+let ncTargetCol='testar';
+function openNC(col){
+  ncTargetCol=col||'testar';
+  document.getElementById('nc-col').value=ncTargetCol;
+  ['nc-name','nc-angulo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nc-overlay').classList.add('open');
 }
-async function sendAI(){
-  if(loading)return;
-  const inp=document.getElementById('ai-q');const q=inp.value.trim();if(!q)return;
-  inp.value='';loading=true;
-  const btn=document.getElementById('ai-btn');btn.disabled=true;btn.innerHTML='<i class="ti ti-loader" style="animation:spin 1s linear infinite;display:inline-block"></i>';
-  addMsg('user',q);hist.push({role:'user',content:q});
-  const msgs=document.getElementById('ai-msgs');
-  const tp=document.createElement('div');tp.className='ai-typing';tp.innerHTML='<div class="ai-d"></div><div class="ai-d"></div><div class="ai-d"></div>';
-  msgs.appendChild(tp);msgs.scrollTop=msgs.scrollHeight;
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})});
-    const d=await r.json();tp.remove();
-    let ans='Erro ao processar.';
-    if(d.content&&d.content[0]&&d.content[0].text){ans=d.content[0].text;hist.push({role:'assistant',content:ans});}
-    else if(d.error)ans='Erro: '+d.error.message;
-    addMsg('bot',ans);
-  }catch(e){tp.remove();addMsg('bot','Erro de conexao com a API.');}
-  loading=false;btn.disabled=false;btn.innerHTML='<i class="ti ti-send"></i> Enviar';
+function closeNC(){document.getElementById('nc-overlay').classList.remove('open');}
+function confirmNC(){
+  const name=document.getElementById('nc-name').value.trim();
+  if(!name)return;
+  const col=document.getElementById('nc-col').value;
+  const card={
+    id:Date.now(),col,name,
+    type:document.getElementById('nc-type').value,
+    prod:document.getElementById('nc-prod').value,
+    channel:document.getElementById('nc-channel').value,
+    angulo:document.getElementById('nc-angulo').value,
+    date:new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),
+    roas:'',cpa:'',ctr:'',cpm:'',freq:'',imp:'',motivo:'',fatigue:false,
+    mediaURL:'',mediaType:'',comments:[]
+  };
+  KD[col].push(card);closeNC();renderKanban();
 }
  
-// ====== UPLOAD SIM ======
-function simUp(canal){
-  const names={meta:'meta_report.csv',tiktok:'tiktok_shop.csv',google:'google_ads.csv',sales:'vendas_maio.xlsx'};
-  const canals={meta:'Meta Ads',tiktok:'TikTok Shop',google:'Google Ads',sales:'Geral'};
-  const ds=new Date().toLocaleDateString('pt-BR');
-  const rows=Math.floor(Math.random()*2000)+300;
-  const tr=document.createElement('tr');
-  tr.innerHTML='<td>'+names[canal]+'</td><td>'+canals[canal]+'</td><td>'+ds+'</td><td>'+rows.toLocaleString('pt-BR')+'</td><td><span class="sb-badge s-on">Processado</span></td>';
-  const log=document.getElementById('up-log');if(log)log.prepend(tr);
-  go('upload',null);
-  document.querySelectorAll('.ni').forEach(n=>{if(n.textContent.trim().includes('Upload'))n.classList.add('on');else n.classList.remove('on');});
+// OPEN CARD DETAIL
+function openCard(id){
+  let card=null;
+  for(const col of Object.values(KD)){const c=col.find(x=>x.id==id);if(c){card=c;break;}}
+  if(!card)return;
+  openCardId=id;
+  document.getElementById('cm-title').textContent=card.name;
+  document.getElementById('cm-name').value=card.name;
+  document.getElementById('cm-type').value=card.type;
+  document.getElementById('cm-prod').value=card.prod;
+  document.getElementById('cm-channel').value=card.channel;
+  document.getElementById('cm-resp').value=card.resp||'';
+  document.getElementById('cm-angulo').value=card.angulo||'';
+  document.getElementById('cm-roas').value=card.roas||'';
+  document.getElementById('cm-cpa').value=card.cpa||'';
+  document.getElementById('cm-ctr').value=card.ctr||'';
+  document.getElementById('cm-cpm-m').value=card.cpm||'';
+  document.getElementById('cm-freq').value=card.freq||'';
+  document.getElementById('cm-imp').value=card.imp||'';
+  document.getElementById('cm-motivo').value=card.motivo||'';
+  // media
+  const prevEl=document.getElementById('media-preview');
+  const vidEl=document.getElementById('media-video');
+  const imgEl=document.getElementById('media-img');
+  const dropEl=document.getElementById('media-drop');
+  if(card.mediaURL){
+    prevEl.style.display='block';dropEl.style.display='none';
+    if(card.mediaType==='video'){vidEl.src=card.mediaURL;vidEl.style.display='block';imgEl.style.display='none';}
+    else{imgEl.src=card.mediaURL;imgEl.style.display='block';vidEl.style.display='none';}
+  } else {
+    prevEl.style.display='none';dropEl.style.display='block';
+    vidEl.src='';imgEl.src='';
+  }
+  // move buttons
+  const mr=document.getElementById('move-row');mr.innerHTML='';
+  COLS.forEach(col=>{
+    const btn=document.createElement('button');btn.className='move-btn'+(card.col===col.id?' current':'');
+    btn.textContent=col.name;btn.onclick=()=>moveCardTo(id,col.id);
+    mr.appendChild(btn);
+  });
+  // fatigue check
+  checkFatigue();
+  // comments
+  renderComments(card);
+  document.getElementById('card-overlay').classList.add('open');
+}
+function closeCard(){document.getElementById('card-overlay').classList.remove('open');openCardId=null;}
+function getOpenCard(){
+  for(const col of Object.values(KD)){const c=col.find(x=>x.id==openCardId);if(c)return c;}
+  return null;
+}
+function updateCardTitle(){
+  const c=getOpenCard();if(!c)return;
+  c.name=document.getElementById('cm-name').value;
+  document.getElementById('cm-title').textContent=c.name;
+}
+function updateCardMetrics(){
+  const c=getOpenCard();if(!c)return;
+  c.roas=document.getElementById('cm-roas').value;
+  c.cpa=document.getElementById('cm-cpa').value;
+  c.ctr=document.getElementById('cm-ctr').value;
+}
+function checkFatigue(){
+  const freq=parseFloat(document.getElementById('cm-freq').value);
+  const note=document.getElementById('cm-fatigue-note');
+  const c=getOpenCard();
+  if(freq>=3.5){note.style.display='block';if(c)c.fatigue=true;}
+  else{note.style.display='none';if(c)c.fatigue=false;}
+}
+function saveCard(){
+  const c=getOpenCard();if(!c)return;
+  c.name=document.getElementById('cm-name').value||c.name;
+  c.type=document.getElementById('cm-type').value;
+  c.prod=document.getElementById('cm-prod').value;
+  c.channel=document.getElementById('cm-channel').value;
+  c.resp=document.getElementById('cm-resp').value;
+  c.angulo=document.getElementById('cm-angulo').value;
+  c.roas=document.getElementById('cm-roas').value;
+  c.cpa=document.getElementById('cm-cpa').value;
+  c.ctr=document.getElementById('cm-ctr').value;
+  c.cpm=document.getElementById('cm-cpm-m').value;
+  c.freq=document.getElementById('cm-freq').value;
+  c.imp=document.getElementById('cm-imp').value;
+  c.motivo=document.getElementById('cm-motivo').value;
+  checkFatigue();
+  renderKanban();
+  closeCard();
+}
+function deleteCard(){
+  if(!openCardId)return;
+  if(!confirm('Excluir este criativo?'))return;
+  for(const col of Object.keys(KD)){KD[col]=KD[col].filter(c=>c.id!=openCardId);}
+  closeCard();renderKanban();
+}
+function moveCardTo(id,toCol){
+  for(const col of Object.keys(KD)){
+    const idx=KD[col].findIndex(c=>c.id==id);
+    if(idx>=0){const card=KD[col].splice(idx,1)[0];card.col=toCol;KD[toCol].push(card);break;}
+  }
+  // update move buttons
+  const mr=document.getElementById('move-row');
+  mr.querySelectorAll('.move-btn').forEach((btn,i)=>{btn.classList.toggle('current',COLS[i].id===toCol);});
+  renderKanban();
+}
+ 
+// MEDIA UPLOAD
+function handleDrop(e){
+  e.preventDefault();document.getElementById('media-drop').classList.remove('over');
+  const f=e.dataTransfer.files[0];if(f)handleFile(f);
+}
+function handleFile(f){
+  if(!f)return;
+  const url=URL.createObjectURL(f);
+  const isVid=f.type.startsWith('video/');
+  const c=getOpenCard();
+  if(c){c.mediaURL=url;c.mediaType=isVid?'video':'image';}
+  const prev=document.getElementById('media-preview');
+  const vid=document.getElementById('media-video');
+  const img=document.getElementById('media-img');
+  prev.style.display='block';
+  document.getElementById('media-drop').style.display='none';
+  if(isVid){vid.src=url;vid.style.display='block';img.style.display='none';}
+  else{img.src=url;img.style.display='block';vid.style.display='none';}
+}
+function removeMedia(){
+  const c=getOpenCard();if(c){c.mediaURL='';c.mediaType='';}
+  document.getElementById('media-preview').style.display='none';
+  document.getElementById('media-drop').style.display='block';
+  document.getElementById('media-video').src='';
+  document.getElementById('media-img').src='';
+}
+ 
+// COMMENTS
+function renderComments(card){
+  const list=document.getElementById('cmt-list');list.innerHTML='';
+  (card.comments||[]).forEach(cmt=>{
+    const d=document.createElement('div');d.className='cmt';
+    const ini=cmt.author.split(' ').map(w=>w[0].toUpperCase()).slice(0,2).join('');
+    d.innerHTML='<div class="cmt-meta"><div class="cmt-av">'+ini+'</div><div class="cmt-author">'+cmt.author+'</div><div class="cmt-time">'+cmt.time+'</div></div><div class="cmt-text">'+cmt.text+'</div>';
+    list.appendChild(d);
+  });
+  list.scrollTop=list.scrollHeight;
+  document.getElementById('cmt-count').textContent='('+(card.comments?card.comments.length:0)+')';
+}
+function sendCmt(){
+  const ta=document.getElementById('cmt-ta');const txt=ta.value.trim();if(!txt)return;
+  const c=getOpenCard();if(!c)return;
+  if(!c.comments)c.comments=[];
+  const now=new Date();
+  c.comments.push({author:currentUser||'Usuario',text:txt,time:now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})});
+  ta.value='';renderComments(c);renderKanban();
+}
+ 
+ 
+// LIBRARY
+const COL_STATUS={
+  testar:{label:'A Testar',color:'#1D4ED8',bg:'#DBEAFE'},
+  testando:{label:'Ativo',color:'#15803D',bg:'#DCFCE7'},
+  validado:{label:'Validado',color:'#15803D',bg:'#DCFCE7'},
+  nao:{label:'Nao Funcionou',color:'#9B1C1C',bg:'#FEE2E2'},
+  arquivado:{label:'Arquivado',color:'#6B7280',bg:'#F3F4F6'},
+};
+function renderLibrary(){
+  const fCol=document.getElementById('lib-filter-col')?.value||'';
+  const fProd=document.getElementById('lib-filter-prod')?.value||'';
+  const fType=document.getElementById('lib-filter-type')?.value||'';
+  const allCards=Object.values(KD).flat().filter(c=>{
+    if(fCol&&c.col!==fCol)return false;
+    if(fProd&&c.prod!==fProd)return false;
+    if(fType&&c.type!==fType)return false;
+    return true;
+  });
+  const tbody=document.getElementById('lib-tbody');if(!tbody)return;
+  if(!allCards.length){tbody.innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--g1);padding:24px;">Nenhum criativo. Adicione no Kanban.</td></tr>';return;}
+  tbody.innerHTML=allCards.map(c=>{
+    const st=COL_STATUS[c.col]||COL_STATUS.testar;
+    const freqStyle=parseFloat(c.freq)>=3.5?'color:var(--red);font-weight:700;':'';
+    return`<tr data-id="${c.id}">
+      <td><span class="lib-ed" data-field="name" data-id="${c.id}" title="Editar">${c.name||'—'}</span></td>
+      <td><span class="lib-ed" data-field="prod" data-id="${c.id}" data-type="sel" data-opts="Bumbum Dermo,Dermo Pro">${c.prod||'—'}</span></td>
+      <td><span class="lib-ed" data-field="type" data-id="${c.id}" data-type="sel" data-opts="video,ugc,static,carousel">${c.type||'—'}</span></td>
+      <td><span class="lib-ed" data-field="channel" data-id="${c.id}" data-type="sel" data-opts="Meta,TikTok,Google,Organico">${c.channel||'—'}</span></td>
+      <td><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:${st.bg};color:${st.color};cursor:pointer;display:inline-block;" onclick="cycleColStatus(${c.id})" title="Clique para mudar">${st.label}</span></td>
+      <td><span class="lib-ed" data-field="roas" data-id="${c.id}">${c.roas||'—'}</span></td>
+      <td><span class="lib-ed" data-field="cpa" data-id="${c.id}">${c.cpa||'—'}</span></td>
+      <td><span class="lib-ed" data-field="ctr" data-id="${c.id}">${c.ctr||'—'}</span></td>
+      <td><span class="lib-ed" data-field="freq" data-id="${c.id}" style="${freqStyle}">${c.freq||'—'}</span></td>
+      <td style="max-width:140px;overflow:hidden;"><span class="lib-ed" data-field="angulo" data-id="${c.id}" style="font-size:10px;color:var(--g2);">${c.angulo||'—'}</span></td>
+      <td><button onclick="openCard(${c.id})" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);white-space:nowrap;"><i class="ti ti-external-link" style="font-size:10px"></i></button></td>
+    </tr>`;
+  }).join('');
+  tbody.querySelectorAll('.lib-ed').forEach(el=>el.addEventListener('click',startLibEdit));
+}
+function startLibEdit(e){
+  const el=e.currentTarget;if(el.querySelector('input,select'))return;
+  const field=el.dataset.field,id=parseInt(el.dataset.id),isSel=el.dataset.type==='sel';
+  const opts=(el.dataset.opts||'').split(',');const cur=el.textContent==='—'?'':el.textContent;
+  let inp;
+  if(isSel){
+    inp=document.createElement('select');
+    inp.style.cssText='background:#fff;border:1px solid var(--red);border-radius:5px;padding:2px 5px;font-size:11px;font-family:var(--font);outline:none;cursor:pointer;';
+    opts.forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===cur)op.selected=true;inp.appendChild(op);});
+    inp.onchange=()=>commitLibEdit(id,field,inp.value);inp.onblur=()=>commitLibEdit(id,field,inp.value);
+  } else {
+    inp=document.createElement('input');inp.value=cur;
+    inp.style.cssText='background:#fff;border:1px solid var(--red);border-radius:5px;padding:2px 5px;font-size:11px;font-family:var(--font);outline:none;width:80px;';
+    inp.onkeydown=ev=>{if(ev.key==='Enter')commitLibEdit(id,field,inp.value);if(ev.key==='Escape')renderLibrary();};
+    inp.onblur=()=>commitLibEdit(id,field,inp.value);
+  }
+  el.innerHTML='';el.appendChild(inp);inp.focus();
+}
+function commitLibEdit(id,field,val){
+  const c=findCard(id);if(c)c[field]=val;
+  renderLibrary();renderKanban();
+}
+function findCard(id){
+  for(const col of Object.values(KD)){const c=col.find(x=>x.id==id);if(c)return c;}return null;
+}
+const COL_CYCLE=['testar','testando','validado','nao','arquivado'];
+function cycleColStatus(id){
+  const card=findCard(id);if(!card)return;
+  const next=COL_CYCLE[(COL_CYCLE.indexOf(card.col)+1)%COL_CYCLE.length];
+  for(const col of Object.keys(KD)){
+    const i=KD[col].findIndex(c=>c.id==id);
+    if(i>=0){const c=KD[col].splice(i,1)[0];c.col=next;KD[next].push(c);break;}
+  }
+  renderLibrary();renderKanban();
+}
+function exportLibCSV(){
+  const all=Object.values(KD).flat();
+  if(!all.length){alert('Nenhum criativo para exportar.');return;}
+  const hdr=['Nome','Produto','Tipo','Canal','Status','ROAS','CPA','CTR','Frequencia','Angulo'];
+  const rows=all.map(c=>[c.name,c.prod,c.type,c.channel,COL_STATUS[c.col]?.label||c.col,c.roas,c.cpa,c.ctr,c.freq,c.angulo].map(v=>(v||'').replace(/,/g,';')));
+  dlFile([hdr,...rows].map(r=>r.join(',')).join('\n'),'biblioteca_criativos_'+new Date().toISOString().split('T')[0]+'.csv','text/csv');
+}
+ 
+// UPLOAD TABS
+function switchUpTab(tab,el){
+  document.querySelectorAll('.up-tab').forEach(t=>{t.style.background='transparent';t.style.color='var(--g2)';});
+  el.style.background='var(--red)';el.style.color='#fff';
+  document.getElementById('up-csv-panel').style.display=tab==='csv'?'block':'none';
+  document.getElementById('up-manual-panel').style.display=tab==='manual'?'block':'none';
+}
+ 
+// REPORTS STORE
+let reports=[];
+function renderHistory(){
+  const df=document.getElementById('hist-filter-date').value;
+  const dc=document.getElementById('hist-filter-canal').value;
+  const log=document.getElementById('up-log');
+  const filtered=reports.filter(r=>{
+    if(df&&r.rawDate!==df)return false;
+    if(dc&&r.canal!==dc)return false;
+    return true;
+  });
+  if(!filtered.length){log.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--g1);padding:20px;">Nenhum relatorio encontrado.</td></tr>';return;}
+  log.innerHTML=filtered.map((r,i)=>`
+    <tr id="rep-row-${r.id}">
+      <td>${r.desc||'—'}</td><td>${r.canal}</td><td>${r.date}</td>
+      <td>${r.fat||'—'}</td><td>${r.invest||'—'}</td><td>${r.roas||'—'}</td>
+      <td><span class="sb-badge ${r.tipo==='CSV'?'s-on':'s-pau'}">${r.tipo}</span></td>
+      <td style="white-space:nowrap;">
+        <button onclick="editReport(${r.id})" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);margin-right:4px;"><i class="ti ti-pencil" style="font-size:10px"></i> Editar</button>
+        <button onclick="deleteReport(${r.id})" style="background:#FEE2E2;color:#9B1C1C;border:none;border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);"><i class="ti ti-trash" style="font-size:10px"></i> Excluir</button>
+      </td>
+    </tr>`).join('');
+}
+function filterHistory(){renderHistory();}
+function clearHistFilters(){
+  document.getElementById('hist-filter-date').value='';
+  document.getElementById('hist-filter-canal').value='';
+  renderHistory();
+}
+function deleteReport(id){
+  if(!confirm('Excluir este relatorio?'))return;
+  reports=reports.filter(r=>r.id!==id);
+  renderHistory();
+}
+function editReport(id){
+  const r=reports.find(x=>x.id===id);if(!r)return;
+  switchUpTab('manual',document.getElementById('tab-manual'));
+  document.getElementById('man-date').value=r.rawDate||'';
+  document.getElementById('man-canal').value=r.canal||'Meta Ads';
+  document.getElementById('man-fat').value=r.fat||'';
+  document.getElementById('man-invest').value=r.invest||'';
+  document.getElementById('man-pedidos').value=r.pedidos||'';
+  document.getElementById('man-roas').value=r.roas||'';
+  document.getElementById('man-cpa').value=r.cpa||'';
+  document.getElementById('man-ticket').value=r.ticket||'';
+  document.getElementById('man-ctr').value=r.ctr||'';document.getElementById('man-cpm').value=r.cpm||'';
+  document.getElementById('man-cpc').value=r.cpc||'';
+  document.getElementById('man-imp').value=r.imp||'';
+  document.getElementById('man-cliques').value=r.cliques||'';
+  document.getElementById('man-freq').value=r.freq||'';
+  reports=reports.filter(x=>x.id!==id);
+}
+ 
+// MANUAL SAVE
+function saveManual(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():''};
+  const rawDate=g('man-date');
+  const canal=g('man-canal');
+  const fat=g('man-fat');
+  const invest=g('man-invest');
+  if(!canal){alert('Selecione o canal.');return;}
+  const dateStr=rawDate?new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR'):new Date().toLocaleDateString('pt-BR');
+  const id=Date.now();
+  reports.unshift({
+    id,rawDate,date:dateStr,canal,
+    desc:canal+' — '+dateStr,tipo:'Manual',
+    fat:fat?'R$ '+fat:'',invest:invest?'R$ '+invest:'',
+    roas:g('man-roas'),cpa:g('man-cpa'),
+    pedidos:g('man-pedidos'),ticket:g('man-ticket'),
+    ctr:g('man-ctr'),cpm:g('man-cpm'),cpc:g('man-cpc'),
+    imp:g('man-imp'),cliques:g('man-cliques'),freq:g('man-freq'),
+  });
+  ['man-fat','man-invest','man-pedidos','man-roas','man-cpa','man-ticket','man-ctr','man-cpm','man-cpc','man-imp','man-cliques','man-freq'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  renderHistory();
+  alert('Relatorio salvo com sucesso!');
+}
+ 
+// CSV FILE HANDLING
+function handleCSVDrop(e){
+  e.preventDefault();
+  const f=e.dataTransfer.files[0];
+  if(f)processCSVFile(f,'Geral');
+}
+function handleCSVFile(input){
+  const f=input.files[0];if(!f)return;
+  const canal=input.dataset.canal||'Geral';
+  processCSVFile(f,canal);
+  input.value='';
+}
+function processCSVFile(f,canal){
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const text=e.target.result;
+    const lines=text.split('\n').filter(l=>l.trim());
+    const rows=lines.length-1;
+    const id=Date.now();
+    const dateStr=new Date().toLocaleDateString('pt-BR');
+    reports.unshift({
+      id,rawDate:new Date().toISOString().split('T')[0],
+      date:dateStr,canal,desc:f.name,tipo:'CSV',
+      fat:'',invest:'',roas:'',cpa:'',pedidos:String(rows),
+      ticket:'',ctr:'',cpm:'',cpc:'',imp:'',cliques:'',freq:'',
+      rawCSV:text,filename:f.name
+    });
+    renderHistory();
+    alert('Arquivo "'+f.name+'" processado — '+rows+' linhas.');
+  };
+  reader.readAsText(f);
+}
+ 
+// EXPORT CSV
+function exportCSV(){
+  if(!reports.length){alert('Nenhum dado para exportar.');return;}
+  const headers=['Descricao','Canal','Data','Faturamento','Investimento','ROAS','CPA','Pedidos','Ticket Medio','CTR','CPM','CPC','Impressoes','Cliques','Frequencia','Tipo'];
+  const rows=reports.map(r=>[r.desc,r.canal,r.date,r.fat,r.invest,r.roas,r.cpa,r.pedidos,r.ticket,r.ctr,r.cpm,r.cpc,r.imp,r.cliques,r.freq,r.tipo].map(v=>(v||'').replace(/,/g,';')));
+  const csv=[headers,...rows].map(r=>r.join(',')).join('\n');
+  dlFile(csv,'dermo_club_relatorios_'+new Date().toISOString().split('T')[0]+'.csv','text/csv');
+}
+function exportTableCSV(tableId,name){
+  const tbl=document.getElementById(tableId);if(!tbl)return;
+  const rows=[...tbl.querySelectorAll('tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(c=>c.innerText.replace(/,/g,';')).join(',')).join('\n');
+  dlFile(rows,name+'_'+new Date().toISOString().split('T')[0]+'.csv','text/csv');
+}
+function dlFile(content,filename,type){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type}));
+  a.download=filename;a.click();
+}
+ 
+// CAMPAIGNS STORE
+let campaigns={meta:[],tiktok:[],google:[]};
+let editingCampaign={canal:null,id:null};
+ 
+function openAddCampaign(canal,id){
+  editingCampaign={canal,id:id||null};
+  const title=document.getElementById('camp-modal-title');
+  const isEdit=id!=null;
+  title.textContent=(isEdit?'Editar':'Nova Campanha')+' — '+(canal==='meta'?'Meta Ads':canal==='tiktok'?'TikTok':'Google Ads');
+  // reset fields
+  ['camp-name','camp-status','camp-date','camp-invest','camp-receita','camp-roas','camp-cpa','camp-ctr','camp-cpm','camp-freq','camp-imp','camp-cliques','camp-col2','camp-col3'].forEach(fid=>{const el=document.getElementById(fid);if(el)el.value='';});
+  if(isEdit){
+    const c=campaigns[canal].find(x=>x.id===id);
+    if(c){
+      document.getElementById('camp-name').value=c.nome||'';
+      document.getElementById('camp-status').value=c.status||'Ativa';
+      document.getElementById('camp-date').value=c.rawDate||'';
+      document.getElementById('camp-invest').value=c.invest||'';
+      document.getElementById('camp-receita').value=c.receita||'';
+      document.getElementById('camp-roas').value=c.roas||'';
+      document.getElementById('camp-cpa').value=c.cpa||'';
+      document.getElementById('camp-ctr').value=c.ctr||'';
+      document.getElementById('camp-cpm').value=c.cpm||'';
+      document.getElementById('camp-freq').value=c.freq||'';
+      document.getElementById('camp-imp').value=c.imp||'';
+      document.getElementById('camp-cliques').value=c.cliques||'';
+    }
+  }
+  // show/hide catiktok')return`<tr><td>${c.nome}</td><td>${c.date}</td><td>${c.pedidos||c.cliques||'—'}</td><td>${c.gmv||c.receita||'—'}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.roas||'—'}</td><td>${c.conversao||c.cpa||'—'}</td><td>${c.ctr||'—'}</td><td>${c.avaliacao||'—'}</td>${acoes}</tretElementById('camp-extra-google').style.display=isGoogle?'grid':'none';
+  document.getElementById('camp-modal').classList.add('open');
+}
+function closeCampModal(){document.getElementById('camp-modal').classList.remove('open');}
+function saveCampaign(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():''};
+  const canal=editingCampaign.canal;
+  const rawDate=g('camp-date');
+  const dateStr=rawDate?new Date(rawDate+'T12:00:00').toLocaleDateString('pt-BR'):new Date().toLocaleDateString('pt-BR');
+  const entry={
+    id:editingCampaign.id||Date.now(),rawDate,date:dateStr,
+    nome:g('camp-name')||'Campanha sem nome',
+    status:g('camp-status')||'Ativa',
+    invest:g('camp-invest'),receita:g('camp-receita'),
+    roas:g('camp-roas'),cpa:g('camp-cpa'),ctr:g('camp-ctr'),
+    cpm:g('camp-cpm'),freq:g('camp-freq'),imp:g('camp-imp'),
+    cliques:g('camp-cliques'),
+    gmv:g('camp-gmv')||'',conversao:g('camp-conversao')||'',avaliacao:g('camp-avaliacao')||'',
+    cpc:g('camp-cpc')||'',conv:g('camp-conv')||'',
+  };
+  if(editingCampaign.id){
+    const idx=campaigns[canal].findIndex(x=>x.id===editingCampaign.id);
+    if(idx>=0)campaigns[canal][idx]=entry;
+  } else {
+    campaigns[canal].push(entry);
+  }
+  closeCampModal();
+  renderCampaigns(canal);
+}
+function deleteCampaign(canal,id){
+  if(!confirm('Excluir esta campanha?'))return;
+  campaigns[canal]=campaigns[canal].filter(c=>c.id!==id);
+  renderCampaigns(canal);
+}
+function renderCampaigns(canal){
+  const dfrom=document.getElementById(canal+'-date-from')?.value;
+  const dto=document.getElementById(canal+'-date-to')?.value;
+  let rows=campaigns[canal].filter(c=>{
+    if(dfrom&&c.rawDate&&c.rawDate<dfrom)return false;
+    if(dto&&c.rawDate&&c.rawDate>dto)return false;
+    return true;
+  });
+  const tbody=document.getElementById(canal+'-tbody');if(!tbody)return;
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--g1);padding:20px;">Nenhum dado. Adicione ou suba um CSV.</td></tr>';return;}
+  const sMap={'Ativa':'s-on','Pausada':'s-pau','Encerrada':'s-off'};
+  tbody.innerHTML=rows.map(c=>{
+    const sc=sMap[c.status]||'s-pau';
+    const acoes=`<td style="white-space:nowrap;"><button onclick="openAddCampaign('${canal}',${c.id})" style="background:var(--g4);color:var(--g2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);margin-right:4px;"><i class="ti ti-pencil" style="font-size:10px"></i></button><button onclick="deleteCampaign('${canal}',${c.id})" style="background:#FEE2E2;color:#9B1C1C;border:none;border-radius:5px;padding:2px 8px;font-size:10px;cursor:pointer;font-family:var(--font);"><i class="ti ti-trash" style="font-size:10px"></i></button></td>`;
+    if(canal==='tiktok')return`<tr><td>${c.nome}</td><td>${c.date}</td><td>${c.pedidos||c.cliques||'—'}</td><td>${c.gmv||c.receita||'—'}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.roas||'—'}</td><td>${c.conversao||c.cpa||'—'}</td><td>${c.ctr||'—'}</td><td>${c.avaliacao||'—'}</td>${acoes}</tr>`;
+    if(canal==='google')return`<tr><td>${c.nome}</td><td><span class="sb-badge ${sc}">${c.status}</span></td><td>${c.date}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.receita?'R$ '+c.receita:'—'}</td><td>${c.roas||'—'}</td><td>${c.cpc?'R$ '+c.cpc:'—'}</td><td>${c.ctr||'—'}</td><td>${c.conv||'—'}</td>${acoes}</tr>`;
+    return`<tr><td>${c.nome}</td><td><span class="sb-badge ${sc}">${c.status}</span></td><td>${c.date}</td><td>${c.invest?'R$ '+c.invest:'—'}</td><td>${c.receita?'R$ '+c.receita:'—'}</td><td>${c.roas||'—'}</td><td>${c.cpa?'R$ '+c.cpa:'—'}</td><td>${c.ctr||'—'}</td><td>${c.cpm||'—'}</td><td>${c.freq||'—'}</td><td>${c.imp||'—'}</td>${acoes}</tr>`;
+  }).join('');
+}
+function filterMediaTable(canal){renderCampaigns(canal);}
+function clearMediaFilter(canal){
+  const df=document.getElementById(canal+'-date-from');const dt=document.getElementById(canal+'-date-to');
+  if(df)df.value='';if(dt)dt.value='';
+  renderCampaigns(canal);
 }
 </script>
+ 
+<!-- CAMPAIGN MODAL -->
+<div class="nc-overlay" id="camp-modal" onclick="if(event.target===this)closeCampModal()">
+  <div class="nc-modal" style="max-width:520px;">
+    <div class="nc-hd"><div class="nc-title" id="camp-modal-title">Nova Campanha</div><div class="modal-close" onclick="closeCampModal()"><i class="ti ti-x"></i></div></div>
+    <div class="nc-body">
+      <div class="mrow"><div class="mfield"><label class="mlabel">Nome da Campanha</label><input class="minput" id="camp-name" placeholder="Ex: BD | Conv | LAL 2%"></div><div class="mfield"><label class="mlabel">Status</label><select class="mselect" id="camp-status"><option>Ativa</option><option>Pausada</option><option>Encerrada</option></select></div></div>
+      <div class="mfield"><label class="mlabel">Data</label><input class="minput" id="camp-date" type="date"></div>
+      <div class="mrow"><div class="mfield"><label class="mlabel">Investimento (R$)</label><input class="minput" id="camp-invest" placeholder=""></div><div class="mfield"><label class="mlabel">Receita/GMV (R$)</label><input class="minput" id="camp-receita" placeholder=""></div></div>
+      <div class="mrow"><div class="mfield"><label class="mlabel">ROAS</label><input class="minput" id="camp-roas" placeholder=""></div><div class="mfield"><label class="mlabel">CPA (R$)</label><input class="minput" id="camp-cpa" placeholder=""></div></div>
+      <div class="mrow"><div class="mfield"><label class="mlabel">CTR (%)</label><input class="minput" id="camp-ctr" placeholder=""></div><div class="mfield"><label class="mlabel">Impressoes</label><input class="minput" id="camp-imp" placeholder=""></div></div>
+      <!-- Meta specific -->
+      <div id="camp-extra-meta" class="mrow" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="mfield"><label class="mlabel">CPM (R$)</label><input class="minput" id="camp-cpm" placeholder=""></div>
+        <div class="mfield"><label class="mlabel">Frequencia</label><input class="minput" id="camp-freq" placeholder=""></div>
+        <div class="mfield"><label class="mlabel">Cliques</label><input class="minput" id="camp-cliques" placeholder=""></div>
+        <div class="mfield" id="camp-col3"></div>
+      </div>
+      <!-- TikTok specific -->
+      <div id="camp-extra-tiktok" style="display:none;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="mfield"><label class="mlabel">Pedidos</label><input class="minput" id="camp-pedidos-t" placeholder=""></div>
+        <div class="mfield"><label class="mlabel">Taxa de Conversao</label><input class="minput" id="camp-conversao" placeholder=""></div>
+        <div class="mfield"><label class="mlabel">GMV (R$)</label><input class="minput" id="camp-gmv" placeholder=""></div>
+        <div class="mfield"><label class="mlabel">Avaliacao</label><input class="minput" id="camp-avaliacao" placeholder="4.8"></div>
+      </div>
+      <!-- Google specific -->
+      <div id="camp-extra-google" style="display:none;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="mfield"><label class="mlabel">CPC (R$)</label><input class="minput" id="camp-cpc" placeholder=""></div>
+        <div class="mfield"><label class="mlabel">Conversoes</label><input class="minput" id="camp-conv" placeholder=""></div>
+        <div class="mfield" id="camp-col2"></div>
+      </div>
+    </div>
+    <div class="nc-foot"><button class="btn-cancel" onclick="closeCampModal()">Cancelar</button><button class="btn-confirm" onclick="saveCampaign()">Salvar</button></div>
+  </div>
+</div>
 </body>
 </html>
