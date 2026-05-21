@@ -1,399 +1,935 @@
-Dermo club dashboard · HTML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dermo Club — Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Dermo Club</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#C8102E;--red-d:#9B0B22;--red-l:#FCEEF0;--blk:#0F0F0F;--g1:#888;--g2:#555;--g4:#F2F2F2;--g5:#F0F0F0;--white:#FFF;--border:rgba(0,0,0,0.08);--font:'DM Sans','Segoe UI',sans-serif;}
-html,body{height:100%;background:var(--g5);font-family:var(--font);color:var(--blk);}
+:root{
+  --red:#C8102E;--red-d:#9B0B22;--red-l:#FCEEF0;--red-m:#E8304A;
+  --blk:#0F0F0F;--blk2:#181818;
+  --g1:#999;--g2:#666;--g3:#444;--g4:#F3F3F3;--g5:#EFEFEF;
+  --white:#FFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);
+  --font:'DM Sans',sans-serif;
+  --sb:220px;
+}
+html,body{height:100%;font-family:var(--font);color:var(--blk);background:var(--g5);}
+ 
+/* ======= LOGIN ======= */
+#login-screen{position:fixed;inset:0;background:var(--blk);display:flex;align-items:center;justify-content:center;z-index:999;}
+.login-box{width:360px;padding:40px;background:#1A1A1A;border-radius:16px;border:1px solid rgba(255,255,255,0.08);}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;justify-content:center;}
+.login-logo-box{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;}
+.login-logo-name{color:#fff;font-size:20px;font-weight:700;}
+.login-title{color:#fff;font-size:16px;font-weight:600;margin-bottom:4px;}
+.login-sub{color:rgba(255,255,255,0.4);font-size:12px;margin-bottom:28px;}
+.login-label{color:rgba(255,255,255,0.6);font-size:11px;font-weight:500;margin-bottom:6px;display:block;}
+.login-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:#fff;font-family:var(--font);outline:none;margin-bottom:14px;transition:border-color .15s;}
+.login-input:focus{border-color:var(--red);}
+.login-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s;margin-top:4px;}
+.login-btn:hover{background:var(--red-d);}
+.login-err{color:#F87171;font-size:11px;margin-top:-8px;margin-bottom:10px;display:none;}
+ 
+/* ======= APP ======= */
 #app{display:flex;height:100vh;overflow:hidden;}
-.sb{width:220px;min-width:220px;background:var(--blk);display:flex;flex-direction:column;height:100vh;}
-.sb-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.06);}
-.logo-row{display:flex;align-items:center;gap:10px;}
-.logo-box{width:32px;height:32px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
-.logo-name{color:#fff;font-size:15px;font-weight:600;}
-.logo-tag{color:rgba(255,255,255,0.3);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+ 
+/* SIDEBAR */
+.sb{width:var(--sb);min-width:var(--sb);background:var(--blk);display:flex;flex-direction:column;height:100vh;transition:transform .25s;}
+.sb-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.logo-row{display:flex;align-items:center;gap:9px;}
+.logo-box{width:30px;height:30px;background:var(--red);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.logo-name{color:#fff;font-size:14px;font-weight:600;}
+.logo-tag{color:rgba(255,255,255,0.3);font-size:9px;letter-spacing:1.4px;text-transform:uppercase;margin-top:1px;}
+.sb-close{display:none;color:rgba(255,255,255,0.4);font-size:20px;cursor:pointer;padding:4px;}
 .sb-nav{flex:1;padding:10px 0;overflow-y:auto;}
-.nav-sec{padding:12px 18px 4px;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:1.3px;text-transform:uppercase;font-weight:600;}
-.ni{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;color:rgba(255,255,255,0.45);font-size:13px;border-left:2px solid transparent;transition:all .12s;user-select:none;}
+.nav-sec{padding:10px 16px 4px;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:1.2px;text-transform:uppercase;font-weight:600;}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;color:rgba(255,255,255,0.45);font-size:12px;border-left:2px solid transparent;transition:all .12s;user-select:none;}
 .ni:hover{color:#fff;background:rgba(255,255,255,0.04);}
 .ni.on{color:#fff;background:rgba(200,16,46,0.18);border-left:2px solid var(--red);}
-.ni i{font-size:16px;}
-.sb-foot{padding:14px 18px;border-top:1px solid rgba(255,255,255,0.06);}
-.usr{display:flex;align-items:center;gap:10px;}
-.ava{width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
-.usr-name{color:rgba(255,255,255,0.7);font-size:12px;font-weight:500;}
-.usr-role{color:rgba(255,255,255,0.25);font-size:10px;}
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.tb-title{font-size:15px;font-weight:600;}
-.tb-right{display:flex;align-items:center;gap:10px;}
-.tb-sel{display:flex;align-items:center;gap:6px;background:var(--g4);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--g2);}
-.tb-sel i{font-size:14px;}
-.tb-sel select{background:transparent;border:none;font-size:12px;color:var(--g2);outline:none;font-family:var(--font);cursor:pointer;}
-.btn-r{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background .15s;}
+.ni i{font-size:15px;}
+.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,0.06);}
+.usr{display:flex;align-items:center;gap:9px;cursor:pointer;}
+.ava{width:28px;height:28px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
+.usr-name{color:rgba(255,255,255,0.65);font-size:11px;}
+.usr-role{color:rgba(255,255,255,0.3);font-size:9px;}
+.usr-logout{margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px;}
+ 
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-menu{display:none;color:var(--g2);font-size:22px;cursor:pointer;padding:4px;}
+.tb-title{font-size:14px;font-weight:600;}
+.tb-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.tb-sel{display:flex;align-items:center;gap:5px;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--g2);cursor:pointer;}
+.tb-sel i{font-size:13px;}
+.tb-sel select{background:transparent;border:none;font-size:11px;color:var(--g2);outline:none;font-family:var(--font);cursor:pointer;}
+.btn-r{display:flex;align-items:center;gap:5px;background:var(--red);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background .15s;white-space:nowrap;}
 .btn-r:hover{background:var(--red-d);}
-.scroll{flex:1;overflow-y:auto;padding:20px 24px;}
+ 
+.scroll{flex:1;overflow-y:auto;padding:16px 20px;}
 .view{display:none;}.view.on{display:block;}
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
-.kpi{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:16px;position:relative;overflow:hidden;}
+ 
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.kpi{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:14px;position:relative;overflow:hidden;}
 .kpi::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red);}
-.kpi-lbl{font-size:10px;color:var(--g1);text-transform:uppercase;letter-spacing:.5px;font-weight:500;margin-bottom:6px;}
-.kpi-val{font-size:22px;font-weight:700;letter-spacing:-.5px;}
-.kpi-delta{font-size:10px;margin-top:4px;display:flex;align-items:center;gap:3px;}
+.kpi-lbl{font-size:10px;color:var(--g1);text-transform:uppercase;letter-spacing:.5px;font-weight:500;margin-bottom:5px;}
+.kpi-val{font-size:20px;font-weight:700;letter-spacing:-.5px;}
+.kpi-delta{font-size:10px;margin-top:3px;display:flex;align-items:center;gap:3px;}
 .up{color:#16A34A;}.dn{color:var(--red);}
-.ch-row{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;margin-bottom:16px;}
-.card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:18px;}
-.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.card-title{font-size:13px;font-weight:600;}
-.badge{font-size:9px;background:var(--red-l);color:var(--red);padding:2px 8px;border-radius:4px;font-weight:600;}
-.leg{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;}
-.leg-i{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g1);}
+.kpi-sub{font-size:9px;color:var(--g1);margin-top:2px;}
+ 
+/* METRICS INPUT AREA */
+.metrics-section{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.ms-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.ms-title{font-size:12px;font-weight:600;}
+.ms-period{font-size:10px;color:var(--g1);}
+.ms-body{padding:16px;}
+.ms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.ms-field{display:flex;flex-direction:column;gap:4px;}
+.ms-label{font-size:10px;color:var(--g2);font-weight:500;}
+.ms-input{background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-weight:600;color:var(--blk);font-family:var(--font);outline:none;transition:border-color .15s;width:100%;}
+.ms-input:focus{border-color:var(--red);background:#fff;}
+.ms-segment{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ms-seg-card{background:var(--g4);border-radius:8px;padding:12px;}
+.ms-seg-title{font-size:10px;color:var(--g2);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.ms-seg-title i{font-size:12px;}
+.ms-seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.btn-save-metrics{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 20px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s;}
+.btn-save-metrics:hover{background:var(--red-d);}
+.saved-toast{display:none;color:#16A34A;font-size:11px;font-weight:500;margin-left:10px;align-items:center;gap:4px;}
+ 
+/* CHARTS */
+.ch-row{display:grid;grid-template-columns:1.5fr 1fr;gap:10px;margin-bottom:14px;}
+.card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:16px;}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.card-title{font-size:12px;font-weight:600;}
+.badge{font-size:9px;background:var(--red-l);color:var(--red);padding:2px 7px;border-radius:4px;font-weight:600;}
+.leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px;}
+.leg-i{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--g1);}
 .leg-sq{width:8px;height:8px;border-radius:2px;}
-.prod-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.prod-card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:18px;}
-.prod-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.prod-ico{width:38px;height:38px;border-radius:10px;background:var(--red-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.prod-ico i{font-size:20px;color:var(--red);}
-.prod-nm{font-size:14px;font-weight:600;}
+ 
+/* PRODUCTS */
+.prod-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.prod-card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:16px;}
+.prod-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.prod-ico{width:36px;height:36px;border-radius:9px;background:var(--red-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prod-ico i{font-size:18px;color:var(--red);}
+.prod-nm{font-size:13px;font-weight:600;}
 .prod-sk{font-size:10px;color:var(--g1);}
-.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.ps{background:var(--g4);border-radius:8px;padding:10px 12px;}
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ps{background:var(--g4);border-radius:7px;padding:9px 10px;}
 .ps-l{font-size:9px;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;}
-.ps-v{font-size:16px;font-weight:700;margin-top:3px;}
-.prog{height:4px;background:#EEE;border-radius:4px;margin-top:12px;}
-.prog-f{height:100%;border-radius:4px;background:var(--red);}
-.kan-wrap{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;min-height:460px;}
-.kan-col{min-width:195px;width:195px;flex-shrink:0;}
-.kan-col-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;}
-.kan-col-name{font-size:12px;font-weight:600;}
-.kan-count{font-size:10px;background:var(--g4);border-radius:5px;padding:2px 8px;color:var(--g2);font-weight:600;}
-.kan-cards{display:flex;flex-direction:column;gap:8px;}
-.kc{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:12px;cursor:pointer;transition:box-shadow .15s;}
-.kc:hover{box-shadow:0 2px 14px rgba(0,0,0,0.1);}
-.kc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
-.kc-tag{font-size:9px;font-weight:600;padding:2px 7px;border-radius:4px;}
-.tag-video{background:#EDE9FE;color:#5B21B6;}.tag-static{background:#DCFCE7;color:#15803D;}.tag-ugc{background:#FEF9C3;color:#854D0E;}.tag-carousel{background:#FCE7F3;color:#9D174D;}
-.kc-title{font-size:12px;font-weight:600;margin-bottom:6px;line-height:1.35;}
-.kc-prod{display:inline-block;font-size:9px;color:var(--g1);background:var(--g4);padding:2px 7px;border-radius:4px;margin-bottom:8px;}
-.kc-foot{display:flex;align-items:center;justify-content:space-between;}
-.kc-date{font-size:9px;color:var(--g1);display:flex;align-items:center;gap:3px;}
-.kc-avs{display:flex;gap:3px;}
-.kc-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;border:2px solid #fff;}
-.kc-metrics{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
-.km{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;}
-.m-roas{background:#DCFCE7;color:#15803D;}.m-cpa{background:var(--red-l);color:var(--red);}.m-warn{background:#FEF9C3;color:#854D0E;}
-.fatigue-badge{display:flex;align-items:center;gap:4px;font-size:9px;font-weight:600;color:var(--red);background:var(--red-l);padding:3px 8px;border-radius:5px;margin-top:8px;}
-.kan-add{display:flex;align-items:center;gap:6px;padding:9px 12px;border-radius:9px;border:1.5px dashed var(--border);color:var(--g1);font-size:12px;cursor:pointer;margin-top:8px;transition:all .12s;}
-.kan-add:hover{border-color:var(--red);color:var(--red);}
-.tbl-card{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px;}
-.tbl-hd{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.tbl-title{font-size:13px;font-weight:600;}
+.ps-v{font-size:15px;font-weight:700;margin-top:2px;}
+.prog{height:3px;background:#EEE;border-radius:3px;margin-top:10px;}
+.prog-f{height:100%;border-radius:3px;background:var(--red);}
+ 
+/* CHANNELS */
+.ch-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.ch-card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:14px;}
+.ch-nm{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;margin-bottom:10px;}
+.ch-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.ch-stat{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;}
+.ch-sl{color:var(--g1);}.ch-sv{font-weight:600;}
+.roas-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;display:inline-block;}
+.rg{background:#DCFCE7;color:#15803D;}.ry{background:#FEF9C3;color:#854D0E;}
+ 
+/* UPLOAD REPORT */
+.upload-section{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.up-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.up-title{font-size:12px;font-weight:600;}
+.up-body{padding:16px;}
+.up-channels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.up-ch{border:1.5px dashed var(--border2);border-radius:9px;padding:14px;cursor:pointer;transition:all .15s;text-align:center;}
+.up-ch:hover{border-color:var(--red);background:var(--red-l);}
+.up-ch i{font-size:22px;color:var(--g1);margin-bottom:6px;}
+.up-ch:hover i{color:var(--red);}
+.up-ch-name{font-size:11px;font-weight:600;color:var(--g2);margin-bottom:3px;}
+.up-ch-sub{font-size:9px;color:var(--g1);}
+.up-drop{border:2px dashed var(--red);border-radius:9px;padding:22px;text-align:center;background:var(--red-l);cursor:pointer;transition:all .15s;}
+.up-drop:hover{background:#F5D5DA;}
+.up-drop-ico{font-size:24px;color:var(--red);margin-bottom:6px;}
+.up-drop-txt{font-size:12px;font-weight:600;color:var(--red-d);}
+.up-drop-sub{font-size:10px;color:var(--g1);margin-top:3px;}
+.up-drop-btn{background:var(--red);color:#fff;border:none;border-radius:6px;padding:7px 16px;font-size:11px;font-weight:600;cursor:pointer;margin-top:10px;font-family:var(--font);}
+.tbl-card{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px;}
+.tbl-hd{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.tbl-title{font-size:12px;font-weight:600;}
 table{width:100%;border-collapse:collapse;}
 thead{background:#FAFAFA;}
-th{padding:10px 18px;text-align:left;font-size:10px;font-weight:600;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);}
-td{padding:11px 18px;font-size:12px;color:var(--blk);border-bottom:1px solid rgba(0,0,0,0.04);}
+th{padding:9px 16px;text-align:left;font-size:10px;font-weight:600;color:var(--g1);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);}
+td{padding:10px 16px;font-size:11px;color:var(--blk);border-bottom:1px solid rgba(0,0,0,0.04);}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:#FAFAFA;}
-.sb-badge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;}
+.sb-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:4px;display:inline-block;}
 .s-on{background:#DCFCE7;color:#15803D;}.s-off{background:#FEE2E2;color:#9B1C1C;}.s-pau{background:#FEF9C3;color:#854D0E;}
-.kpi-row-sm{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.kpi-pill{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--g2);}
+ 
+/* ====== KANBAN FLOWI STYLE ====== */
+.kan-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.kan-filters{display:flex;gap:7px;flex-wrap:wrap;}
+.kan-filter{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;color:var(--g2);cursor:pointer;transition:all .12s;}
+.kan-filter.on{background:var(--red);color:#fff;border-color:var(--red);}
+.btn-new-card{display:flex;align-items:center;gap:5px;background:var(--red);color:#fff;border:none;border-radius:7px;padding:7px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);}
+ 
+.kan-board{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;align-items:flex-start;}
+.kan-col{min-width:220px;width:220px;flex-shrink:0;}
+.kan-col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:8px 10px;border-radius:8px;}
+.kan-col-left{display:flex;align-items:center;gap:7px;}
+.kan-col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.kan-col-name{font-size:11px;font-weight:700;letter-spacing:.2px;}
+.kan-col-count{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;}
+.kan-add-btn{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.15);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g2);font-size:14px;transition:all .12s;}
+.kan-add-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+ 
+/* COL THEMES */
+.col-testar .kan-col-head{background:#F0F4FF;}
+.col-testar .kan-col-dot{background:#3B82F6;}
+.col-testar .kan-col-name{color:#1D4ED8;}
+.col-testar .kan-col-count{background:#DBEAFE;color:#1D4ED8;}
+ 
+.col-testando .kan-col-head{background:#FFF7ED;}
+.col-testando .kan-col-dot{background:#F59E0B;}
+.col-testando .kan-col-name{color:#B45309;}
+.col-testando .kan-col-count{background:#FEF3C7;color:#B45309;}
+ 
+.col-validado .kan-col-head{background:#F0FDF4;}
+.col-validado .kan-col-dot{background:#22C55E;}
+.col-validado .kan-col-name{color:#15803D;}
+.col-validado .kan-col-count{background:#DCFCE7;color:#15803D;}
+ 
+.col-nao-funcionou .kan-col-head{background:#FFF1F2;}
+.col-nao-funcionou .kan-col-dot{background:#F43F5E;}
+.col-nao-funcionou .kan-col-name{color:#BE123C;}
+.col-nao-funcionou .kan-col-count{background:#FFE4E6;color:#BE123C;}
+ 
+.col-arquivado .kan-col-head{background:#F9FAFB;}
+.col-arquivado .kan-col-dot{background:#9CA3AF;}
+.col-arquivado .kan-col-name{color:#6B7280;}
+.col-arquivado .kan-col-count{background:#F3F4F6;color:#6B7280;}
+ 
+.kan-cards{display:flex;flex-direction:column;gap:8px;min-height:60px;}
+ 
+/* CARD FLOWI STYLE */
+.kc{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:box-shadow .15s,transform .1s;}
+.kc:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);transform:translateY(-1px);}
+.kc-thumb{height:80px;background:linear-gradient(135deg,#F3F4F6,#E5E7EB);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.kc-thumb-icon{font-size:28px;color:rgba(0,0,0,0.15);}
+.kc-thumb-type{position:absolute;top:7px;left:7px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;backdrop-filter:blur(4px);}
+.kc-thumb-roas{position:absolute;top:7px;right:7px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;}
+.tag-video{background:rgba(237,233,254,.9);color:#5B21B6;}
+.tag-static{background:rgba(220,252,231,.9);color:#15803D;}
+.tag-ugc{background:rgba(254,249,195,.9);color:#854D0E;}
+.tag-carousel{background:rgba(252,231,243,.9);color:#9D174D;}
+.roas-ok{background:rgba(220,252,231,.9);color:#15803D;}
+.roas-warn{background:rgba(254,249,195,.9);color:#854D0E;}
+.roas-bad{background:rgba(254,226,226,.9);color:#9B1C1C;}
+ 
+.kc-body{padding:10px 11px 11px;}
+.kc-title{font-size:11px;font-weight:600;line-height:1.35;margin-bottom:6px;color:var(--blk);}
+.kc-meta-row{display:flex;align-items:center;gap:5px;margin-bottom:7px;flex-wrap:wrap;}
+.kc-prod-tag{font-size:9px;color:var(--g1);background:var(--g4);padding:1px 6px;border-radius:4px;}
+.kc-channel{font-size:9px;color:var(--g1);background:var(--g4);padding:1px 6px;border-radius:4px;}
+ 
+.kc-metrics-strip{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;}
+.kc-m{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;}
+.m-green{background:#DCFCE7;color:#15803D;}
+.m-yellow{background:#FEF9C3;color:#854D0E;}
+.m-red{background:#FEE2E2;color:#9B1C1C;}
+.m-blue{background:#DBEAFE;color:#1D4ED8;}
+ 
+.kc-foot{display:flex;align-items:center;justify-content:space-between;}
+.kc-date{font-size:9px;color:var(--g1);display:flex;align-items:center;gap:3px;}
+.kc-avs{display:flex;gap:-2px;}
+.kc-av{width:18px;height:18px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;margin-left:-4px;}
+.kc-av:first-child{margin-left:0;}
+ 
+.fatigue-strip{background:var(--red-l);border-top:1px solid rgba(200,16,46,0.15);padding:5px 11px;display:flex;align-items:center;gap:4px;font-size:9px;font-weight:600;color:var(--red);}
+.motivo-strip{background:#F9FAFB;border-top:1px solid var(--border);padding:5px 11px;display:flex;align-items:center;gap:4px;font-size:9px;color:var(--g2);}
+ 
+.kan-empty{text-align:center;padding:20px 10px;color:var(--g1);font-size:11px;border:1.5px dashed var(--border);border-radius:8px;}
+ 
+/* NEW CARD MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:12px;width:100%;max-width:440px;overflow:hidden;max-height:90vh;overflow-y:auto;}
+.modal-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:13px;font-weight:600;}
+.modal-close{color:var(--g1);font-size:20px;cursor:pointer;}
+.modal-body{padding:16px 20px;}
+.modal-field{margin-bottom:12px;}
+.modal-label{font-size:11px;font-weight:500;color:var(--g2);margin-bottom:5px;display:block;}
+.modal-input{width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:var(--font);outline:none;color:var(--blk);transition:border-color .15s;}
+.modal-input:focus{border-color:var(--red);}
+.modal-select{width:100%;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:var(--font);outline:none;color:var(--blk);cursor:pointer;}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+.btn-cancel{background:var(--g4);color:var(--g2);border:none;border-radius:7px;padding:8px 16px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);}
+.btn-confirm{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);}
+ 
+/* KPI PILLS */
+.kpi-row-sm{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.kpi-pill{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-size:11px;color:var(--g2);}
 .kpi-pill strong{color:var(--blk);font-weight:700;}
-.ch-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
-.ch-card{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:16px;}
-.ch-nm{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-bottom:12px;}
-.ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.ch-stat{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
-.ch-sl{color:var(--g1);}.ch-sv{font-weight:600;}
-.roas-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;margin-top:10px;display:inline-block;}
-.rg{background:#DCFCE7;color:#15803D;}.ry{background:#FEF9C3;color:#854D0E;}
-.up-zone{border:2px dashed var(--red);border-radius:10px;padding:28px;text-align:center;background:var(--red-l);cursor:pointer;margin-bottom:16px;transition:all .15s;}
-.up-zone:hover{background:#F5D5DA;}
-.up-ico{font-size:30px;color:var(--red);margin-bottom:8px;}
-.up-txt{font-size:13px;font-weight:600;color:var(--red-d);}
-.up-sub{font-size:11px;color:var(--g1);margin-top:4px;}
-.up-btn{background:var(--red);color:#fff;border:none;border-radius:7px;padding:8px 20px;font-size:12px;font-weight:600;cursor:pointer;margin-top:12px;font-family:var(--font);transition:background .15s;}
-.up-btn:hover{background:var(--red-d);}
-.up-inline{border:1.5px dashed var(--red);border-radius:9px;padding:14px 18px;background:var(--red-l);display:flex;align-items:center;gap:14px;margin-bottom:14px;cursor:pointer;transition:all .15s;}
-.up-inline:hover{background:#F5D5DA;}
-.ai-section{background:var(--white);border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;}
-.ai-header{background:var(--blk);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
-.ai-badge{width:30px;height:30px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ai-badge i{font-size:15px;color:#fff;}
-.ai-hd-title{color:#fff;font-size:13px;font-weight:600;}
-.ai-hd-sub{color:rgba(255,255,255,0.4);font-size:10px;margin-top:2px;}
-.ai-status{display:flex;align-items:center;gap:6px;}
-.ai-dot-live{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:blink 2s ease-in-out infinite;}
+ 
+/* AI */
+.ai-section{background:var(--white);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px;}
+.ai-header{background:var(--blk);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;}
+.ai-hd-left{display:flex;align-items:center;gap:9px;}
+.ai-badge{width:28px;height:28px;border-radius:7px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ai-badge i{font-size:14px;color:#fff;}
+.ai-hd-title{color:#fff;font-size:12px;font-weight:600;}
+.ai-hd-sub{color:rgba(255,255,255,0.4);font-size:10px;margin-top:1px;}
+.ai-dot-live{width:6px;height:6px;border-radius:50%;background:#22C55E;animation:blink 2s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.ai-status-txt{color:rgba(255,255,255,0.45);font-size:10px;}
-.ai-context{padding:12px 18px;background:#FAFAFA;border-bottom:1px solid var(--border);}
-.ai-ctx-title{font-size:10px;color:var(--g1);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
-.ai-ctx-chips{display:flex;gap:7px;flex-wrap:wrap;}
-.ctx-chip{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-size:11px;color:var(--g2);cursor:pointer;transition:all .12s;user-select:none;}
-.ctx-chip.active{background:var(--red);color:#fff;border-color:var(--red);}
-.ctx-chip:hover:not(.active){border-color:var(--red);color:var(--red);}
-.ai-msgs-wrap{height:220px;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px;}
-.ai-msg{font-size:12px;line-height:1.55;padding:10px 14px;border-radius:9px;max-width:85%;}
-.ai-msg.user{background:var(--red);color:#fff;align-self:flex-end;border-radius:9px 9px 2px 9px;}
-.ai-msg.bot{background:var(--g4);color:var(--blk);align-self:flex-start;border-radius:9px 9px 9px 2px;}
+.ai-status{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,0.4);}
+.ai-msgs{height:180px;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
+.ai-msg{font-size:11px;line-height:1.55;padding:9px 12px;border-radius:8px;max-width:85%;}
+.ai-msg.user{background:var(--red);color:#fff;align-self:flex-end;border-radius:8px 8px 2px 8px;}
+.ai-msg.bot{background:var(--g4);color:var(--blk);align-self:flex-start;border-radius:8px 8px 8px 2px;}
 .ai-msg.bot strong{color:var(--red);}
-.ai-typing{display:flex;gap:5px;padding:10px 14px;background:var(--g4);border-radius:9px;align-self:flex-start;}
-.ai-d{width:7px;height:7px;border-radius:50%;background:var(--g1);animation:ai-pulse 1.2s ease-in-out infinite;}
+.ai-typing{display:flex;gap:4px;padding:9px 12px;background:var(--g4);border-radius:8px;align-self:flex-start;}
+.ai-d{width:6px;height:6px;border-radius:50%;background:var(--g1);animation:ap 1.2s ease-in-out infinite;}
 .ai-d:nth-child(2){animation-delay:.2s;}.ai-d:nth-child(3){animation-delay:.4s;}
-@keyframes ai-pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
-.quick-btns{padding:10px 18px;border-top:1px solid var(--border);display:flex;gap:7px;overflow-x:auto;}
-.qb{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 12px;font-size:11px;color:var(--g2);cursor:pointer;white-space:nowrap;transition:all .12s;font-family:var(--font);flex-shrink:0;}
+@keyframes ap{0%,100%{opacity:.3;}50%{opacity:1;}}
+.ai-quick{padding:8px 16px;border-top:1px solid var(--border);display:flex;gap:6px;overflow-x:auto;}
+.qb{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;color:var(--g2);cursor:pointer;white-space:nowrap;transition:all .12s;font-family:var(--font);flex-shrink:0;}
 .qb:hover{border-color:var(--red);color:var(--red);background:var(--red-l);}
-.ai-input-area{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:flex-end;}
-.ai-textarea{flex:1;background:var(--g4);border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-size:12px;font-family:var(--font);resize:none;outline:none;color:var(--blk);height:56px;line-height:1.4;transition:border-color .15s;}
-.ai-textarea:focus{border-color:var(--red);background:#fff;}
-.ai-send-btn{background:var(--red);color:#fff;border:none;border-radius:9px;padding:0 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);height:56px;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:background .15s;}
-.ai-send-btn:hover{background:var(--red-d);}
-.ai-send-btn:disabled{background:var(--g1);cursor:not-allowed;}
+.ai-input-row{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end;}
+.ai-ta{flex:1;background:var(--g4);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:11px;font-family:var(--font);resize:none;outline:none;color:var(--blk);height:48px;transition:border-color .15s;}
+.ai-ta:focus{border-color:var(--red);background:#fff;}
+.ai-send{background:var(--red);color:#fff;border:none;border-radius:7px;padding:0 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);height:48px;display:flex;align-items:center;gap:5px;transition:background .15s;}
+.ai-send:hover{background:var(--red-d);}
+.ai-send:disabled{background:var(--g1);cursor:not-allowed;}
+ 
+/* MOBILE OVERLAY */
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:50;}
+ 
+/* SCROLLBAR */
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:4px;}
+ 
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .spinning{animation:spin 1s linear infinite;display:inline-block;}
+ 
+/* ====== RESPONSIVE ====== */
+@media(max-width:768px){
+  :root{--sb:260px;}
+  .sb{position:fixed;top:0;left:0;height:100vh;z-index:100;transform:translateX(-100%);}
+  .sb.open{transform:translateX(0);}
+  .sb-close{display:block;}
+  .sb-overlay.open{display:block;}
+  .tb-menu{display:block;}
+  .main{width:100%;}
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .ch-row{grid-template-columns:1fr;}
+  .prod-row{grid-template-columns:1fr;}
+  .ch-grid3{grid-template-columns:1fr;}
+  .ms-grid{grid-template-columns:1fr 1fr;}
+  .ms-segment{grid-template-columns:1fr;}
+  .up-channels{grid-template-columns:1fr;}
+  .scroll{padding:12px 14px;}
+  .topbar{padding:0 14px;}
+  .kan-col{min-width:185px;width:185px;}
+  .btn-r span{display:none;}
+  .tb-sel span{display:none;}
+  .modal{border-radius:12px 12px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%;max-height:80vh;}
+  .modal-overlay.open{align-items:flex-end;}
+}
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .ms-grid{grid-template-columns:1fr 1fr;}
+  .ms-seg-grid{grid-template-columns:1fr 1fr;}
+  .tb-right .tb-sel{display:none;}
+}
 </style>
 </head>
 <body>
-<div id="app">
-  <div class="sb">
+ 
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-box">DC</div>
+      <div class="login-logo-name">Dermo Club</div>
+    </div>
+    <div class="login-title">Bem-vindo de volta</div>
+    <div class="login-sub">Entre com suas credenciais para acessar o dashboard</div>
+    <label class="login-label">E-mail</label>
+    <input class="login-input" id="l-email" type="email" placeholder="davi@dermoclub.com.br" onkeydown="if(event.key==='Enter')doLogin()">
+    <label class="login-label">Senha</label>
+    <input class="login-input" id="l-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-err" id="l-err">E-mail ou senha incorretos. Tente novamente.</div>
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+  </div>
+</div>
+ 
+<!-- MOBILE OVERLAY -->
+<div class="sb-overlay" id="sb-overlay" onclick="closeSb()"></div>
+ 
+<!-- APP -->
+<div id="app" style="display:none;">
+  <div class="sb" id="sidebar">
     <div class="sb-logo">
       <div class="logo-row">
         <div class="logo-box">DC</div>
         <div><div class="logo-name">Dermo Club</div><div class="logo-tag">Dashboard</div></div>
       </div>
+      <div class="sb-close" onclick="closeSb()"><i class="ti ti-x"></i></div>
     </div>
     <div class="sb-nav">
       <div class="nav-sec">Principal</div>
-      <div class="ni on" onclick="go('overview',this)"><i class="ti ti-layout-dashboard"></i> Visão Geral</div>
+      <div class="ni on" onclick="go('overview',this)"><i class="ti ti-layout-dashboard"></i> Visao Geral</div>
+      <div class="ni" onclick="go('metrics',this)"><i class="ti ti-target"></i> Metricas</div>
       <div class="ni" onclick="go('products',this)"><i class="ti ti-box"></i> Produtos</div>
       <div class="ni" onclick="go('channels',this)"><i class="ti ti-chart-bar"></i> Canais</div>
       <div class="nav-sec">Criativos</div>
       <div class="ni" onclick="go('kanban',this)"><i class="ti ti-columns"></i> Kanban</div>
       <div class="ni" onclick="go('library',this)"><i class="ti ti-photo"></i> Criativos + IA</div>
-      <div class="nav-sec">Mídia Paga</div>
+      <div class="nav-sec">Midia Paga</div>
       <div class="ni" onclick="go('meta',this)"><i class="ti ti-brand-meta"></i> Meta Ads</div>
       <div class="ni" onclick="go('tiktok',this)"><i class="ti ti-brand-tiktok"></i> TikTok Shop</div>
       <div class="ni" onclick="go('google',this)"><i class="ti ti-brand-google"></i> Google Ads</div>
       <div class="nav-sec">Dados</div>
-      <div class="ni" onclick="go('upload',this)"><i class="ti ti-upload"></i> Upload</div>
+      <div class="ni" onclick="go('upload',this)"><i class="ti ti-upload"></i> Upload Relatorio</div>
     </div>
     <div class="sb-foot">
-      <div class="usr">
-        <div class="ava">DL</div>
-        <div><div class="usr-name">Davi Luis</div><div class="usr-role">Admin</div></div>
+      <div class="usr" onclick="doLogout()">
+        <div class="ava" id="usr-ava">DL</div>
+        <div><div class="usr-name" id="usr-name">Davi Luis</div><div class="usr-role">Admin</div></div>
+        <i class="ti ti-logout usr-logout"></i>
       </div>
     </div>
   </div>
+ 
   <div class="main">
     <div class="topbar">
-      <div class="tb-title" id="pg-title">Visão Geral</div>
+      <div class="tb-left">
+        <div class="tb-menu" onclick="openSb()"><i class="ti ti-menu-2"></i></div>
+        <div class="tb-title" id="pg-title">Visao Geral</div>
+      </div>
       <div class="tb-right">
         <div class="tb-sel"><i class="ti ti-calendar"></i>
-          <select id="dr" onchange="upd()"><option value="7">7 dias</option><option value="30" selected>30 dias</option><option value="60">60 dias</option><option value="90">90 dias</option></select>
+          <select id="dr" onchange="upd()"><option value="7">7d</option><option value="30" selected>30d</option><option value="60">60d</option><option value="90">90d</option></select>
         </div>
         <div class="tb-sel"><i class="ti ti-filter"></i>
-          <select id="pf" onchange="upd()"><option value="all">Todos os produtos</option><option value="bd">Bumbum Dermo</option><option value="dp">Dermo Pro</option></select>
+          <select id="pf"><option value="all">Todos</option><option value="bd">Bumbum Dermo</option><option value="dp">Dermo Pro</option></select>
         </div>
-        <button class="btn-r" onclick="go('library',null)"><i class="ti ti-robot"></i> Análise IA</button>
+        <button class="btn-r" onclick="go('library',null)"><i class="ti ti-robot"></i> <span>IA</span></button>
       </div>
     </div>
+ 
     <div class="scroll">
+ 
+      <!-- VISAO GERAL -->
       <div class="view on" id="v-overview">
         <div class="kpi-grid">
-          <div class="kpi"><div class="kpi-lbl">Faturamento</div><div class="kpi-val" id="k-fat">R$ 287k</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:11px"></i> +18% vs anterior</div></div>
-          <div class="kpi"><div class="kpi-lbl">Pedidos</div><div class="kpi-val" id="k-ped">1.847</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:11px"></i> +12%</div></div>
-          <div class="kpi"><div class="kpi-lbl">Ticket Médio</div><div class="kpi-val" id="k-tkt">R$ 155</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:11px"></i> +5%</div></div>
-          <div class="kpi"><div class="kpi-lbl">ROAS Geral</div><div class="kpi-val" id="k-roas">4,2x</div><div class="kpi-delta dn"><i class="ti ti-trending-down" style="font-size:11px"></i> -0,3 vs anterior</div></div>
+          <div class="kpi"><div class="kpi-lbl">Faturamento</div><div class="kpi-val" id="k-fat">R$ 287k</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:10px"></i> +18%</div></div>
+          <div class="kpi"><div class="kpi-lbl">Pedidos</div><div class="kpi-val" id="k-ped">1.847</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:10px"></i> +12%</div></div>
+          <div class="kpi"><div class="kpi-lbl">Ticket Medio</div><div class="kpi-val" id="k-tkt">R$ 155</div><div class="kpi-delta up"><i class="ti ti-trending-up" style="font-size:10px"></i> +5%</div></div>
+          <div class="kpi"><div class="kpi-lbl">ROAS Geral</div><div class="kpi-val" id="k-roas">4,2x</div><div class="kpi-delta dn"><i class="ti ti-trending-down" style="font-size:10px"></i> -0,3</div></div>
         </div>
         <div class="ch-row">
           <div class="card">
             <div class="card-hd"><div class="card-title">Faturamento por Canal</div><span class="badge">30 dias</span></div>
-            <div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta Ads</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div>
-            <div style="position:relative;height:180px;"><canvas id="cC" role="img" aria-label="Faturamento por canal">Gráfico de canais.</canvas></div>
+            <div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div>
+            <div style="position:relative;height:170px;"><canvas id="cC"></canvas></div>
           </div>
           <div class="card">
-            <div class="card-hd"><div class="card-title">Mix de Canais</div></div>
-            <div style="position:relative;height:150px;"><canvas id="pC" role="img" aria-label="Mix de canais">Mix de canais.</canvas></div>
-            <div class="leg" style="margin-top:10px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta 62%</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok 24%</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google 14%</div></div>
+            <div class="card-hd"><div class="card-title">Mix Canais</div></div>
+            <div style="position:relative;height:140px;"><canvas id="pC"></canvas></div>
+            <div class="leg" style="margin-top:8px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta 62%</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok 24%</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google 14%</div></div>
+          </div></div>
+        <div class="prod-row">
+          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">62%</div></div></div><div class="prog"><div class="prog-f" style="width:62%"></div></div></div>
+          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">38%</div></div></div><div class="prog"><div class="prog-f" style="width:38%"></div></div></div>
+        </div>
+      </div>
+ 
+      <!-- METRICAS -->
+      <div class="view" id="v-metrics">
+        <div class="metrics-section">
+          <div class="ms-header">
+            <div class="ms-title">Inserir Metricas do Periodo</div>
+            <div class="ms-period" id="ms-period-label">Maio 2025</div>
+          </div>
+          <div class="ms-body">
+            <div style="font-size:11px;color:var(--g2);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Metricas Gerais</div>
+            <div class="ms-grid">
+              <div class="ms-field"><label class="ms-label">ROAS</label><input class="ms-input" id="m-roas" type="text" placeholder="4,2x" value="4,2x"></div>
+              <div class="ms-field"><label class="ms-label">CAC (Custo de Aquisicao)</label><input class="ms-input" id="m-cac" type="text" placeholder="R$ 45,00" value="R$ 45,00"></div>
+              <div class="ms-field"><label class="ms-label">CTR Medio</label><input class="ms-input" id="m-ctr" type="text" placeholder="2,8%" value="2,8%"></div>
+              <div class="ms-field"><label class="ms-label">Taxa de Conversao</label><input class="ms-input" id="m-conv" type="text" placeholder="1,4%" value="1,4%"></div>
+              <div class="ms-field"><label class="ms-label">Ticket Medio Geral</label><input class="ms-input" id="m-ticket" type="text" placeholder="R$ 155,00" value="R$ 155,00"></div>
+              <div class="ms-field"><label class="ms-label">CPA Medio</label><input class="ms-input" id="m-cpa" type="text" placeholder="R$ 33,42" value="R$ 33,42"></div>
+            </div>
+ 
+            <div style="font-size:11px;color:var(--g2);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Ticket por Segmento de Cliente</div>
+            <div class="ms-segment">
+              <div class="ms-seg-card">
+                <div class="ms-seg-title"><i class="ti ti-user-plus"></i> Novo Cliente</div>
+                <div class="ms-seg-grid">
+                  <div class="ms-field"><label class="ms-label">Ticket Medio</label><input class="ms-input" id="m-ticket-novo" type="text" placeholder="R$ 135,00" value="R$ 135,00"></div>
+                  <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-novo" type="text" placeholder="1,1%" value="1,1%"></div>
+                  <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-novo" type="text" placeholder="R$ 52,00" value="R$ 52,00"></div>
+                  <div class="ms-field"><label class="ms-label">% do total</label><input class="ms-input" id="m-pct-novo" type="text" placeholder="68%" value="68%"></div>
+                </div>
+              </div>
+              <div class="ms-seg-card">
+                <div class="ms-seg-title"><i class="ti ti-repeat"></i> Cliente Recorrente</div>
+                <div class="ms-seg-grid">
+                  <div class="ms-field"><label class="ms-label">Ticket Medio</label><input class="ms-input" id="m-ticket-rec" type="text" placeholder="R$ 189,00" value="R$ 189,00"></div>
+                  <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-rec" type="text" placeholder="3,8%" value="3,8%"></div>
+                  <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-rec" type="text" placeholder="R$ 18,00" value="R$ 18,00"></div>
+                  <div class="ms-field"><label class="ms-label">% do total</label><input class="ms-input" id="m-pct-rec" type="text" placeholder="32%" value="32%"></div>
+                </div>
+              </div>
+            </div>
+ 
+            <div style="font-size:11px;color:var(--g2);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Por Canal</div>
+            <div class="ms-grid">
+              <div class="ms-field"><label class="ms-label">ROAS Meta Ads</label><input class="ms-input" id="m-roas-meta" type="text" placeholder="4,6x" value="4,6x"></div>
+              <div class="ms-field"><label class="ms-label">ROAS TikTok Shop</label><input class="ms-input" id="m-roas-tiktok" type="text" placeholder="3,6x" value="3,6x"></div>
+              <div class="ms-field"><label class="ms-label">ROAS Google Ads</label><input class="ms-input" id="m-roas-google" type="text" placeholder="2,8x" value="2,8x"></div>
+              <div class="ms-field"><label class="ms-label">CPM Meta</label><input class="ms-input" id="m-cpm" type="text" placeholder="R$ 18,40" value="R$ 18,40"></div>
+              <div class="ms-field"><label class="ms-label">Freq. Media Meta</label><input class="ms-input" id="m-freq" type="text" placeholder="2,3x" value="2,3x"></div>
+              <div class="ms-field"><label class="ms-label">LTV Estimado</label><input class="ms-input" id="m-ltv" type="text" placeholder="R$ 420,00" value="R$ 420,00"></div>
+            </div>
+ 
+            <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
+              <button class="btn-save-metrics" onclick="saveMetrics()">Salvar Metricas</button>
+              <div class="saved-toast" id="saved-toast"><i class="ti ti-check" style="font-size:13px"></i> Salvo com sucesso!</div>
+            </div>
           </div>
         </div>
-        <div class="prod-row">
-          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001 · Creme Redutor</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">Ticket</div><div class="ps-v">R$ 155</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div></div><div class="prog"><div class="prog-f" style="width:62%"></div></div></div>
-          <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002 · Kit Premium</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">Ticket</div><div class="ps-v">R$ 155</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div></div><div class="prog"><div class="prog-f" style="width:38%"></div></div></div>
+ 
+        <!-- PAINEL DE METRICAS SALVAS -->
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-hd"><div class="card-title">Painel de Metricas — Visao Consolidada</div><span class="badge" id="saved-period-badge">Maio 2025</span></div>
+          <div class="kpi-grid" style="margin-bottom:0;" id="metrics-display">
+            <div class="kpi"><div class="kpi-lbl">ROAS</div><div class="kpi-val" id="d-roas">4,2x</div><div class="kpi-sub">Media ponderada</div></div>
+            <div class="kpi"><div class="kpi-lbl">CAC</div><div class="kpi-val" id="d-cac">R$ 45</div><div class="kpi-sub">Custo de aquisicao</div></div>
+            <div class="kpi"><div class="kpi-lbl">CTR</div><div class="kpi-val" id="d-ctr">2,8%</div><div class="kpi-sub">Click-through rate</div></div>
+            <div class="kpi"><div class="kpi-lbl">Tx. Conversao</div><div class="kpi-val" id="d-conv">1,4%</div><div class="kpi-sub">Geral</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+            <div style="background:#F0F4FF;border-radius:8px;padding:12px;">
+              <div style="font-size:10px;font-weight:600;color:#1D4ED8;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px;"><i class="ti ti-user-plus" style="font-size:12px"></i> Novo Cliente</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                <div><div style="font-size:9px;color:#3B82F6;">Ticket Medio</div><div style="font-size:14px;font-weight:700;" id="d-tk-novo">R$ 135</div></div>
+                <div><div style="font-size:9px;color:#3B82F6;">CAC</div><div style="font-size:14px;font-weight:700;" id="d-cac-novo">R$ 52</div></div>
+                <div><div style="font-size:9px;color:#3B82F6;">Tx. Conv.</div><div style="font-size:14px;font-weight:700;" id="d-conv-novo">1,1%</div></div>
+                <div><div style="font-size:9px;color:#3B82F6;">Volume</div><div style="font-size:14px;font-weight:700;" id="d-pct-novo">68%</div></div>
+              </div>
+            </div>
+            <div style="background:#F0FDF4;border-radius:8px;padding:12px;">
+              <div style="font-size:10px;font-weight:600;color:#15803D;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px;"><i class="ti ti-repeat" style="font-size:12px"></i> Recorrente</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                <div><div style="font-size:9px;color:#16A34A;">Ticket Medio</div><div style="font-size:14px;font-weight:700;" id="d-tk-rec">R$ 189</div></div>
+                <div><div style="font-size:9px;color:#16A34A;">CAC</div><div style="font-size:14px;font-weight:700;" id="d-cac-rec">R$ 18</div></div>
+                <div><div style="font-size:9px;color:#16A34A;">Tx. Conv.</div><div style="font-size:14px;font-weight:700;" id="d-conv-rec">3,8%</div></div>
+                <div><div style="font-size:9px;color:#16A34A;">Volume</div><div style="font-size:14px;font-weight:700;" id="d-pct-rec">32%</div></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+ 
+      <!-- PRODUTOS -->
       <div class="view" id="v-products">
-        <div class="prod-row" style="margin-bottom:16px;"><div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">Devolução</div><div class="ps-v">2,1%</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div></div><div class="prog" style="margin-top:14px;"><div class="prog-f" style="width:62%"></div></div></div><div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">Devolução</div><div class="ps-v">1,4%</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div></div><div class="prog" style="margin-top:14px;"><div class="prog-f" style="width:38%"></div></div></div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">Histórico de vendas por produto</div><span class="badge">30 dias</span></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Bumbum Dermo</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>Dermo Pro</div></div><div style="position:relative;height:220px;margin-top:10px;"><canvas id="prC" role="img" aria-label="Histórico produtos">Histórico.</canvas></div></div>
+        <div class="prod-row" style="margin-bottom:12px;"><div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">2,1%</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div></div><div class="prog" style="margin-top:12px;"><div class="prog-f" style="width:62%"></div></div></div><div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Unidades</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">Devolucao</div><div class="ps-v">1,4%</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div></div><div class="prog" style="margin-top:12px;"><div class="prog-f" style="width:38%"></div></div></div></div>
+        <div class="card"><div class="card-hd"><div class="card-title">Historico de vendas por produto</div><span class="badge">30 dias</span></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Bumbum Dermo</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>Dermo Pro</div></div><div style="position:relative;height:200px;margin-top:8px;"><canvas id="prC"></canvas></div></div>
       </div>
+ 
+      <!-- CANAIS -->
       <div class="view" id="v-channels">
-        <div class="ch-grid3" style="margin-bottom:16px;"><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#C8102E"></div><i class="ti ti-brand-meta"></i>Meta Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 178.210</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 38.300</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 33,42</span></div><span class="roas-tag rg">ROAS 4,6x</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#111"></div><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 68.960</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 19.200</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 43,24</span></div><span class="roas-tag ry">ROAS 3,6x</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#888"></div><i class="ti ti-brand-google"></i>Google Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 40.260</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 14.500</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 56,42</span></div><span class="roas-tag ry">ROAS 2,8x</span></div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">Evolução comparativa — canais</div></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div><div style="position:relative;height:220px;margin-top:10px;"><canvas id="cC2" role="img" aria-label="Canais evolução">Canais.</canvas></div></div>
+        <div class="ch-grid3"><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#C8102E"></div><i class="ti ti-brand-meta"></i>Meta Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 178k</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 38.300</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 33,42</span></div><span class="roas-tag rg">ROAS 4,6x</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#111"></div><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 69k</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 19.200</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 43,24</span></div><span class="roas-tag ry">ROAS 3,6x</span></div><div class="ch-card"><div class="ch-nm"><div class="ch-dot" style="background:#888"></div><i class="ti ti-brand-google"></i>Google Ads</div><div class="ch-stat"><span class="ch-sl">Faturamento</span><span class="ch-sv">R$ 40k</span></div><div class="ch-stat"><span class="ch-sl">Investimento</span><span class="ch-sv">R$ 14.500</span></div><div class="ch-stat"><span class="ch-sl">CPA</span><span class="ch-sv">R$ 56,42</span></div><span class="roas-tag ry">ROAS 2,8x</span></div></div>
+        <div class="card"><div class="card-hd"><div class="card-title">Evolucao comparativa</div></div><div class="leg"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google</div></div><div style="position:relative;height:200px;margin-top:8px;"><canvas id="cC2"></canvas></div></div>
       </div>
-      <div class="view" id="v-kanban"><div class="kan-wrap" id="kanban-board"></div></div>
+ 
+      <!-- KANBAN FLOWI STYLE -->
+      <div class="view" id="v-kanban">
+        <div class="kan-topbar">
+          <div class="kan-filters">
+            <div class="kan-filter on" onclick="filterKan('all',this)">Todos</div>
+            <div class="kan-filter" onclick="filterKan('video',this)">Video</div>
+            <div class="kan-filter" onclick="filterKan('ugc',this)">UGC</div>
+            <div class="kan-filter" onclick="filterKan('static',this)">Estatico</div>
+            <div class="kan-filter" onclick="filterKan('carousel',this)">Carrossel</div>
+          </div>
+          <button class="btn-new-card" onclick="openModal()"><i class="ti ti-plus"></i> Novo Criativo</button>
+        </div>
+        <div class="kan-board" id="kanban-board"></div>
+      </div>
+ 
+      <!-- CRIATIVOS + IA -->
       <div class="view" id="v-library">
         <div class="ai-section">
           <div class="ai-header">
-            <div style="display:flex;align-items:center;gap:12px;"><div class="ai-badge"><i class="ti ti-robot"></i></div><div><div class="ai-hd-title">Análise de Criativos — Claude AI</div><div class="ai-hd-sub">Pergunte sobre performance, fadiga, campanhas ou peça briefs</div></div></div>
-            <div class="ai-status"><div class="ai-dot-live"></div><span class="ai-status-txt">API conectada</span></div>
+            <div class="ai-hd-left"><div class="ai-badge"><i class="ti ti-robot"></i></div><div><div class="ai-hd-title">Analise de Criativos — Claude AI</div><div class="ai-hd-sub">Pergunte sobre performance, fadiga ou peca briefs</div></div></div>
+            <div class="ai-status"><div class="ai-dot-live"></div>API conectada</div>
           </div>
-          <div class="ai-context">
-            <div class="ai-ctx-title">Contexto ativo</div>
-            <div class="ai-ctx-chips"><span class="ctx-chip active" onclick="toggleCtx(this,'criativos')">Criativos</span><span class="ctx-chip active" onclick="toggleCtx(this,'meta')">Meta Ads</span><span class="ctx-chip active" onclick="toggleCtx(this,'produtos')">Produtos</span><span class="ctx-chip" onclick="toggleCtx(this,'tiktok')">TikTok</span><span class="ctx-chip" onclick="toggleCtx(this,'google')">Google</span><span class="ctx-chip" onclick="toggleCtx(this,'kanban')">Kanban</span></div>
+          <div class="ai-msgs" id="ai-msgs"><div class="ai-msg bot">Ola! Sou o analista do Dermo Club. Tenho acesso aos dados de todos os criativos, campanhas e metricas. Pergunte sobre fadiga, ROAS, angulos ou peca um brief completo.</div></div>
+          <div class="ai-quick">
+            <button class="qb" onclick="sendQ('Quais criativos estao com fadiga?')">Fadiga criativa</button>
+            <button class="qb" onclick="sendQ('Qual angulo testar pro Bumbum Dermo?')">Novo angulo</button>
+            <button class="qb" onclick="sendQ('Brief completo do proximo video do Bumbum Dermo')">Gerar brief</button>
+            <button class="qb" onclick="sendQ('Analise completa do funil Meta Ads')">Funil Meta</button>
+            <button class="qb" onclick="sendQ('Compare TikTok vs Meta Ads')">TikTok vs Meta</button>
           </div>
-          <div class="ai-msgs-wrap" id="ai-msgs"><div class="ai-msg bot">Olá! Sou o analista de criativos do Dermo Club. Tenho acesso aos dados de performance de todos os criativos, campanhas Meta Ads, TikTok Shop e Google. Pergunte sobre fadiga criativa, ângulos, ROAS por formato ou peça um brief.</div></div>
-          <div class="quick-btns">
-            <button class="qb" onclick="sendQuick('Quais criativos estão com fadiga?')">Fadiga criativa</button>
-            <button class="qb" onclick="sendQuick('Qual ângulo testar pra Bumbum Dermo?')">Novo ângulo</button>
-            <button class="qb" onclick="sendQuick('Me dá um brief completo de criativo para o próximo vídeo do Bumbum Dermo')">Gerar brief</button>
-            <button class="qb" onclick="sendQuick('Análise completa do funil Meta Ads')">Funil Meta</button>
-            <button class="qb" onclick="sendQuick('Qual produto tem melhor ROAS?')">Melhor ROAS</button>
-            <button class="qb" onclick="sendQuick('Compare TikTok vs Meta Ads em detalhes')">TikTok vs Meta</button>
-          </div>
-          <div class="ai-input-area">
-            <textarea class="ai-textarea" id="ai-q" placeholder="Pergunte sobre criativos, campanhas, ROAS, fadiga... (Enter para enviar)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
-            <button class="ai-send-btn" id="ai-btn" onclick="sendAI()"><i class="ti ti-send"></i> Analisar</button>
+          <div class="ai-input-row">
+            <textarea class="ai-ta" id="ai-q" placeholder="Pergunte sobre criativos, ROAS, fadiga..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
+            <button class="ai-send" id="ai-btn" onclick="sendAI()"><i class="ti ti-send"></i> Enviar</button>
           </div>
         </div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Biblioteca de Criativos</div></div><table><thead><tr><th>Nome</th><th>Produto</th><th>Tipo</th><th>Status</th><th>ROAS</th><th>CPA</th><th>CTR</th><th>Freq.</th></tr></thead><tbody><tr><td>Hook dor nas costas v1</td><td>Bumbum Dermo</td><td>Vídeo</td><td><span class="sb-badge s-on">Live</span></td><td>5,2x</td><td>R$ 28</td><td>3,4%</td><td>1,8x</td></tr><tr><td>Antes e depois UGC</td><td>Bumbum Dermo</td><td>UGC</td><td><span class="sb-badge s-on">Live</span></td><td>4,8x</td><td>R$ 31</td><td>2,9%</td><td>2,4x</td></tr><tr><td>Kit Premium unboxing</td><td>Dermo Pro</td><td>Vídeo</td><td><span class="sb-badge s-on">Live</span></td><td>4,1x</td><td>R$ 37</td><td>2,1%</td><td>3,1x</td></tr><tr><td>Carrossel benefícios</td><td>Bumbum Dermo</td><td>Carrossel</td><td><span class="sb-badge s-pau">Pausado</span></td><td>2,9x</td><td>R$ 52</td><td>1,4%</td><td>4,2x</td></tr><tr><td>Depoimento dr. derma</td><td>Dermo Pro</td><td>UGC</td><td><span class="sb-badge s-on">Live</span></td><td>3,8x</td><td>R$ 40</td><td>2,6%</td><td>2,0x</td></tr><tr><td>Static oferta 30%off</td><td>Bumbum Dermo</td><td>Estático</td><td><span class="sb-badge s-off">Fatigue</span></td><td>1,8x</td><td>R$ 84</td><td>0,8%</td><td>5,6x</td></tr></tbody></table></div>
+        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Biblioteca de Criativos</div></div><table><thead><tr><th>Nome</th><th>Produto</th><th>Tipo</th><th>Status</th><th>ROAS</th><th>CPA</th><th>CTR</th><th>Freq.</th></tr></thead><tbody><tr><td>Hook dor nas costas v1</td><td>Bumbum Dermo</td><td>Video</td><td><span class="sb-badge s-on">Live</span></td><td>5,2x</td><td>R$ 28</td><td>3,4%</td><td>1,8x</td></tr><tr><td>Antes e depois UGC</td><td>Bumbum Dermo</td><td>UGC</td><td><span class="sb-badge s-on">Live</span></td><td>4,8x</td><td>R$ 31</td><td>2,9%</td><td>2,4x</td></tr><tr><td>Kit Premium unboxing</td><td>Dermo Pro</td><td>Video</td><td><span class="sb-badge s-on">Live</span></td><td>4,1x</td><td>R$ 37</td><td>2,1%</td><td>3,1x</td></tr><tr><td>Carrossel beneficios</td><td>Bumbum Dermo</td><td>Carrossel</td><td><span class="sb-badge s-pau">Pausado</span></td><td>2,9x</td><td>R$ 52</td><td>1,4%</td><td>4,2x</td></tr><tr><td>Static oferta 30%off</td><td>Bumbum Dermo</td><td>Estatico</td><td><span class="sb-badge s-off">Fadiga</span></td><td>1,8x</td><td>R$ 84</td><td>0,8%</td><td>5,6x</td></tr></tbody></table></div>
       </div>
+ 
+      <!-- META ADS -->
       <div class="view" id="v-meta">
         <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>R$ 38.300</strong></div><div class="kpi-pill">ROAS: <strong>4,6x</strong></div><div class="kpi-pill">CPA: <strong>R$ 33,42</strong></div><div class="kpi-pill">CTR: <strong>2,8%</strong></div><div class="kpi-pill">CPM: <strong>R$ 18,40</strong></div><div class="kpi-pill">Freq: <strong>2,3x</strong></div></div>
-        <div class="up-inline" onclick="simUp('meta')"><i class="ti ti-brand-meta" style="font-size:22px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--red-d)">Conectar Meta Ads ou subir relatório CSV</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Gerenciador de Anúncios > Exportar relatório</div></div><button class="up-btn" style="margin:0;font-size:11px">Subir CSV</button></div>
+        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="simUp('meta')"><i class="ti ti-brand-meta" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Conectar Meta Ads ou subir CSV</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Gerenciador de Anuncios > Exportar</div></div><button class="up-drop-btn" style="margin:0;font-size:10px;white-space:nowrap;">Subir CSV</button></div>
         <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas — Meta Ads</div></div><table><thead><tr><th>Campanha</th><th>Status</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPA</th><th>CTR</th></tr></thead><tbody><tr><td>BD | Conv | Prosp LAL2%</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 14.200</td><td>R$ 71.000</td><td>5,0x</td><td>R$ 29</td><td>3,1%</td></tr><tr><td>BD | Retargeting 30d</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 8.100</td><td>R$ 40.500</td><td>5,0x</td><td>R$ 27</td><td>3,8%</td></tr><tr><td>DP | Conv | LAL 2%</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 9.500</td><td>R$ 38.000</td><td>4,0x</td><td>R$ 38</td><td>2,4%</td></tr><tr><td>BD | TOF | Video Views</td><td><span class="sb-badge s-pau">Pausada</span></td><td>R$ 4.200</td><td>R$ 14.700</td><td>3,5x</td><td>R$ 42</td><td>2,1%</td></tr><tr><td>DP | BOF | Carrinho</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 2.300</td><td>R$ 14.010</td><td>6,1x</td><td>R$ 23</td><td>4,2%</td></tr></tbody></table></div>
       </div>
+ 
+      <!-- TIKTOK -->
       <div class="view" id="v-tiktok">
         <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>R$ 19.200</strong></div><div class="kpi-pill">ROAS: <strong>3,6x</strong></div><div class="kpi-pill">CPA: <strong>R$ 43,24</strong></div><div class="kpi-pill">GMV: <strong>R$ 68.960</strong></div></div>
-        <div class="up-inline" onclick="simUp('tiktok')"><i class="ti ti-brand-tiktok" style="font-size:22px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--red-d)">Subir relatório TikTok Shop</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Seller Center > Exportar relatório</div></div><button class="up-btn" style="margin:0;font-size:11px">Subir CSV</button></div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Performance TikTok Shop</div></div><table><thead><tr><th>Produto</th><th>Pedidos</th><th>GMV</th><th>Conversao</th><th>Avaliacao</th></tr></thead><tbody><tr><td>Bumbum Dermo 200g</td><td>298</td><td>R$ 46.190</td><td>4,2%</td><td>4.8 estrelas</td></tr><tr><td>Dermo Pro Kit</td><td>146</td><td>R$ 22.770</td><td>3,1%</td><td>4.7 estrelas</td></tr></tbody></table></div>
+        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="simUp('tiktok')"><i class="ti ti-brand-tiktok" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio TikTok Shop</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Seller Center > Exportar relatorio</div></div><button class="up-drop-btn" style="margin:0;font-size:10px;white-space:nowrap;">Subir CSV</button></div>
+        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Performance TikTok Shop</div></div><table><thead><tr><th>Produto</th><th>Pedidos</th><th>GMV</th><th>Conversao</th><th>Avaliacao</th></tr></thead><tbody><tr><td>Bumbum Dermo 200g</td><td>298</td><td>R$ 46.190</td><td>4,2%</td><td>4.8</td></tr><tr><td>Dermo Pro Kit</td><td>146</td><td>R$ 22.770</td><td>3,1%</td><td>4.7</td></tr></tbody></table></div>
       </div>
+ 
+      <!-- GOOGLE -->
       <div class="view" id="v-google">
         <div class="kpi-row-sm"><div class="kpi-pill">Invest: <strong>R$ 14.500</strong></div><div class="kpi-pill">ROAS: <strong>2,8x</strong></div><div class="kpi-pill">CPC: <strong>R$ 1,80</strong></div><div class="kpi-pill">Conv.: <strong>257</strong></div></div>
-        <div class="up-inline" onclick="simUp('google')"><i class="ti ti-brand-google" style="font-size:22px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--red-d)">Subir relatório Google Ads</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Google Ads Manager > Exportar</div></div><button class="up-btn" style="margin:0;font-size:11px">Subir CSV</button></div>
+        <div style="border:1.5px dashed var(--red);border-radius:9px;padding:12px 16px;background:var(--red-l);display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer;" onclick="simUp('google')"><i class="ti ti-brand-google" style="font-size:20px;color:var(--red);flex-shrink:0"></i><div style="flex:1"><div style="font-size:11px;font-weight:600;color:var(--red-d)">Subir relatorio Google Ads</div><div style="font-size:10px;color:var(--g1);margin-top:2px">Google Ads Manager > Exportar</div></div><button class="up-drop-btn" style="margin:0;font-size:10px;white-space:nowrap;">Subir CSV</button></div>
         <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Campanhas Google Ads</div></div><table><thead><tr><th>Campanha</th><th>Status</th><th>Invest.</th><th>Receita</th><th>ROAS</th><th>CPC</th></tr></thead><tbody><tr><td>Shopping | Bumbum Dermo</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 7.200</td><td>R$ 22.320</td><td>3,1x</td><td>R$ 1,60</td></tr><tr><td>Shopping | Dermo Pro</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 4.800</td><td>R$ 13.440</td><td>2,8x</td><td>R$ 1,90</td></tr><tr><td>Search | Marca</td><td><span class="sb-badge s-on">Ativa</span></td><td>R$ 2.500</td><td>R$ 4.500</td><td>1,8x</td><td>R$ 2,10</td></tr></tbody></table></div>
       </div>
+ 
+      <!-- UPLOAD RELATORIO -->
       <div class="view" id="v-upload">
-        <div class="up-zone"><div class="up-ico"><i class="ti ti-cloud-upload"></i></div><div class="up-txt">Arraste ou clique para subir relatorio de vendas</div><div class="up-sub">Formatos aceitos: .xlsx, .csv — max. 10MB</div><button class="up-btn" onclick="simUp('sales')">Selecionar Arquivo</button></div>
-        <div class="ch-grid3" style="margin-bottom:16px;"><div class="ch-card" style="cursor:pointer" onclick="simUp('meta')"><div class="ch-nm"><i class="ti ti-brand-meta"></i>Meta Ads</div><div style="font-size:11px;color:var(--g1);margin-bottom:12px">Gerenciador de Anuncios</div><button class="up-btn" style="margin:0;width:100%;font-size:11px">Subir CSV</button></div><div class="ch-card" style="cursor:pointer" onclick="simUp('tiktok')"><div class="ch-nm"><i class="ti ti-brand-tiktok"></i>TikTok Shop</div><div style="font-size:11px;color:var(--g1);margin-bottom:12px">Seller Center</div><button class="up-btn" style="margin:0;width:100%;font-size:11px">Subir CSV</button></div><div class="ch-card" style="cursor:pointer" onclick="simUp('google')"><div class="ch-nm"><i class="ti ti-brand-google"></i>Google Ads</div><div style="font-size:11px;color:var(--g1);margin-bottom:12px">Ads Manager</div><button class="up-btn" style="margin:0;width:100%;font-size:11px">Subir CSV</button></div></div>
-        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Historico de uploads</div></div><table><thead><tr><th>Arquivo</th><th>Canal</th><th>Data</th><th>Linhas</th><th>Status</th></tr></thead><tbody id="up-log"><tr><td>meta_maio_2025.csv</td><td>Meta Ads</td><td>21/05/2025</td><td>1.847</td><td><span class="sb-badge s-on">Processado</span></td></tr><tr><td>tiktok_abr_2025.csv</td><td>TikTok Shop</td><td>02/05/2025</td><td>444</td><td><span class="sb-badge s-on">Processado</span></td></tr></tbody></table></div>
+        <div class="upload-section">
+          <div class="up-header"><div class="up-title">Subir Relatorio por Canal</div></div>
+          <div class="up-body">
+            <div class="up-channels">
+              <div class="up-ch" onclick="simUp('meta')"><i class="ti ti-brand-meta"></i><div class="up-ch-name">Meta Ads</div><div class="up-ch-sub">Gerenciador de Anuncios</div></div>
+              <div class="up-ch" onclick="simUp('tiktok')"><i class="ti ti-brand-tiktok"></i><div class="up-ch-name">TikTok Shop</div><div class="up-ch-sub">Seller Center</div></div>
+              <div class="up-ch" onclick="simUp('google')"><i class="ti ti-brand-google"></i><div class="up-ch-name">Google Ads</div><div class="up-ch-sub">Ads Manager</div></div>
+            </div>
+            <div class="up-drop" onclick="simUp('sales')">
+              <div class="up-drop-ico"><i class="ti ti-cloud-upload"></i></div>
+              <div class="up-drop-txt">Arraste ou clique para subir relatorio de vendas</div>
+              <div class="up-drop-sub">Formatos aceitos: .xlsx, .csv — max. 10MB</div>
+              <button class="up-drop-btn">Selecionar Arquivo</button>
+            </div>
+          </div>
+        </div>
+        <div class="tbl-card"><div class="tbl-hd"><div class="tbl-title">Historico de Uploads</div></div><table><thead><tr><th>Arquivo</th><th>Canal</th><th>Data</th><th>Linhas</th><th>Status</th></tr></thead><tbody id="up-log"><tr><td>meta_maio_2025.csv</td><td>Meta Ads</td><td>21/05/2025</td><td>1.847</td><td><span class="sb-badge s-on">Processado</span></td></tr><tr><td>tiktok_abr_2025.csv</td><td>TikTok Shop</td><td>02/05/2025</td><td>444</td><td><span class="sb-badge s-on">Processado</span></td></tr></tbody></table></div>
       </div>
+ 
     </div>
   </div>
 </div>
+ 
+<!-- MODAL NOVO CARD -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Novo Criativo</div><div class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></div></div>
+    <div class="modal-body">
+      <div class="modal-field"><label class="modal-label">Nome do criativo</label><input class="modal-input" id="nc-title" placeholder="Ex: Hook antes e depois Bumbum v2"></div>
+      <div class="modal-row">
+        <div class="modal-field"><label class="modal-label">Tipo</label><select class="modal-select" id="nc-type"><option value="video">Video</option><option value="ugc">UGC</option><option value="static">Estatico</option><option value="carousel">Carrossel</option></select></div>
+        <div class="modal-field"><label class="modal-label">Produto</label><select class="modal-select" id="nc-prod"><option value="Bumbum Dermo">Bumbum Dermo</option><option value="Dermo Pro">Dermo Pro</option></select></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label class="modal-label">Canal</label><select class="modal-select" id="nc-channel"><option value="Meta">Meta Ads</option><option value="TikTok">TikTok Shop</option><option value="Google">Google Ads</option></select></div>
+        <div class="modal-field"><label class="modal-label">Coluna</label><select class="modal-select" id="nc-col"><option value="testar">A Testar</option><option value="testando">Testando</option><option value="validado">Validado</option><option value="nao-funcionou">Nao Funcionou</option><option value="arquivado">Arquivado</option></select></div>
+      </div>
+      <div class="modal-field"><label class="modal-label">Angulo / Hipotese</label><input class="modal-input" id="nc-angulo" placeholder="Ex: Hook de dor — mulher nao consegue usar calca favorita"></div>
+      <div class="modal-row">
+        <div class="modal-field"><label class="modal-label">ROAS (se disponivel)</label><input class="modal-input" id="nc-roas" placeholder="Ex: 4,8x"></div>
+        <div class="modal-field"><label class="modal-label">CPA (se disponivel)</label><input class="modal-input" id="nc-cpa" placeholder="Ex: R$ 32"></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-confirm" onclick="confirmCard()">Criar Card</button></div>
+  </div>
+</div>
+ 
 <script>
-const TITLES={overview:'Visao Geral',products:'Produtos',channels:'Canais',kanban:'Kanban de Criativos',library:'Criativos + IA',meta:'Meta Ads',tiktok:'TikTok Shop',google:'Google Ads',upload:'Upload de Dados'};
-const charts={};
-const lbl=['1/5','5/5','9/5','13/5','17/5','21/5'];
-const mD=[5200,7100,8400,6300,9500,8100];
-const tD=[1800,2400,2900,2200,3100,2800];
-const gD=[900,1300,1800,1200,2000,1700];
+// ====== AUTH ======
+const CREDS = {email:'davi@dermoclub.com.br', pass:'dermo2025'};
+function doLogin(){
+  const e=document.getElementById('l-email').value.trim().toLowerCase();
+  const p=document.getElementById('l-pass').value;
+  const err=document.getElementById('l-err');
+  if(e===CREDS.email && p===CREDS.pass){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='flex';
+    setTimeout(()=>{mkLine('cC',mD,tD,gD);mkPie();},80);
+  } else {
+    err.style.display='block';
+    document.getElementById('l-pass').value='';
+  }
+}
+function doLogout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('l-pass').value='';
+  document.getElementById('l-err').style.display='none';
+}
+ 
+// ====== SIDEBAR MOBILE ======
+function openSb(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('open');}
+function closeSb(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');}
+ 
+// ====== NAV ======
+const TITLES={overview:'Visao Geral',metrics:'Metricas',products:'Produtos',channels:'Canais',kanban:'Kanban de Criativos',library:'Criativos + IA',meta:'Meta Ads',tiktok:'TikTok Shop',google:'Google Ads',upload:'Upload de Relatorio'};
 function go(p,el){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   const v=document.getElementById('v-'+p);if(v)v.classList.add('on');
   if(el)el.classList.add('on');
   document.getElementById('pg-title').textContent=TITLES[p]||p;
-  setTimeout(()=>{if(p==='overview'){mkLine('cC',mD,tD,gD);mkPie();}if(p==='channels')mkLine('cC2',mD,tD,gD);if(p==='products')mkProd();if(p==='kanban')buildKanban();},30);
+  closeSb();
+  setTimeout(()=>{
+    if(p==='overview'){mkLine('cC',mD,tD,gD);mkPie();}
+    if(p==='channels')mkLine('cC2',mD,tD,gD);
+    if(p==='products')mkProd();
+    if(p==='kanban')buildKanban();
+  },30);
 }
+ 
+// ====== CHARTS ======
+const charts={};
+const lbl=['1/5','5/5','9/5','13/5','17/5','21/5'];
+const mD=[5200,7100,8400,6300,9500,8100];
+const tD=[1800,2400,2900,2200,3100,2800];
+const gD=[900,1300,1800,1200,2000,1700];
 function mkLine(id,a,b,c){
   if(charts[id])charts[id].destroy();
   const ctx=document.getElementById(id);if(!ctx)return;
-  charts[id]=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Meta',data:a,borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'TikTok',data:b,borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]},{label:'Google',data:c,borderColor:'#888',backgroundColor:'#888',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[2,2]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:11},color:'#888',callback:v=>'R$'+Math.round(v/1000)+'k'}}}}});
+  charts[id]=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Meta',data:a,borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'TikTok',data:b,borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]},{label:'Google',data:c,borderColor:'#888',backgroundColor:'#888',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[2,2]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#888',callback:v=>'R$'+Math.round(v/1000)+'k'}}}}});
 }
 function mkPie(){
   if(charts.pC)charts.pC.destroy();
   const ctx=document.getElementById('pC');if(!ctx)return;
-  charts.pC=new Chart(ctx,{type:'doughnut',data:{labels:['Meta','TikTok','Google'],datasets:[{data:[62,24,14],backgroundColor:['#C8102E','#111','#888'],borderWidth:0,hoverOffset:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
+  charts.pC=new Chart(ctx,{type:'doughnut',data:{labels:['Meta','TikTok','Google'],datasets:[{data:[62,24,14],backgroundColor:['#C8102E','#111','#888'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
 }
 function mkProd(){
   if(charts.prC)charts.prC.destroy();
   const ctx=document.getElementById('prC');if(!ctx)return;
-  charts.prC=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Bumbum',data:[4200,5800,6900,5100,7800,6500],borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'Dermo Pro',data:[2800,3600,4200,3100,4700,3900],borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:11},color:'#888',callback:v=>'R$'+Math.round(v/1000)+'k'}}}}});
+  charts.prC=new Chart(ctx,{type:'line',data:{labels:lbl,datasets:[{label:'Bumbum',data:[4200,5800,6900,5100,7800,6500],borderColor:'#C8102E',backgroundColor:'#C8102E',borderWidth:2,pointRadius:2,tension:.4,fill:false},{label:'Dermo Pro',data:[2800,3600,4200,3100,4700,3900],borderColor:'#111',backgroundColor:'#111',borderWidth:2,pointRadius:2,tension:.4,fill:false,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10},color:'#888',callback:v=>'R$'+Math.round(v/1000)+'k'}}}}});
 }
 function upd(){
   const r=document.getElementById('dr').value;
   const m={7:.25,30:1,60:1.9,90:2.6};const x=m[r]||1;
-  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
-  set('k-fat','R$ '+Math.round(287430*x/1000)+'k');
-  set('k-ped',Math.round(1847*x).toLocaleString('pt-BR'));
-  set('k-tkt','R$ '+Math.round(155*x));
-  set('k-roas',(4.2+(x-1)*.1).toFixed(1)+'x');
+  const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  s('k-fat','R$ '+Math.round(287430*x/1000)+'k');
+  s('k-ped',Math.round(1847*x).toLocaleString('pt-BR'));
+  s('k-tkt','R$ '+Math.round(155));
+  s('k-roas',(4.2+(x-1)*.1).toFixed(1)+'x');
 }
-const COLS=[{id:'ideia',name:'Ideia',color:'#888'},{id:'prod',name:'Em Producao',color:'#2563EB'},{id:'review',name:'Review',color:'#D97706'},{id:'aprovado',name:'Aprovado',color:'#16A34A'},{id:'live',name:'Live',color:'#C8102E'}];
-const CARDS={ideia:[{title:'Hook antes e depois Dermo Pro',tag:'video',tc:'tag-video',prod:'Dermo Pro',avs:['#C8102E','#2563EB'],date:'26/05',metrics:[],fatigue:false},{title:'UGC dermatologista endossando',tag:'ugc',tc:'tag-ugc',prod:'Bumbum Dermo',avs:['#888'],date:'28/05',metrics:[],fatigue:false}],prod:[{title:'Carrossel 5 beneficios v3',tag:'carousel',tc:'tag-carousel',prod:'Bumbum Dermo',avs:['#16A34A','#D97706'],date:'24/05',metrics:[],fatigue:false},{title:'Estatico oferta kit duplo',tag:'static',tc:'tag-static',prod:'Dermo Pro',avs:['#C8102E'],date:'23/05',metrics:[],fatigue:false}],review:[{title:'Video hook dor lombar v2',tag:'video',tc:'tag-video',prod:'Bumbum Dermo',avs:['#2563EB','#888'],date:'22/05',metrics:[],fatigue:false}],aprovado:[{title:'UGC influencer @beleza_real',tag:'ugc',tc:'tag-ugc',prod:'Bumbum Dermo',avs:['#16A34A'],date:'21/05',metrics:[{txt:'ROAS est. 4,8x',cls:'m-roas'}],fatigue:false}],live:[{title:'Hook dor nas costas v1',tag:'video',tc:'tag-video',prod:'Bumbum Dermo',avs:['#C8102E','#16A34A'],date:'10/05',metrics:[{txt:'ROAS 5,2x',cls:'m-roas'},{txt:'CPA R$28',cls:'m-cpa'}],fatigue:false},{title:'Static oferta 30%off',tag:'static',tc:'tag-static',prod:'Bumbum Dermo',avs:['#888'],date:'03/05',metrics:[{txt:'ROAS 1,8x',cls:'m-warn'},{txt:'Freq 5,6x',cls:'m-warn'}],fatigue:true},{title:'Depoimento dr. derma',tag:'ugc',tc:'tag-ugc',prod:'Dermo Pro',avs:['#2563EB'],date:'08/05',metrics:[{txt:'ROAS 3,8x',cls:'m-roas'}],fatigue:false}]};
+ 
+// ====== METRICS ======
+function saveMetrics(){
+  const g=(id)=>document.getElementById(id).value;
+  document.getElementById('d-roas').textContent=g('m-roas');
+  document.getElementById('d-cac').textContent=g('m-cac');
+  document.getElementById('d-ctr').textContent=g('m-ctr');
+  document.getElementById('d-conv').textContent=g('m-conv');
+  document.getElementById('d-tk-novo').textContent=g('m-ticket-novo');
+  document.getElementById('d-cac-novo').textContent=g('m-cac-novo');
+  document.getElementById('d-conv-novo').textContent=g('m-conv-novo');
+  document.getElementById('d-pct-novo').textContent=g('m-pct-novo');
+  document.getElementById('d-tk-rec').textContent=g('m-ticket-rec');
+  document.getElementById('d-cac-rec').textContent=g('m-cac-rec');
+  document.getElementById('d-conv-rec').textContent=g('m-conv-rec');
+  document.getElementById('d-pct-rec').textContent=g('m-pct-rec');
+  const toast=document.getElementById('saved-toast');
+  toast.style.display='flex';
+  setTimeout(()=>toast.style.display='none',2500);
+}
+ 
+// ====== KANBAN FLOWI STYLE ======
+const COLS=[
+  {id:'testar',name:'A Testar',cls:'col-testar'},
+  {id:'testando',name:'Testando',cls:'col-testando'},
+  {id:'validado',name:'Validado',cls:'col-validado'},
+  {id:'nao-funcionou',name:'Nao Funcionou',cls:'col-nao-funcionou'},
+  {id:'arquivado',name:'Arquivado',cls:'col-arquivado'},
+];
+const THUMB_COLORS={video:'linear-gradient(135deg,#EDE9FE,#DDD6FE)',ugc:'linear-gradient(135deg,#FEF9C3,#FDE68A)',static:'linear-gradient(135deg,#DCFCE7,#BBF7D0)',carousel:'linear-gradient(135deg,#FCE7F3,#FBCFE8)'};
+const THUMB_ICONS={video:'ti-video',ugc:'ti-user-circle',static:'ti-photo',carousel:'ti-layout-cards'};
+ 
+let kanbanData={
+  testar:[
+    {id:1,title:'Hook antes e depois Dermo Pro',type:'video',prod:'Dermo Pro',channel:'Meta',date:'26/05',roas:'',cpa:'',angulo:'Mulher nao consegue usar calca favorita',fatigue:false,motivo:''},
+    {id:2,title:'UGC dermatologista endossando',type:'ugc',prod:'Bumbum Dermo',channel:'Meta',date:'28/05',roas:'',cpa:'',angulo:'Prova social medica',fatigue:false,motivo:''},
+  ],
+  testando:[
+    {id:3,title:'Carrossel 5 beneficios v3',type:'carousel',prod:'Bumbum Dermo',channel:'Meta',date:'24/05',roas:'2,1x',cpa:'R$ 71',angulo:'Educacional beneficios',fatigue:false,motivo:''},
+    {id:4,title:'Estatico oferta kit duplo',type:'static',prod:'Dermo Pro',channel:'Meta',date:'23/05',roas:'3,2x',cpa:'R$ 48',angulo:'Oferta bundling',fatigue:false,motivo:''},
+  ],
+  validado:[
+    {id:5,title:'Hook dor nas costas v1',type:'video',prod:'Bumbum Dermo',channel:'Meta',date:'10/05',roas:'5,2x',cpa:'R$ 28',angulo:'Hook de dor fisica',fatigue:false,motivo:''},
+    {id:6,title:'Antes e depois UGC',type:'ugc',prod:'Bumbum Dermo',channel:'TikTok',date:'08/05',roas:'4,8x',cpa:'R$ 31',angulo:'Transformacao visual',fatigue:false,motivo:''},
+  ],
+  'nao-funcionou':[
+    {id:7,title:'Static oferta 30%off',type:'static',prod:'Bumbum Dermo',channel:'Meta',date:'03/05',roas:'1,8x',cpa:'R$ 84',angulo:'Desconto direto',fatigue:true,motivo:'Fadiga — freq 5.6x, ROAS caiu 60%'},
+  ],
+  arquivado:[
+    {id:8,title:'Carrossel ingredientes v1',type:'carousel',prod:'Bumbum Dermo',channel:'Meta',date:'01/04',roas:'2,3x',cpa:'R$ 65',angulo:'Educacional ingredientes',fatigue:false,motivo:'ROAS abaixo do breakeven'},
+  ],
+};
+let activeFilter='all';
 let kanbanBuilt=false;
+ 
 function buildKanban(){
   if(kanbanBuilt)return;kanbanBuilt=true;
+  renderKanban();
+}
+function renderKanban(){
   const board=document.getElementById('kanban-board');
+  board.innerHTML='';
   COLS.forEach(col=>{
-    const cards=CARDS[col.id]||[];
-    const div=document.createElement('div');div.className='kan-col';
-    div.innerHTML='<div class="kan-col-hd"><span class="kan-col-name" style="color:'+col.color+'">'+col.name+'</span><span class="kan-count">'+cards.length+'</span></div><div class="kan-cards">'+cards.map(c=>'<div class="kc"><div class="kc-top"><span class="kc-tag '+c.tc+'">'+c.tag+'</span><i class="ti ti-dots" style="font-size:14px;color:#aaa"></i></div><div class="kc-title">'+c.title+'</div><div class="kc-prod">'+c.prod+'</div><div class="kc-foot"><div class="kc-date"><i class="ti ti-calendar" style="font-size:11px"></i>'+c.date+'</div><div class="kc-avs">'+c.avs.map(a=>'<div class="kc-av" style="background:'+a+'">&bull;</div>').join('')+'</div></div>'+(c.metrics.length?'<div class="kc-metrics">'+c.metrics.map(m=>'<span class="km '+m.cls+'">'+m.txt+'</span>').join('')+'</div>':'')+(c.fatigue?'<div class="fatigue-badge"><i class="ti ti-alert-triangle" style="font-size:11px"></i>Fadiga detectada</div>':'')+'</div>').join('')+'</div><div class="kan-add" onclick="addCard(\''+col.id+'\')"><i class="ti ti-plus" style="font-size:13px"></i> Novo card</div>';
+    const cards=(kanbanData[col.id]||[]).filter(c=>activeFilter==='all'||c.type===activeFilter);
+    const div=document.createElement('div');
+    div.className='kan-col';
+    div.innerHTML=
+      '<div class="kan-col-head '+col.cls+'">'+
+        '<div class="kan-col-left">'+
+          '<div class="kan-col-dot"></div>'+
+          '<div class="kan-col-name">'+col.name+'</div>'+
+          '<span class="kan-col-count">'+cards.length+'</span>'+
+        '</div>'+
+        '<button class="kan-add-btn" onclick="openModal(\''+col.id+'\')"><i class="ti ti-plus"></i></button>'+
+      '</div>'+
+      '<div class="kan-cards" id="col-cards-'+col.id+'">'+
+        (cards.length===0?'<div class="kan-empty">Nenhum criativo aqui</div>':cards.map(c=>renderCard(c)).join(''))+
+      '</div>';
     board.appendChild(div);
   });
 }
-function addCard(colId){
-  const title=prompt('Nome do criativo:');if(!title)return;
-  const cols=[...document.getElementById('kanban-board').querySelectorAll('.kan-col')];
-  const idx=COLS.findIndex(c=>c.id===colId);if(idx<0)return;
-  const cardsEl=cols[idx].querySelector('.kan-cards');
-  const div=document.createElement('div');div.className='kc';
-  div.innerHTML='<div class="kc-top"><span class="kc-tag tag-video">video</span></div><div class="kc-title">'+title+'</div><div class="kc-prod">Bumbum Dermo</div><div class="kc-foot"><div class="kc-date"><i class="ti ti-calendar" style="font-size:11px"></i>hoje</div></div>';
-  cardsEl.appendChild(div);
-  const countEl=cols[idx].querySelector('.kan-count');countEl.textContent=parseInt(countEl.textContent)+1;
+function renderCard(c){
+  const tagCls={video:'tag-video',ugc:'tag-ugc',static:'tag-static',carousel:'tag-carousel'}[c.type]||'tag-video';
+  const thumb=THUMB_COLORS[c.type]||THUMB_COLORS.video;
+  const icon=THUMB_ICONS[c.type]||'ti-photo';
+  let roasHtml='';
+  if(c.roas){const v=parseFloat(c.roas);const cls=v>=4?'roas-ok':v>=2.5?'roas-warn':'roas-bad';roasHtml='<span class="kc-thumb-roas '+cls+'">ROAS '+c.roas+'</span>';}
+  let metricsHtml='';
+  if(c.roas||c.cpa){
+    metricsHtml='<div class="kc-metrics-strip">';
+    if(c.roas){const v=parseFloat(c.roas);const cls=v>=4?'m-green':v>=2.5?'m-yellow':'m-red';metricsHtml+='<span class="kc-m '+cls+'">ROAS '+c.roas+'</span>';}
+    if(c.cpa)metricsHtml+='<span class="kc-m m-blue">CPA '+c.cpa+'</span>';
+    metricsHtml+='</div>';
+  }
+  return '<div class="kc" data-type="'+c.type+'">'+
+    '<div class="kc-thumb" style="background:'+thumb+'">'+
+      '<i class="ti '+icon+' kc-thumb-icon"></i>'+
+      '<span class="kc-thumb-type '+tagCls+'">'+c.type+'</span>'+
+      roasHtml+
+    '</div>'+
+    '<div class="kc-body">'+
+      '<div class="kc-title">'+c.title+'</div>'+
+      '<div class="kc-meta-row"><span class="kc-prod-tag">'+c.prod+'</span><span class="kc-channel">'+c.channel+'</span></div>'+
+      metricsHtml+
+      '<div class="kc-foot">'+
+        '<div class="kc-date"><i class="ti ti-calendar" style="font-size:10px"></i>'+c.date+'</div>'+
+        '<div class="kc-avs"><div class="kc-av" style="background:#C8102E">D</div></div>'+
+      '</div>'+
+    '</div>'+
+    (c.fatigue?'<div class="fatigue-strip"><i class="ti ti-alert-triangle"></i>Fadiga detectada</div>':'')+
+    (c.motivo&&!c.fatigue?'<div class="motivo-strip"><i class="ti ti-info-circle"></i>'+c.motivo+'</div>':'')+
+  '</div>';
 }
-const SYSTEM_PROMPT='Voce e o analista de performance de criativos do Dermo Club, uma marca de dermocos meticos com 2 produtos: Bumbum Dermo (BD-001, creme redutor) e Dermo Pro (DP-002, kit premium).\n\nDADOS DE PERFORMANCE ATUAIS (ultimos 30 dias):\n- Faturamento total: R$ 287.430 | Pedidos: 1.847 | Ticket medio: R$ 155 | ROAS geral: 4,2x\n\nMETA ADS: Invest R$ 38.300 | Receita R$ 178.210 | ROAS 4,6x | CPA R$ 33,42 | CTR 2,8% | Freq 2,3x\nCampanhas: BD Prosp LAL2% (ROAS 5,0x), BD Retargeting (ROAS 5,0x), DP BOF Carrinho (ROAS 6,1x), BD TOF Video (ROAS 3,5x pausada)\n\nTIKTOK SHOP: Invest R$ 19.200 | GMV R$ 68.960 | ROAS 3,6x | CPA R$ 43,24\nBumbum Dermo: 298 pedidos R$46k avaliacao 4.8 | Dermo Pro: 146 pedidos R$23k avaliacao 4.7\n\nGOOGLE ADS: Invest R$ 14.500 | Receita R$ 40.260 | ROAS 2,8x | CPC R$1,80\n\nCRIATIVOS ATIVOS:\n1. Hook dor nas costas v1 - ROAS 5,2x | CPA R$28 | CTR 3,4% | Freq 1,8x - MELHOR PERFORMER\n2. Antes e depois UGC - ROAS 4,8x | CPA R$31 | CTR 2,9% | Freq 2,4x\n3. Kit Premium unboxing - ROAS 4,1x | CPA R$37 | CTR 2,1% | Freq 3,1x\n4. Depoimento dr. derma - ROAS 3,8x | CPA R$40 | CTR 2,6% | Freq 2,0x\n5. Carrossel beneficios - ROAS 2,9x | CPA R$52 | CTR 1,4% | Freq 4,2x - PAUSADO\n6. Static oferta 30%off - ROAS 1,8x | CPA R$84 | CTR 0,8% | Freq 5,6x - FADIGA SEVERA\n\nKANBAN: Em producao (Carrossel v3, Estatico kit duplo) | Review (Hook dor lombar v2) | Aprovado (UGC @beleza_real ROAS est 4,8x) | Ideia (Hook antes/depois DP, UGC dermatologista)\n\nResponda em portugues brasileiro. Seja direto, use numeros. Quando sugerir criativos, de detalhes praticos. Limite: 250 palavras.';
-const activeCtx=new Set(['criativos','meta','produtos']);
-let chatHistory=[];let isLoading=false;
-function toggleCtx(el,ctx){if(activeCtx.has(ctx))activeCtx.delete(ctx);else activeCtx.add(ctx);el.classList.toggle('active');}
-function addMsg(role,text){
+function filterKan(f,el){
+  activeFilter=f;
+  document.querySelectorAll('.kan-filter').forEach(k=>k.classList.remove('on'));
+  el.classList.add('on');
+  if(kanbanBuilt)renderKanban();
+}
+ 
+// ====== MODAL ======
+let targetCol='testar';
+function openModal(col){
+  targetCol=col||'testar';
+  document.getElementById('nc-col').value=targetCol;
+  document.getElementById('nc-title').value='';
+  document.getElementById('nc-roas').value='';
+  document.getElementById('nc-cpa').value='';
+  document.getElementById('nc-angulo').value='';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function confirmCard(){
+  const title=document.getElementById('nc-title').value.trim();
+  if(!title)return;
+  const col=document.getElementById('nc-col').value;
+  const newCard={
+    id:Date.now(),
+    title,
+    type:document.getElementById('nc-type').value,
+    prod:document.getElementById('nc-prod').value,
+    channel:document.getElementById('nc-channel').value,
+    date:new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),
+    roas:document.getElementById('nc-roas').value,
+    cpa:document.getElementById('nc-cpa').value,
+    angulo:document.getElementById('nc-angulo').value,
+    fatigue:false,motivo:''
+  };
+  if(!kanbanData[col])kanbanData[col]=[];
+  kanbanData[col].push(newCard);
+  closeModal();
+  renderKanban();
+}
+ 
+// ====== AI ======
+const SYS='Voce e o analista de criativos do Dermo Club (dermocosmeticos). Produtos: Bumbum Dermo (BD-001, creme redutor, R$155) e Dermo Pro (DP-002, kit premium). ROAS geral 4,2x. Meta Ads: ROAS 4,6x, CPA R$33,42, CTR 2,8%, freq 2,3x. TikTok: ROAS 3,6x. Google: ROAS 2,8x. Melhor criativo: Hook dor nas costas v1 (ROAS 5,2x, CTR 3,4%). Fadiga: Static 30%off (ROAS 1,8x, freq 5,6x). Responda em portugues, seja direto e use numeros. Max 200 palavras.';
+let hist=[];let loading=false;
+function sendQ(q){document.getElementById('ai-q').value=q;sendAI();}
+function addMsg(r,t){
   const msgs=document.getElementById('ai-msgs');
-  const div=document.createElement('div');div.className='ai-msg '+role;
-  div.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+  const d=document.createElement('div');d.className='ai-msg '+r;
+  d.innerHTML=t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
 }
-function sendQuick(q){document.getElementById('ai-q').value=q;sendAI();}
 async function sendAI(){
-  if(isLoading)return;
-  const input=document.getElementById('ai-q');const q=input.value.trim();if(!q)return;
-  input.value='';isLoading=true;
-  const btn=document.getElementById('ai-btn');
-  btn.disabled=true;btn.innerHTML='<i class="ti ti-loader spinning"></i> Analisando...';
-  addMsg('user',q);chatHistory.push({role:'user',content:q});
+  if(loading)return;
+  const inp=document.getElementById('ai-q');const q=inp.value.trim();if(!q)return;
+  inp.value='';loading=true;
+  const btn=document.getElementById('ai-btn');btn.disabled=true;btn.innerHTML='<i class="ti ti-loader" style="animation:spin 1s linear infinite;display:inline-block"></i>';
+  addMsg('user',q);hist.push({role:'user',content:q});
   const msgs=document.getElementById('ai-msgs');
-  const typing=document.createElement('div');typing.className='ai-typing';typing.innerHTML='<div class="ai-d"></div><div class="ai-d"></div><div class="ai-d"></div>';
-  msgs.appendChild(typing);msgs.scrollTop=msgs.scrollHeight;
+  const tp=document.createElement('div');tp.className='ai-typing';tp.innerHTML='<div class="ai-d"></div><div class="ai-d"></div><div class="ai-d"></div>';
+  msgs.appendChild(tp);msgs.scrollTop=msgs.scrollHeight;
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:chatHistory})});
-    const data=await resp.json();typing.remove();
-    let answer='Erro ao processar resposta.';
-    if(data.content&&data.content[0]&&data.content[0].text){answer=data.content[0].text;chatHistory.push({role:'assistant',content:answer});}
-    else if(data.error){answer='Erro da API: '+data.error.message;}
-    addMsg('bot',answer);
-  }catch(e){typing.remove();addMsg('bot','Erro de conexao com a API Anthropic. Verifique sua chave de API.');}
-  isLoading=false;btn.disabled=false;btn.innerHTML='<i class="ti ti-send"></i> Analisar';
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})});
+    const d=await r.json();tp.remove();
+    let ans='Erro ao processar.';
+    if(d.content&&d.content[0]&&d.content[0].text){ans=d.content[0].text;hist.push({role:'assistant',content:ans});}
+    else if(d.error)ans='Erro: '+d.error.message;
+    addMsg('bot',ans);
+  }catch(e){tp.remove();addMsg('bot','Erro de conexao com a API.');}
+  loading=false;btn.disabled=false;btn.innerHTML='<i class="ti ti-send"></i> Enviar';
 }
+ 
+// ====== UPLOAD SIM ======
 function simUp(canal){
   const names={meta:'meta_report.csv',tiktok:'tiktok_shop.csv',google:'google_ads.csv',sales:'vendas_maio.xlsx'};
   const canals={meta:'Meta Ads',tiktok:'TikTok Shop',google:'Google Ads',sales:'Geral'};
-  const ds=new Date().toLocaleDateString('pt-BR');const rows=Math.floor(Math.random()*2000)+300;
-  const tr=document.createElement('tr');tr.innerHTML='<td>'+names[canal]+'</td><td>'+canals[canal]+'</td><td>'+ds+'</td><td>'+rows.toLocaleString('pt-BR')+'</td><td><span class="sb-badge s-on">Processado</span></td>';
+  const ds=new Date().toLocaleDateString('pt-BR');
+  const rows=Math.floor(Math.random()*2000)+300;
+  const tr=document.createElement('tr');
+  tr.innerHTML='<td>'+names[canal]+'</td><td>'+canals[canal]+'</td><td>'+ds+'</td><td>'+rows.toLocaleString('pt-BR')+'</td><td><span class="sb-badge s-on">Processado</span></td>';
   const log=document.getElementById('up-log');if(log)log.prepend(tr);
+  go('upload',null);
+  document.querySelectorAll('.ni').forEach(n=>{if(n.textContent.trim().includes('Upload'))n.classList.add('on');else n.classList.remove('on');});
 }
-setTimeout(()=>{mkLine('cC',mD,tD,gD);mkPie();},50);
 </script>
 </body>
 </html>
