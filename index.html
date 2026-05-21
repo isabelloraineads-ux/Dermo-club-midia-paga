@@ -359,9 +359,9 @@ tr:hover td{background:#FAFAFA;}
       <div class="login-logo-name">Dermo Club</div>
     </div>
     <div class="login-title">Bem-vindo de volta</div>
-    <div class="login-sub">Entre com suas credenciais para acessar o dashboard</div>
-    <label class="login-label">E-mail</label>
-    <input class="login-input" id="l-email" type="email" placeholder="davi@dermoclub.com.br" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-sub">Digite seu nome e a senha do time para entrar</div>
+    <label class="login-label">Seu nome</label>
+    <input class="login-input" id="l-email" type="text" placeholder="Ex: Davi, Isabel, Gobbi..." onkeydown="if(event.key==='Enter')doLogin()">
     <label class="login-label">Senha</label>
     <input class="login-input" id="l-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
     <div class="login-err" id="l-err">E-mail ou senha incorretos. Tente novamente.</div>
@@ -444,7 +444,8 @@ tr:hover td{background:#FAFAFA;}
             <div class="card-hd"><div class="card-title">Mix Canais</div></div>
             <div style="position:relative;height:140px;"><canvas id="pC"></canvas></div>
             <div class="leg" style="margin-top:8px;justify-content:center;"><div class="leg-i"><div class="leg-sq" style="background:#C8102E"></div>Meta 62%</div><div class="leg-i"><div class="leg-sq" style="background:#111"></div>TikTok 24%</div><div class="leg-i"><div class="leg-sq" style="background:#888"></div>Google 14%</div></div>
-          </div></div>
+          </div>
+        </div>
         <div class="prod-row">
           <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-droplet"></i></div><div><div class="prod-nm">Bumbum Dermo</div><div class="prod-sk">SKU: BD-001</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 178k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">1.142</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">4,6x</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">62%</div></div></div><div class="prog"><div class="prog-f" style="width:62%"></div></div></div>
           <div class="prod-card"><div class="prod-hd"><div class="prod-ico"><i class="ti ti-star"></i></div><div><div class="prod-nm">Dermo Pro</div><div class="prod-sk">SKU: DP-002</div></div></div><div class="ps-grid"><div class="ps"><div class="ps-l">Receita</div><div class="ps-v">R$ 109k</div></div><div class="ps"><div class="ps-l">Pedidos</div><div class="ps-v">705</div></div><div class="ps"><div class="ps-l">ROAS</div><div class="ps-v">3,8x</div></div><div class="ps"><div class="ps-l">Share</div><div class="ps-v">38%</div></div></div><div class="prog"><div class="prog-f" style="width:38%"></div></div></div>
@@ -478,8 +479,7 @@ tr:hover td{background:#FAFAFA;}
                   <div class="ms-field"><label class="ms-label">Tx. Conversao</label><input class="ms-input" id="m-conv-novo" type="text" placeholder="1,1%" value="1,1%"></div>
                   <div class="ms-field"><label class="ms-label">CAC</label><input class="ms-input" id="m-cac-novo" type="text" placeholder="R$ 52,00" value="R$ 52,00"></div>
                   <div class="ms-field"><label class="ms-label">% do total</label><input class="ms-input" id="m-pct-novo" type="text" placeholder="68%" value="68%"></div>
-                </div>
-              </div>
+                </div></div>
               <div class="ms-seg-card">
                 <div class="ms-seg-title"><i class="ti ti-repeat"></i> Cliente Recorrente</div>
                 <div class="ms-seg-grid">
@@ -662,17 +662,21 @@ tr:hover td{background:#FAFAFA;}
  
 <script>
 // ====== AUTH ======
-const CREDS = {email:'davi@dermoclub.com.br', pass:'dermo2025'};
+const PASS = 'dermo2026';
 function doLogin(){
-  const e=document.getElementById('l-email').value.trim().toLowerCase();
+  const nome=document.getElementById('l-email').value.trim();
   const p=document.getElementById('l-pass').value;
   const err=document.getElementById('l-err');
-  if(e===CREDS.email && p===CREDS.pass){
+  if(nome.length>=2 && p===PASS){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='flex';
+    const initials=nome.split(' ').map(w=>w[0].toUpperCase()).slice(0,2).join('');
+    document.getElementById('usr-ava').textContent=initials;
+    document.getElementById('usr-name').textContent=nome;
     setTimeout(()=>{mkLine('cC',mD,tD,gD);mkPie();},80);
   } else {
     err.style.display='block';
+    err.textContent=nome.length<2?'Digite seu nome para continuar.':'Senha incorreta. Tente novamente.';
     document.getElementById('l-pass').value='';
   }
 }
